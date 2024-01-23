@@ -9,9 +9,10 @@ import com.fongmi.android.tv.server.Server;
 import com.github.catvod.utils.Util;
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
 import java.util.UUID;
 
-public class Drm {
+public class Drm implements Serializable {
 
     @SerializedName("key")
     private String key;

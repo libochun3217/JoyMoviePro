@@ -28,6 +28,7 @@ import com.fongmi.android.tv.App;
 import com.fongmi.android.tv.Constant;
 import com.fongmi.android.tv.R;
 import com.fongmi.android.tv.Setting;
+import com.fongmi.android.tv.api.LiveCache;
 import com.fongmi.android.tv.api.config.LiveConfig;
 import com.fongmi.android.tv.bean.Channel;
 import com.fongmi.android.tv.bean.Epg;
@@ -106,7 +107,7 @@ public class LiveActivity extends BaseActivity implements CustomKeyDownLive.List
     private PiP mPiP;
 
     public static void start(Context context) {
-        if (!LiveConfig.isEmpty()) context.startActivity(new Intent(context, LiveActivity.class).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK).putExtra("empty", false));
+        context.startActivity(new Intent(context, LiveActivity.class).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK).putExtra("empty", false));
     }
 
     private boolean isEmpty() {
@@ -253,6 +254,13 @@ public class LiveActivity extends BaseActivity implements CustomKeyDownLive.List
         mViewModel.url.observeForever(mObserveUrl);
         mViewModel.epg.observeForever(mObserveEpg);
         mViewModel.live.observe(this, live -> {
+            if (live.getGroups() == null || live.getGroups().isEmpty()) {
+                Live c = LiveCache.INSTANCE.fromCache();
+                if (c != null) {
+                    LiveConfig.get().setHome(c);
+                    live = c;
+                }
+            }
             hideProgress();
             setGroup(live);
             setWidth(live);

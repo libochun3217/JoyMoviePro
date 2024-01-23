@@ -13,13 +13,14 @@ import com.google.common.net.HttpHeaders;
 import com.google.gson.JsonElement;
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
-public class Channel {
+public class Channel implements Serializable {
 
     @SerializedName("urls")
     private List<String> urls;

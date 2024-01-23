@@ -10,7 +10,9 @@ import com.fongmi.android.tv.utils.UrlUtil;
 import com.fongmi.hook.PackageManager;
 import com.google.gson.annotations.SerializedName;
 
-public class Core extends PackageManager {
+import java.io.Serializable;
+
+public class Core extends PackageManager implements Serializable {
 
     @SerializedName("auth")
     private String auth;

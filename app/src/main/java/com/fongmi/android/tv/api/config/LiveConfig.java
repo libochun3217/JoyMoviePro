@@ -2,6 +2,8 @@ package com.fongmi.android.tv.api.config;
 
 import android.text.TextUtils;
 
+import com.blankj.utilcode.util.EncodeUtils;
+import com.blankj.utilcode.util.EncryptUtils;
 import com.fongmi.android.tv.App;
 import com.fongmi.android.tv.R;
 import com.fongmi.android.tv.Setting;

@@ -19,6 +19,7 @@ import androidx.viewbinding.ViewBinding;
 import com.fongmi.android.tv.App;
 import com.fongmi.android.tv.R;
 import com.fongmi.android.tv.Updater;
+import com.fongmi.android.tv.api.LiveCache;
 import com.fongmi.android.tv.api.config.LiveConfig;
 import com.fongmi.android.tv.api.config.VodConfig;
 import com.fongmi.android.tv.api.config.WallConfig;
@@ -68,6 +69,8 @@ public class MainActivity extends BaseActivity implements NavigationBarView.OnIt
         Updater.get().release().start();
         Server.get().start();
         initConfig();
+        PermissionX.init(this).permissions(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                .request((allGranted, grantedList, deniedList) -> AppDatabase.restore(new Callback()));
     }
 
     @Override
@@ -148,7 +151,8 @@ public class MainActivity extends BaseActivity implements NavigationBarView.OnIt
     private void setNavigation() {
         mBinding.navigation.getMenu().findItem(R.id.vod).setVisible(true);
         mBinding.navigation.getMenu().findItem(R.id.setting).setVisible(true);
-        mBinding.navigation.getMenu().findItem(R.id.live).setVisible(LiveConfig.hasUrl());
+        mBinding.navigation.getMenu().findItem(R.id.live).setVisible(LiveConfig.hasUrl()
+                || LiveCache.INSTANCE.fromCache() != null);
     }
 
     private boolean openLive() {

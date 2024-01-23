@@ -16,13 +16,14 @@ import com.google.gson.annotations.SerializedName;
 import com.google.gson.reflect.TypeToken;
 
 import java.io.File;
+import java.io.Serializable;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 @Entity(ignoredColumns = {"type", "group", "url", "logo", "epg", "ua", "click", "origin", "referer", "timeout", "header", "playerType", "channels", "groups", "core", "activated", "width"})
-public class Live {
+public class Live implements Serializable {
 
     @NonNull
     @PrimaryKey
@@ -65,6 +66,7 @@ public class Live {
 
     private boolean activated;
     private int width;
+    public String textHash;
 
     public static Live objectFrom(JsonElement element) {
         return App.gson().fromJson(element, Live.class);

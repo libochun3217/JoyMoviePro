@@ -4,7 +4,9 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.fongmi.android.tv.Constant;
+import com.fongmi.android.tv.api.LiveCache;
 import com.fongmi.android.tv.api.LiveParser;
+import com.fongmi.android.tv.api.config.LiveConfig;
 import com.fongmi.android.tv.bean.Channel;
 import com.fongmi.android.tv.bean.Epg;
 import com.fongmi.android.tv.bean.Group;
@@ -54,6 +56,7 @@ public class LiveViewModel extends ViewModel {
         execute(LIVE, () -> {
             LiveParser.start(item);
             verify(item);
+            LiveCache.INSTANCE.saveLive(item);
             return item;
         });
     }

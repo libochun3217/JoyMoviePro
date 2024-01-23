@@ -10,12 +10,13 @@ import com.fongmi.android.tv.utils.ResUtil;
 import com.google.gson.annotations.SerializedName;
 import com.google.gson.reflect.TypeToken;
 
+import java.io.Serializable;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class Group {
+public class Group implements Serializable {
 
     @SerializedName("channel")
     private List<Channel> channel;
