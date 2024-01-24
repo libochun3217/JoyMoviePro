@@ -152,7 +152,7 @@ public class MainActivity extends BaseActivity implements NavigationBarView.OnIt
         mBinding.navigation.getMenu().findItem(R.id.vod).setVisible(true);
         mBinding.navigation.getMenu().findItem(R.id.setting).setVisible(true);
         mBinding.navigation.getMenu().findItem(R.id.live).setVisible(LiveConfig.hasUrl()
-                || LiveCache.INSTANCE.fromCache() != null);
+                || !LiveCache.INSTANCE.isCacheEmpty());
     }
 
     private boolean openLive() {

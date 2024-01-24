@@ -36,7 +36,7 @@ public class LiveParser {
     public static void start(Live live) {
         if (live.getGroups().size() > 0) return;
         String text = getText(live.getUrl());
-        live.textHash = EncryptUtils.encryptMD5ToString(text);
+        live.contentText = text;
         if (live.getType() == 0) text(live, text);
         if (live.getType() == 1) json(live, text);
         if (live.getType() == 2) proxy(live,text);

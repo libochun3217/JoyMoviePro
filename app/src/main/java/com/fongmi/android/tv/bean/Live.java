@@ -22,7 +22,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-@Entity(ignoredColumns = {"type", "group", "url", "logo", "epg", "ua", "click", "origin", "referer", "timeout", "header", "playerType", "channels", "groups", "core", "activated", "width"})
+@Entity(ignoredColumns = {"type", "group", "url", "logo", "epg", "ua", "click", "origin", "referer", "timeout", "header", "playerType", "channels", "groups", "core", "activated", "width", "contentText"})
 public class Live implements Serializable {
 
     @NonNull
@@ -66,7 +66,7 @@ public class Live implements Serializable {
 
     private boolean activated;
     private int width;
-    public String textHash;
+    public String contentText;
 
     public static Live objectFrom(JsonElement element) {
         return App.gson().fromJson(element, Live.class);

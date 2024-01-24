@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 28,
-    "identityHash": "130956122268282cf1b5e3aaa143cb07",
+    "identityHash": "d4921f6e0b243ebdcdb3a62512537b4d",
     "entities": [
       {
         "tableName": "Keep",
@@ -106,7 +106,7 @@
       },
       {
         "tableName": "Live",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`name` TEXT NOT NULL, `boot` INTEGER NOT NULL, `pass` INTEGER NOT NULL, `textHash` TEXT, PRIMARY KEY(`name`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`name` TEXT NOT NULL, `boot` INTEGER NOT NULL, `pass` INTEGER NOT NULL, PRIMARY KEY(`name`))",
         "fields": [
           {
             "fieldPath": "name",
@@ -125,12 +125,6 @@
             "columnName": "pass",
             "affinity": "INTEGER",
             "notNull": true
-          },
-          {
-            "fieldPath": "textHash",
-            "columnName": "textHash",
-            "affinity": "TEXT",
-            "notNull": false
           }
         ],
         "primaryKey": {
@@ -470,7 +464,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '130956122268282cf1b5e3aaa143cb07')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'd4921f6e0b243ebdcdb3a62512537b4d')"
     ]
   }
 }
