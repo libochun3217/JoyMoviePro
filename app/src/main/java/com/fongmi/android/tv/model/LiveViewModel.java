@@ -4,7 +4,7 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.fongmi.android.tv.Constant;
-import com.fongmi.android.tv.api.LiveCache;
+import com.fongmi.android.tv.api.CacheManger;
 import com.fongmi.android.tv.api.LiveParser;
 import com.fongmi.android.tv.api.config.LiveConfig;
 import com.fongmi.android.tv.bean.Channel;
@@ -53,10 +53,13 @@ public class LiveViewModel extends ViewModel {
     }
 
     public void getLive(Live item) {
+        Live cache = CacheManger.INSTANCE.fromCache(item.getUrl());
+        if (cache != null) {
+            live.setValue(cache);
+        }
         execute(LIVE, () -> {
             LiveParser.start(item);
             verify(item);
-            LiveCache.INSTANCE.saveLive(item);
             return item;
         });
     }
@@ -120,13 +123,24 @@ public class LiveViewModel extends ViewModel {
             try {
                 if (Thread.interrupted()) return;
                 if (type == EPG) epg.postValue((Epg) executor.submit(callable).get(Constant.TIMEOUT_EPG, TimeUnit.MILLISECONDS));
-                if (type == LIVE) live.postValue((Live) executor.submit(callable).get(Constant.TIMEOUT_LIVE, TimeUnit.MILLISECONDS));
+                if (type == LIVE) {
+                    Live res = (Live) executor.submit(callable).get(Constant.TIMEOUT_LIVE, TimeUnit.MILLISECONDS);
+                    if (CacheManger.INSTANCE.fromCache(res.getUrl()) != null) {
+                        return;
+                    }
+                    live.postValue(res);
+                }
                 if (type == URL) url.postValue((Channel) executor.submit(callable).get(Constant.TIMEOUT_PARSE_LIVE, TimeUnit.MILLISECONDS));
             } catch (Throwable e) {
                 if (e instanceof InterruptedException || Thread.interrupted()) return;
                 if (e.getCause() instanceof ExtractException) url.postValue(Channel.error(e.getCause().getMessage()));
                 else if (type == URL) url.postValue(new Channel());
-                if (type == LIVE) live.postValue(new Live());
+                if (type == LIVE) {
+                    if (CacheManger.INSTANCE.fromCache(LiveConfig.get().getHome().getUrl()) != null) {
+                        return;
+                    }
+                    live.postValue(new Live());
+                }
                 if (type == EPG) epg.postValue(new Epg());
                 e.printStackTrace();
             }

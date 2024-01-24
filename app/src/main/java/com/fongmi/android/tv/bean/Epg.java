@@ -9,11 +9,12 @@ import com.fongmi.android.tv.utils.Util;
 import com.github.catvod.utils.Trans;
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Collections;
 import java.util.List;
 
-public class Epg {
+public class Epg implements Serializable {
 
     @SerializedName("date")
     private String date;

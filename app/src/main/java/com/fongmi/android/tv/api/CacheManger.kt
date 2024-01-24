@@ -10,31 +10,48 @@ import com.fongmi.android.tv.bean.Live
 import com.github.catvod.utils.Path
 import java.io.File
 
-object LiveCache {
-    private val TAG = "LiveCache"
+/**
+ * 先取缓存、再更新缓存
+ * live 缓存策略
+ * 1、url 得到response
+ * 2、response 得到 hash
+ * 3、hash 得到 live
+ *
+ * config 策略
+ * 1、得到所有config url
+ * 2、url 得到 response
+ */
+object CacheManger {
+    private val TAG = "CacheManger"
     private val KEY_LIVE = "key_live"
+    private val KEY_CONFIG = "key_config"
 
     fun saveLive(live: Live) {
-        val liveKey = EncryptUtils.encryptMD5ToString(live.contentText)
-        if (getKey(liveKey) == null && !live.groups.isNullOrEmpty()) {
-            cache.put(liveKey, live)
-            addKey(KEY_LIVE, liveKey)
-            LogUtils.dTag(TAG, "saveLive")
+        cache.put(live.contentHash, live)
+        addKey(KEY_LIVE, live.contentHash)
+        LogUtils.dTag(TAG, "saveLive")
+    }
+
+    fun saveConfig(url: String) {
+        addKey(KEY_CONFIG, url)
+    }
+
+    fun saveResponse(url: String, response: String) {
+        cache.put(url, response)
+    }
+
+    fun getResponse(url: String) = cache.getString(url)
+
+
+    fun fromCache(url: String): Live? {
+        getResponse(url)?.let {
+            val hash = EncryptUtils.encryptMD5ToString(it)
+            val c = cache.getSerializable(hash) as? Live
+            LogUtils.iTag(TAG, "fromCache ${c?.name}")
+            return c
         }
+        return null
     }
-
-    private fun getKey(key: String): String? {
-        return getKeys(KEY_LIVE).firstOrNull { it == key }
-    }
-
-    fun fromCache(): Live? {
-        val c = cache.getSerializable(getKeys(KEY_LIVE).firstOrNull() ?: "") as? Live
-        LogUtils.iTag(TAG, "fromCache ${c?.name}")
-
-        return c
-    }
-
-    fun isCacheEmpty() = getKeys(KEY_LIVE).isNullOrEmpty()
 }
 
 object CacheKeyManager {

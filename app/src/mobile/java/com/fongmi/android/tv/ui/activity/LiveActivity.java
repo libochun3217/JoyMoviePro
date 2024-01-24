@@ -28,7 +28,7 @@ import com.fongmi.android.tv.App;
 import com.fongmi.android.tv.Constant;
 import com.fongmi.android.tv.R;
 import com.fongmi.android.tv.Setting;
-import com.fongmi.android.tv.api.LiveCache;
+import com.fongmi.android.tv.api.CacheManger;
 import com.fongmi.android.tv.api.config.LiveConfig;
 import com.fongmi.android.tv.bean.Channel;
 import com.fongmi.android.tv.bean.Epg;
@@ -254,13 +254,6 @@ public class LiveActivity extends BaseActivity implements CustomKeyDownLive.List
         mViewModel.url.observeForever(mObserveUrl);
         mViewModel.epg.observeForever(mObserveEpg);
         mViewModel.live.observe(this, live -> {
-            if (live.getGroups() == null || live.getGroups().isEmpty()) {
-                Live c = LiveCache.INSTANCE.fromCache();
-                if (c != null) {
-                    LiveConfig.get().setHome(c);
-                    live = c;
-                }
-            }
             hideProgress();
             setGroup(live);
             setWidth(live);
@@ -1119,5 +1112,6 @@ public class LiveActivity extends BaseActivity implements CustomKeyDownLive.List
         App.removeCallbacks(mR1, mR2, mR3);
         mViewModel.url.removeObserver(mObserveUrl);
         mViewModel.epg.removeObserver(mObserveEpg);
+        CacheManger.INSTANCE.saveLive(LiveConfig.get().getHome());
     }
 }
