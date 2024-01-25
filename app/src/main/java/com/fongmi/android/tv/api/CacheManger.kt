@@ -25,19 +25,28 @@ object CacheManger {
     private val TAG = "CacheManger"
     private val KEY_LIVE = "key_live"
     private val KEY_CONFIG = "key_config"
+    const val TYPE_LIVE = 1
 
     fun saveLive(live: Live) {
+        if (live.groups.isNullOrEmpty()) {
+            LogUtils.dTag(TAG, "saveLive groups == null")
+            return
+        }
         cache.put(live.contentHash, live)
         addKey(KEY_LIVE, live.contentHash)
-        LogUtils.dTag(TAG, "saveLive")
+        LogUtils.dTag(TAG, "saveLive ${live.name}")
     }
 
     fun saveConfig(url: String) {
         addKey(KEY_CONFIG, url)
     }
 
+    fun getConfigs(): ArrayList<String> = getKeys(KEY_CONFIG)
+
     fun saveResponse(url: String, response: String) {
+        if (response.isNullOrEmpty()) return
         cache.put(url, response)
+        LogUtils.dTag(TAG, "saveResponse $url")
     }
 
     fun getResponse(url: String) = cache.getString(url)
@@ -47,7 +56,8 @@ object CacheManger {
         getResponse(url)?.let {
             val hash = EncryptUtils.encryptMD5ToString(it)
             val c = cache.getSerializable(hash) as? Live
-            LogUtils.iTag(TAG, "fromCache ${c?.name}")
+            LogUtils.iTag(TAG, "fromCache")
+            if (c?.groups.isNullOrEmpty()) return null
             return c
         }
         return null

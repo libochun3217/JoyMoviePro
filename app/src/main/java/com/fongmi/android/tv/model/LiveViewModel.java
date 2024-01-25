@@ -55,6 +55,7 @@ public class LiveViewModel extends ViewModel {
     public void getLive(Live item) {
         Live cache = CacheManger.INSTANCE.fromCache(item.getUrl());
         if (cache != null) {
+            LiveConfig.get().setHome(cache);
             live.setValue(cache);
         }
         execute(LIVE, () -> {

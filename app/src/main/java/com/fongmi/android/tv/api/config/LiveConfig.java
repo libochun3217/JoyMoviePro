@@ -1,12 +1,16 @@
 package com.fongmi.android.tv.api.config;
 
+import static com.fongmi.android.tv.api.CacheManger.TYPE_LIVE;
+
 import android.text.TextUtils;
 
 import com.blankj.utilcode.util.EncodeUtils;
 import com.blankj.utilcode.util.EncryptUtils;
+import com.blankj.utilcode.util.ThreadUtils;
 import com.fongmi.android.tv.App;
 import com.fongmi.android.tv.R;
 import com.fongmi.android.tv.Setting;
+import com.fongmi.android.tv.api.CacheManger;
 import com.fongmi.android.tv.api.Decoder;
 import com.fongmi.android.tv.api.LiveParser;
 import com.fongmi.android.tv.bean.Channel;
@@ -76,12 +80,21 @@ public class LiveConfig {
 
     public LiveConfig init() {
         this.home = null;
+        ArrayList<String> cs = CacheManger.INSTANCE.getConfigs();
+        if (!cs.isEmpty()) {
+            for(String c : cs) {
+                Config.find(c, TYPE_LIVE);
+            }
+        }
         return config(Config.live());
     }
 
     public LiveConfig config(Config config) {
         this.config = config;
-        if (config.getUrl() == null) return this;
+        if (config.getUrl() == null) {
+
+            return this;
+        }
         this.sync = config.getUrl().equals(VodConfig.getUrl());
         return this;
     }
@@ -102,7 +115,23 @@ public class LiveConfig {
 
     private void loadConfig(Callback callback) {
         try {
-            parseConfig(Decoder.getJson(config.getUrl()), callback);
+            String cache = CacheManger.INSTANCE.getResponse(config.getUrl());
+            if (cache != null) {
+                parseConfig(cache, callback);
+                ThreadUtils.getCachedPool().execute(() -> {
+                    try {
+                        String text = Decoder.getJson(config.getUrl());
+                        CacheManger.INSTANCE.saveResponse(config.getUrl(), text);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                });
+            } else  {
+                String text = Decoder.getJson(config.getUrl());
+                parseConfig(text, callback);
+                CacheManger.INSTANCE.saveConfig(config.getUrl());
+                CacheManger.INSTANCE.saveResponse(config.getUrl(), text);
+            }
         } catch (Throwable e) {
             if (TextUtils.isEmpty(config.getUrl())) App.post(() -> callback.error(""));
             else App.post(() -> callback.error(Notify.getError(R.string.error_config_get, e)));
@@ -232,6 +261,7 @@ public class LiveConfig {
 
     private void setHome(Live home, boolean check) {
         this.home = home;
+        this.home.sync();
         this.home.setActivated(true);
         config.home(home.getName()).update();
         for (Live item : getLives()) item.setActivated(home);

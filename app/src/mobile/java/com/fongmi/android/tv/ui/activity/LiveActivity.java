@@ -294,7 +294,10 @@ public class LiveActivity extends BaseActivity implements CustomKeyDownLive.List
     private void setGroup(Live live) {
         List<Group> items = new ArrayList<>();
         items.add(Group.create(R.string.keep));
-        for (Group group : live.getGroups()) (group.isHidden() ? mHides : items).add(group);
+        for (Group group : live.getGroups()) {
+            if (live.isPass()) items.add(group);
+            else (group.isHidden() ? mHides : items).add(group);
+        }
         mGroupAdapter.addAll(items);
         setPosition(LiveConfig.get().find(items));
     }
