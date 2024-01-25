@@ -2,7 +2,9 @@ package com.fongmi.android.tv.api.loader;
 
 import android.content.Context;
 
+import com.blankj.utilcode.util.ThreadUtils;
 import com.fongmi.android.tv.App;
+import com.fongmi.android.tv.api.CacheManger;
 import com.fongmi.android.tv.api.Decoder;
 import com.fongmi.android.tv.utils.UrlUtil;
 import com.github.catvod.crawler.Spider;
@@ -89,7 +91,21 @@ public class JarLoader {
         } else if (jar.startsWith("img+")) {
             load(key, Decoder.getSpider(jar));
         } else if (jar.startsWith("http")) {
-            load(key, download(jar));
+            File cache = Path.jar(jar);
+            if (cache.exists() && cache.length() > 0) {
+                load(key, cache);
+                String finalJar = jar;
+                ThreadUtils.getCachedPool().execute(() -> {
+                    try {
+                        download(finalJar);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                });
+            } else  {
+                File jarFile = download(jar);
+                load(key, jarFile);
+            }
         } else if (jar.startsWith("file")) {
             load(key, Path.local(jar));
         } else if (jar.startsWith("assets")) {

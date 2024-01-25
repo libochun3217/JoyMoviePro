@@ -80,7 +80,7 @@ public class LiveConfig {
 
     public LiveConfig init() {
         this.home = null;
-        ArrayList<String> cs = CacheManger.INSTANCE.getConfigs();
+        ArrayList<String> cs = CacheManger.INSTANCE.getLiveConfigs();
         if (!cs.isEmpty()) {
             for(String c : cs) {
                 Config.find(c, TYPE_LIVE);
@@ -129,7 +129,7 @@ public class LiveConfig {
             } else  {
                 String text = Decoder.getJson(config.getUrl());
                 parseConfig(text, callback);
-                CacheManger.INSTANCE.saveConfig(config.getUrl());
+                CacheManger.INSTANCE.saveLiveConfig(config.getUrl());
                 CacheManger.INSTANCE.saveResponse(config.getUrl(), text);
             }
         } catch (Throwable e) {

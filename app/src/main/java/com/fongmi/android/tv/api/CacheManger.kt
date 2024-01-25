@@ -24,8 +24,12 @@ import java.io.File
 object CacheManger {
     private val TAG = "CacheManger"
     private val KEY_LIVE = "key_live"
-    private val KEY_CONFIG = "key_config"
+    private val KEY_CONFIG_LIVE = "key_config_live"
+    private val KEY_CONFIG_VOD = "key_config_live_vod"
+
     const val TYPE_LIVE = 1
+    const val TYPE_VOD = 0
+
 
     fun saveLive(live: Live) {
         if (live.groups.isNullOrEmpty()) {
@@ -37,11 +41,18 @@ object CacheManger {
         LogUtils.dTag(TAG, "saveLive ${live.name}")
     }
 
-    fun saveConfig(url: String) {
-        addKey(KEY_CONFIG, url)
+
+    fun saveVodConfig(url: String) {
+        addKey(KEY_CONFIG_VOD, url)
     }
 
-    fun getConfigs(): ArrayList<String> = getKeys(KEY_CONFIG)
+    fun getVodConfigs(): ArrayList<String> = getKeys(KEY_CONFIG_VOD)
+
+    fun saveLiveConfig(url: String) {
+        addKey(KEY_CONFIG_LIVE, url)
+    }
+
+    fun getLiveConfigs(): ArrayList<String> = getKeys(KEY_CONFIG_LIVE)
 
     fun saveResponse(url: String, response: String) {
         if (response.isNullOrEmpty()) return

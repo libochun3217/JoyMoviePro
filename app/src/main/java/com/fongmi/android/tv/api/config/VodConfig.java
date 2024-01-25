@@ -1,9 +1,14 @@
 package com.fongmi.android.tv.api.config;
 
+import static com.fongmi.android.tv.api.CacheManger.TYPE_VOD;
+
 import android.text.TextUtils;
 
+import com.blankj.utilcode.util.LogUtils;
+import com.blankj.utilcode.util.ThreadUtils;
 import com.fongmi.android.tv.App;
 import com.fongmi.android.tv.R;
+import com.fongmi.android.tv.api.CacheManger;
 import com.fongmi.android.tv.api.Decoder;
 import com.fongmi.android.tv.api.loader.JarLoader;
 import com.fongmi.android.tv.api.loader.JsLoader;
@@ -33,6 +38,7 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Logger;
 
 public class VodConfig {
 
@@ -50,6 +56,7 @@ public class VodConfig {
     private String wall;
     private String ads;
     private Site home;
+    private String TAG = "VodConfig";
 
     private static class Loader {
         static volatile VodConfig INSTANCE = new VodConfig();
@@ -88,6 +95,12 @@ public class VodConfig {
         this.wall = null;
         this.home = null;
         this.parse = null;
+        ArrayList<String> cs = CacheManger.INSTANCE.getVodConfigs();
+        if (!cs.isEmpty()) {
+            for(String c : cs) {
+                Config.find(c, TYPE_VOD);
+            }
+        }
         this.config = Config.vod();
         this.doh = new ArrayList<>();
         this.rules = new ArrayList<>();
@@ -129,7 +142,23 @@ public class VodConfig {
 
     private void loadConfig(Callback callback) {
         try {
-            checkJson(JsonParser.parseString(Decoder.getJson(config.getUrl())).getAsJsonObject(), callback);
+            String cache = CacheManger.INSTANCE.getResponse(config.getUrl());
+            if (cache != null) {
+                checkJson(JsonParser.parseString(cache).getAsJsonObject(), callback);
+                ThreadUtils.getCachedPool().execute(() -> {
+                    try {
+                        String json = Decoder.getJson(config.getUrl());
+                        CacheManger.INSTANCE.saveResponse(config.getUrl(), json);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                });
+            } else  {
+                String json = Decoder.getJson(config.getUrl());
+                CacheManger.INSTANCE.saveVodConfig(config.getUrl());
+                CacheManger.INSTANCE.saveResponse(config.getUrl(), json);
+                checkJson(JsonParser.parseString(json).getAsJsonObject(), callback);
+            }
         } catch (Throwable e) {
             if (TextUtils.isEmpty(config.getUrl())) App.post(() -> callback.error(""));
             else loadCache(callback, e);
@@ -165,8 +194,10 @@ public class VodConfig {
             initParse(object);
             initOther(object);
             if (loadLive && object.has("lives")) initLive(object);
+            LogUtils.dTag(TAG, "parseConfig parseJar start");
             jarLoader.parseJar("", Json.safeString(object, "spider"));
             config.json(object.toString()).update();
+            LogUtils.dTag(TAG, "parseConfig success");
             App.post(callback::success);
         } catch (Throwable e) {
             e.printStackTrace();
