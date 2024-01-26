@@ -5,7 +5,7 @@ import android.text.TextUtils;
 import androidx.annotation.NonNull;
 
 import com.fongmi.android.tv.App;
-import com.fongmi.android.tv.R;
+import com.charlee.android.tv.R;
 import com.fongmi.android.tv.utils.ResUtil;
 import com.fongmi.android.tv.utils.UrlUtil;
 import com.github.catvod.utils.Json;

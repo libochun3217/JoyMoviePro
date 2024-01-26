@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.fongmi.android.tv">
+    package="com.charlee.android.tv">
 
     <uses-feature
         android:name="android.hardware.camera"
@@ -14,7 +14,7 @@
     <application>
 
         <activity
-            android:name=".ui.activity.MainActivity"
+            android:name="com.fongmi.android.tv.ui.activity.MainActivity"
             android:configChanges="screenSize|smallestScreenSize|screenLayout|orientation"
             android:exported="true"
             android:screenOrientation="fullUser"
@@ -70,32 +70,32 @@
         </activity>
 
         <activity
-            android:name=".ui.activity.CollectActivity"
+            android:name="com.fongmi.android.tv.ui.activity.CollectActivity"
             android:configChanges="screenSize|smallestScreenSize|screenLayout"
             android:screenOrientation="fullUser" />
 
         <activity
-            android:name=".ui.activity.DetailActivity"
+            android:name="com.fongmi.android.tv.ui.activity.DetailActivity"
             android:configChanges="screenSize|smallestScreenSize|screenLayout"
             android:screenOrientation="fullUser" />
 
         <activity
-            android:name=".ui.activity.FolderActivity"
+            android:name="com.fongmi.android.tv.ui.activity.FolderActivity"
             android:configChanges="screenSize|smallestScreenSize|screenLayout"
             android:screenOrientation="fullUser" />
 
         <activity
-            android:name=".ui.activity.HistoryActivity"
+            android:name="com.fongmi.android.tv.ui.activity.HistoryActivity"
             android:configChanges="screenSize|smallestScreenSize|screenLayout"
             android:screenOrientation="fullUser" />
 
         <activity
-            android:name=".ui.activity.KeepActivity"
+            android:name="com.fongmi.android.tv.ui.activity.KeepActivity"
             android:configChanges="screenSize|smallestScreenSize|screenLayout"
             android:screenOrientation="fullUser" />
 
         <activity
-            android:name=".ui.activity.LiveActivity"
+            android:name="com.fongmi.android.tv.ui.activity.LiveActivity"
             android:configChanges="screenSize|smallestScreenSize|screenLayout|orientation"
             android:exported="true"
             android:launchMode="singleTop"
@@ -105,12 +105,12 @@
             android:theme="@style/AppTheme.Live" />
 
         <activity
-            android:name=".ui.activity.ScanActivity"
+            android:name="com.fongmi.android.tv.ui.activity.ScanActivity"
             android:configChanges="screenSize|smallestScreenSize|screenLayout"
             android:screenOrientation="fullUser" />
 
         <activity
-            android:name=".ui.activity.VideoActivity"
+            android:name="com.fongmi.android.tv.ui.activity.VideoActivity"
             android:configChanges="screenSize|smallestScreenSize|screenLayout|orientation"
             android:launchMode="singleTop"
             android:resizeableActivity="true"
@@ -119,12 +119,12 @@
             android:theme="@style/AppTheme.Detail" />
 
         <activity
-            android:name=".ui.activity.MangaActivity"
+            android:name="com.fongmi.android.tv.ui.activity.MangaActivity"
             android:configChanges="screenSize|smallestScreenSize|screenLayout"
             android:screenOrientation="fullUser" />
 
         <receiver
-            android:name=".receiver.ShortcutReceiver"
+            android:name="com.fongmi.android.tv.receiver.ShortcutReceiver"
             android:exported="false" />
 
         <service
@@ -132,7 +132,7 @@
             android:exported="false" />
 
         <service
-            android:name=".service.PlaybackService"
+            android:name="com.fongmi.android.tv.service.PlaybackService"
             android:exported="false"
             android:foregroundServiceType="mediaPlayback" />
 

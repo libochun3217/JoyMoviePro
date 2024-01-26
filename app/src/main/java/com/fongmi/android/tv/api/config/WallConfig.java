@@ -4,7 +4,7 @@ import android.graphics.drawable.Drawable;
 import android.text.TextUtils;
 
 import com.fongmi.android.tv.App;
-import com.fongmi.android.tv.R;
+import com.charlee.android.tv.R;
 import com.fongmi.android.tv.Setting;
 import com.fongmi.android.tv.bean.Config;
 import com.fongmi.android.tv.event.RefreshEvent;

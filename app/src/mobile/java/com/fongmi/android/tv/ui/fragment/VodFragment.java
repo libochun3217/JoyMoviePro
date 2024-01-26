@@ -23,7 +23,7 @@ import com.fongmi.android.tv.bean.Hot;
 import com.fongmi.android.tv.bean.Result;
 import com.fongmi.android.tv.bean.Site;
 import com.fongmi.android.tv.bean.Value;
-import com.fongmi.android.tv.databinding.FragmentVodBinding;
+import com.charlee.android.tv.databinding.FragmentVodBinding;
 import com.fongmi.android.tv.event.CastEvent;
 import com.fongmi.android.tv.event.RefreshEvent;
 import com.fongmi.android.tv.impl.Callback;

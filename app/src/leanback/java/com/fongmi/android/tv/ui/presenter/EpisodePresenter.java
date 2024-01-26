@@ -8,7 +8,7 @@ import androidx.leanback.widget.Presenter;
 
 import com.fongmi.android.tv.Product;
 import com.fongmi.android.tv.bean.Episode;
-import com.fongmi.android.tv.databinding.AdapterEpisodeBinding;
+import com.charlee.android.tv.databinding.AdapterEpisodeBinding;
 
 public class EpisodePresenter extends Presenter {
 

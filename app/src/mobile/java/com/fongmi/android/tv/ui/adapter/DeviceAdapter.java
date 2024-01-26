@@ -6,9 +6,9 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.fongmi.android.tv.R;
+import com.charlee.android.tv.R;
 import com.fongmi.android.tv.bean.Device;
-import com.fongmi.android.tv.databinding.AdapterDeviceBinding;
+import com.charlee.android.tv.databinding.AdapterDeviceBinding;
 
 import java.util.ArrayList;
 import java.util.List;

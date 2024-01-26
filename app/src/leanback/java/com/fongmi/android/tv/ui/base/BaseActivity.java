@@ -14,7 +14,7 @@ import androidx.leanback.widget.ArrayObjectAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewbinding.ViewBinding;
 
-import com.fongmi.android.tv.R;
+import com.charlee.android.tv.R;
 import com.fongmi.android.tv.Setting;
 import com.fongmi.android.tv.api.config.WallConfig;
 import com.fongmi.android.tv.event.RefreshEvent;

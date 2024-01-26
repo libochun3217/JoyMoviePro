@@ -9,7 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.viewbinding.ViewBinding;
 
 import com.fongmi.android.tv.cast.ScanEvent;
-import com.fongmi.android.tv.databinding.ActivityScanBinding;
+import com.charlee.android.tv.databinding.ActivityScanBinding;
 import com.fongmi.android.tv.ui.base.BaseActivity;
 import com.fongmi.android.tv.utils.Util;
 import com.google.zxing.BarcodeFormat;

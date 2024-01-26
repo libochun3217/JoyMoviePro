@@ -8,9 +8,9 @@ import androidx.annotation.NonNull;
 import androidx.leanback.widget.Presenter;
 
 import com.fongmi.android.tv.Product;
-import com.fongmi.android.tv.R;
+import com.charlee.android.tv.R;
 import com.fongmi.android.tv.bean.History;
-import com.fongmi.android.tv.databinding.AdapterVodBinding;
+import com.charlee.android.tv.databinding.AdapterVodBinding;
 import com.fongmi.android.tv.utils.ImgUtil;
 import com.fongmi.android.tv.utils.ResUtil;
 

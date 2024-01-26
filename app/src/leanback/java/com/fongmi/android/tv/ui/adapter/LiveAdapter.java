@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.fongmi.android.tv.api.config.LiveConfig;
 import com.fongmi.android.tv.bean.Live;
-import com.fongmi.android.tv.databinding.AdapterLiveBinding;
+import com.charlee.android.tv.databinding.AdapterLiveBinding;
 
 import java.util.List;
 

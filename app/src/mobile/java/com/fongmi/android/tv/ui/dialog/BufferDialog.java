@@ -6,9 +6,9 @@ import android.view.LayoutInflater;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 
-import com.fongmi.android.tv.R;
+import com.charlee.android.tv.R;
 import com.fongmi.android.tv.Setting;
-import com.fongmi.android.tv.databinding.DialogBufferBinding;
+import com.charlee.android.tv.databinding.DialogBufferBinding;
 import com.fongmi.android.tv.impl.BufferCallback;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 

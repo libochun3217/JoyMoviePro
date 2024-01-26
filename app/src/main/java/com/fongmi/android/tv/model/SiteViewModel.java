@@ -9,7 +9,7 @@ import androidx.lifecycle.ViewModel;
 
 import com.fongmi.android.tv.App;
 import com.fongmi.android.tv.Constant;
-import com.fongmi.android.tv.R;
+import com.charlee.android.tv.R;
 import com.fongmi.android.tv.api.config.VodConfig;
 import com.fongmi.android.tv.bean.Danmu;
 import com.fongmi.android.tv.bean.Episode;

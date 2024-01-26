@@ -6,7 +6,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.fongmi.android.tv.databinding.AdapterCollectWordBinding;
+import com.charlee.android.tv.databinding.AdapterCollectWordBinding;
 
 import java.util.ArrayList;
 import java.util.List;

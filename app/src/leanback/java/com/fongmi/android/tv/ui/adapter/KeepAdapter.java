@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.fongmi.android.tv.Product;
 import com.fongmi.android.tv.bean.Keep;
-import com.fongmi.android.tv.databinding.AdapterVodBinding;
+import com.charlee.android.tv.databinding.AdapterVodBinding;
 import com.fongmi.android.tv.utils.ImgUtil;
 import com.fongmi.android.tv.utils.ResUtil;
 

@@ -7,8 +7,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 
-import com.fongmi.android.tv.databinding.ViewEmptyBinding;
-import com.fongmi.android.tv.databinding.ViewProgressBinding;
+import com.charlee.android.tv.databinding.ViewEmptyBinding;
+import com.charlee.android.tv.databinding.ViewProgressBinding;
 
 import java.util.ArrayList;
 import java.util.List;

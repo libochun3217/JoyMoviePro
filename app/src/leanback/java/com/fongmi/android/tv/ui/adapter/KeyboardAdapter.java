@@ -7,9 +7,9 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.fongmi.android.tv.R;
-import com.fongmi.android.tv.databinding.AdapterKeyboardIconBinding;
-import com.fongmi.android.tv.databinding.AdapterKeyboardTextBinding;
+import com.charlee.android.tv.R;
+import com.charlee.android.tv.databinding.AdapterKeyboardIconBinding;
+import com.charlee.android.tv.databinding.AdapterKeyboardTextBinding;
 
 import java.util.Arrays;
 import java.util.List;

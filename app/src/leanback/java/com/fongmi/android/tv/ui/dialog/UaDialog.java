@@ -10,9 +10,9 @@ import android.view.inputmethod.EditorInfo;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.FragmentActivity;
 
-import com.fongmi.android.tv.R;
+import com.charlee.android.tv.R;
 import com.fongmi.android.tv.Setting;
-import com.fongmi.android.tv.databinding.DialogUaBinding;
+import com.charlee.android.tv.databinding.DialogUaBinding;
 import com.fongmi.android.tv.event.ServerEvent;
 import com.fongmi.android.tv.impl.UaCallback;
 import com.fongmi.android.tv.server.Server;

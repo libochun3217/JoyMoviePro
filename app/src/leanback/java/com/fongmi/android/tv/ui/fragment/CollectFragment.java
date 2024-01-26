@@ -14,11 +14,11 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.viewbinding.ViewBinding;
 
 import com.fongmi.android.tv.Product;
-import com.fongmi.android.tv.R;
+import com.charlee.android.tv.R;
 import com.fongmi.android.tv.bean.Collect;
 import com.fongmi.android.tv.bean.Result;
 import com.fongmi.android.tv.bean.Vod;
-import com.fongmi.android.tv.databinding.FragmentVodBinding;
+import com.charlee.android.tv.databinding.FragmentVodBinding;
 import com.fongmi.android.tv.model.SiteViewModel;
 import com.fongmi.android.tv.ui.activity.VideoActivity;
 import com.fongmi.android.tv.ui.activity.VodActivity;

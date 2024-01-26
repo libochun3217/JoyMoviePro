@@ -9,9 +9,9 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.viewbinding.ViewBinding;
 
 import com.fongmi.android.tv.Product;
-import com.fongmi.android.tv.R;
+import com.charlee.android.tv.R;
 import com.fongmi.android.tv.bean.History;
-import com.fongmi.android.tv.databinding.ActivityHistoryBinding;
+import com.charlee.android.tv.databinding.ActivityHistoryBinding;
 import com.fongmi.android.tv.event.RefreshEvent;
 import com.fongmi.android.tv.ui.adapter.HistoryAdapter;
 import com.fongmi.android.tv.ui.base.BaseActivity;

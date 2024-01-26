@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.fongmi.android.tv.bean.Collect;
 import com.fongmi.android.tv.bean.Vod;
-import com.fongmi.android.tv.databinding.AdapterCollectBinding;
+import com.charlee.android.tv.databinding.AdapterCollectBinding;
 
 import java.util.ArrayList;
 import java.util.List;

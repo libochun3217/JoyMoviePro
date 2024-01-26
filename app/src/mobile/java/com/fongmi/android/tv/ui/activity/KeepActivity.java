@@ -9,11 +9,11 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.viewbinding.ViewBinding;
 
 import com.fongmi.android.tv.Product;
-import com.fongmi.android.tv.R;
+import com.charlee.android.tv.R;
 import com.fongmi.android.tv.api.config.VodConfig;
 import com.fongmi.android.tv.bean.Config;
 import com.fongmi.android.tv.bean.Keep;
-import com.fongmi.android.tv.databinding.ActivityKeepBinding;
+import com.charlee.android.tv.databinding.ActivityKeepBinding;
 import com.fongmi.android.tv.event.RefreshEvent;
 import com.fongmi.android.tv.impl.Callback;
 import com.fongmi.android.tv.ui.adapter.KeepAdapter;

@@ -8,9 +8,9 @@ import android.view.inputmethod.EditorInfo;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 
-import com.fongmi.android.tv.R;
+import com.charlee.android.tv.R;
 import com.fongmi.android.tv.Setting;
-import com.fongmi.android.tv.databinding.DialogProxyBinding;
+import com.charlee.android.tv.databinding.DialogProxyBinding;
 import com.fongmi.android.tv.impl.ProxyCallback;
 import com.fongmi.android.tv.ui.custom.CustomTextListener;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;

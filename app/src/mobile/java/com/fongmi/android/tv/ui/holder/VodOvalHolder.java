@@ -3,7 +3,7 @@ package com.fongmi.android.tv.ui.holder;
 import androidx.annotation.NonNull;
 
 import com.fongmi.android.tv.bean.Vod;
-import com.fongmi.android.tv.databinding.AdapterVodOvalBinding;
+import com.charlee.android.tv.databinding.AdapterVodOvalBinding;
 import com.fongmi.android.tv.ui.adapter.VodAdapter;
 import com.fongmi.android.tv.ui.base.BaseVodHolder;
 import com.fongmi.android.tv.utils.ImgUtil;

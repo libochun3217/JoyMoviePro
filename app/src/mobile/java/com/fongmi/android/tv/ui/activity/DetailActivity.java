@@ -12,7 +12,7 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.viewbinding.ViewBinding;
 
-import com.fongmi.android.tv.R;
+import com.charlee.android.tv.R;
 import com.fongmi.android.tv.api.config.VodConfig;
 import com.fongmi.android.tv.bean.Episode;
 import com.fongmi.android.tv.bean.Flag;
@@ -20,7 +20,7 @@ import com.fongmi.android.tv.bean.History;
 import com.fongmi.android.tv.bean.Result;
 import com.fongmi.android.tv.bean.Site;
 import com.fongmi.android.tv.bean.Vod;
-import com.fongmi.android.tv.databinding.ActivityDetailBinding;
+import com.charlee.android.tv.databinding.ActivityDetailBinding;
 import com.fongmi.android.tv.db.AppDatabase;
 import com.fongmi.android.tv.event.ErrorEvent;
 import com.fongmi.android.tv.model.SiteViewModel;

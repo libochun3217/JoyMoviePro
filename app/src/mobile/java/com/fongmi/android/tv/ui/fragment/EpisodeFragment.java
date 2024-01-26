@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.viewbinding.ViewBinding;
 
 import com.fongmi.android.tv.bean.Episode;
-import com.fongmi.android.tv.databinding.FragmentEpisodeBinding;
+import com.charlee.android.tv.databinding.FragmentEpisodeBinding;
 import com.fongmi.android.tv.model.SiteViewModel;
 import com.fongmi.android.tv.ui.adapter.EpisodeAdapter;
 import com.fongmi.android.tv.ui.base.BaseFragment;

@@ -8,7 +8,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.fongmi.android.tv.bean.Track;
-import com.fongmi.android.tv.databinding.AdapterTrackBinding;
+import com.charlee.android.tv.databinding.AdapterTrackBinding;
 
 import java.util.ArrayList;
 import java.util.List;

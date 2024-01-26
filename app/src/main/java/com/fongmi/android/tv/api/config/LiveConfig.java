@@ -8,7 +8,7 @@ import com.blankj.utilcode.util.EncodeUtils;
 import com.blankj.utilcode.util.EncryptUtils;
 import com.blankj.utilcode.util.ThreadUtils;
 import com.fongmi.android.tv.App;
-import com.fongmi.android.tv.R;
+import com.charlee.android.tv.R;
 import com.fongmi.android.tv.Setting;
 import com.fongmi.android.tv.api.CacheManger;
 import com.fongmi.android.tv.api.Decoder;

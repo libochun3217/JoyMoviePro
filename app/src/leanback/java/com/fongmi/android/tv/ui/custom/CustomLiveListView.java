@@ -9,7 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.leanback.widget.VerticalGridView;
 
-import com.fongmi.android.tv.R;
+import com.charlee.android.tv.R;
 import com.fongmi.android.tv.utils.KeyUtil;
 
 public class CustomLiveListView extends VerticalGridView {

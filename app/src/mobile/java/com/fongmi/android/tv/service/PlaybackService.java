@@ -19,7 +19,7 @@ import androidx.core.content.ContextCompat;
 import androidx.media.app.NotificationCompat.MediaStyle;
 
 import com.fongmi.android.tv.App;
-import com.fongmi.android.tv.R;
+import com.charlee.android.tv.R;
 import com.fongmi.android.tv.event.ActionEvent;
 import com.fongmi.android.tv.player.Players;
 import com.fongmi.android.tv.receiver.ActionReceiver;

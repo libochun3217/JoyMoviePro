@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.fongmi.android.tv.bean.Filter;
 import com.fongmi.android.tv.bean.Value;
-import com.fongmi.android.tv.databinding.AdapterValueBinding;
+import com.charlee.android.tv.databinding.AdapterValueBinding;
 import com.fongmi.android.tv.impl.FilterCallback;
 
 import java.util.List;

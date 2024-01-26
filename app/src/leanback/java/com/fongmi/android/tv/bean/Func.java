@@ -2,7 +2,7 @@ package com.fongmi.android.tv.bean;
 
 import android.annotation.SuppressLint;
 
-import com.fongmi.android.tv.R;
+import com.charlee.android.tv.R;
 import com.fongmi.android.tv.utils.ResUtil;
 
 public class Func {

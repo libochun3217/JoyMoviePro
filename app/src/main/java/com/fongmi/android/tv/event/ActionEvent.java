@@ -1,6 +1,6 @@
 package com.fongmi.android.tv.event;
 
-import com.fongmi.android.tv.BuildConfig;
+import com.charlee.android.tv.BuildConfig;
 
 import org.greenrobot.eventbus.EventBus;
 

@@ -24,7 +24,7 @@ import com.fongmi.android.tv.bean.Class;
 import com.fongmi.android.tv.bean.Filter;
 import com.fongmi.android.tv.bean.Result;
 import com.fongmi.android.tv.bean.Site;
-import com.fongmi.android.tv.databinding.ActivityVodBinding;
+import com.charlee.android.tv.databinding.ActivityVodBinding;
 import com.fongmi.android.tv.ui.base.BaseActivity;
 import com.fongmi.android.tv.ui.fragment.VodFragment;
 import com.fongmi.android.tv.ui.presenter.TypePresenter;

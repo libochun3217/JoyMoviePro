@@ -6,7 +6,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.FragmentActivity;
 
 import com.fongmi.android.tv.Setting;
-import com.fongmi.android.tv.databinding.DialogDanmuLineBinding;
+import com.charlee.android.tv.databinding.DialogDanmuLineBinding;
 import com.fongmi.android.tv.impl.DanmuLineCallback;
 import com.fongmi.android.tv.utils.KeyUtil;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;

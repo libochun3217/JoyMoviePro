@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.fongmi.android.tv.App;
 import com.fongmi.android.tv.Setting;
-import com.fongmi.android.tv.databinding.AdapterSearchRecordBinding;
+import com.charlee.android.tv.databinding.AdapterSearchRecordBinding;
 import com.google.gson.reflect.TypeToken;
 
 import java.util.ArrayList;

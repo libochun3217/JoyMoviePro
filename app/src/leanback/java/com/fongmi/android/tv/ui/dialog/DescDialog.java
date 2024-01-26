@@ -6,7 +6,7 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AlertDialog;
 
-import com.fongmi.android.tv.databinding.DialogDescBinding;
+import com.charlee.android.tv.databinding.DialogDescBinding;
 import com.fongmi.android.tv.ui.custom.CustomMovement;
 import com.github.bassaer.library.MDColor;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;

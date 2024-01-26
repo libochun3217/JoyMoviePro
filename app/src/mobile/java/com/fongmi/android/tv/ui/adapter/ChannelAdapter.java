@@ -7,7 +7,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.fongmi.android.tv.bean.Channel;
-import com.fongmi.android.tv.databinding.AdapterChannelBinding;
+import com.charlee.android.tv.databinding.AdapterChannelBinding;
 
 import java.util.ArrayList;
 import java.util.List;

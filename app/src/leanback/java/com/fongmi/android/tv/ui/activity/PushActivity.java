@@ -7,8 +7,8 @@ import android.view.View;
 
 import androidx.viewbinding.ViewBinding;
 
-import com.fongmi.android.tv.R;
-import com.fongmi.android.tv.databinding.ActivityPushBinding;
+import com.charlee.android.tv.R;
+import com.charlee.android.tv.databinding.ActivityPushBinding;
 import com.fongmi.android.tv.server.Server;
 import com.fongmi.android.tv.ui.base.BaseActivity;
 import com.fongmi.android.tv.utils.QRCode;

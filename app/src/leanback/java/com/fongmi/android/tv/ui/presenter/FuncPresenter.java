@@ -7,7 +7,7 @@ import androidx.annotation.NonNull;
 import androidx.leanback.widget.Presenter;
 
 import com.fongmi.android.tv.bean.Func;
-import com.fongmi.android.tv.databinding.AdapterFuncBinding;
+import com.charlee.android.tv.databinding.AdapterFuncBinding;
 
 public class FuncPresenter extends Presenter {
 

@@ -7,7 +7,7 @@ import androidx.annotation.NonNull;
 import androidx.leanback.widget.Presenter;
 
 import com.fongmi.android.tv.bean.Collect;
-import com.fongmi.android.tv.databinding.AdapterFilterBinding;
+import com.charlee.android.tv.databinding.AdapterFilterBinding;
 
 public class CollectPresenter extends Presenter {
 

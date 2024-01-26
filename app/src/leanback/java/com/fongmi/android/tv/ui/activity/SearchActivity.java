@@ -12,12 +12,12 @@ import androidx.annotation.NonNull;
 import androidx.viewbinding.ViewBinding;
 
 import com.fongmi.android.tv.App;
-import com.fongmi.android.tv.R;
+import com.charlee.android.tv.R;
 import com.fongmi.android.tv.Setting;
 import com.fongmi.android.tv.bean.Hot;
 import com.fongmi.android.tv.bean.Site;
 import com.fongmi.android.tv.bean.Suggest;
-import com.fongmi.android.tv.databinding.ActivitySearchBinding;
+import com.charlee.android.tv.databinding.ActivitySearchBinding;
 import com.fongmi.android.tv.impl.Callback;
 import com.fongmi.android.tv.impl.SiteCallback;
 import com.fongmi.android.tv.ui.adapter.RecordAdapter;

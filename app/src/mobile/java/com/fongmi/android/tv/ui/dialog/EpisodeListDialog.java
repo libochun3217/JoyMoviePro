@@ -7,7 +7,7 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.fongmi.android.tv.bean.Episode;
-import com.fongmi.android.tv.databinding.DialogEpisodeListBinding;
+import com.charlee.android.tv.databinding.DialogEpisodeListBinding;
 import com.fongmi.android.tv.model.SiteViewModel;
 import com.fongmi.android.tv.ui.adapter.EpisodeAdapter;
 import com.fongmi.android.tv.ui.base.ViewType;

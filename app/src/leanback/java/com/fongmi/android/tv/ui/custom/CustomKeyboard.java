@@ -2,8 +2,8 @@ package com.fongmi.android.tv.ui.custom;
 
 import android.annotation.SuppressLint;
 
-import com.fongmi.android.tv.R;
-import com.fongmi.android.tv.databinding.ActivitySearchBinding;
+import com.charlee.android.tv.R;
+import com.charlee.android.tv.databinding.ActivitySearchBinding;
 import com.fongmi.android.tv.ui.adapter.KeyboardAdapter;
 
 public class CustomKeyboard implements KeyboardAdapter.OnClickListener {

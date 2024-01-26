@@ -8,9 +8,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.fongmi.android.tv.bean.Style;
 import com.fongmi.android.tv.bean.Vod;
-import com.fongmi.android.tv.databinding.AdapterVodListBinding;
-import com.fongmi.android.tv.databinding.AdapterVodOvalBinding;
-import com.fongmi.android.tv.databinding.AdapterVodRectBinding;
+import com.charlee.android.tv.databinding.AdapterVodListBinding;
+import com.charlee.android.tv.databinding.AdapterVodOvalBinding;
+import com.charlee.android.tv.databinding.AdapterVodRectBinding;
 import com.fongmi.android.tv.ui.base.BaseVodHolder;
 import com.fongmi.android.tv.ui.base.ViewType;
 import com.fongmi.android.tv.ui.holder.VodListHolder;

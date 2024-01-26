@@ -20,7 +20,7 @@ import com.fongmi.android.tv.bean.Site;
 import com.fongmi.android.tv.bean.Style;
 import com.fongmi.android.tv.bean.Value;
 import com.fongmi.android.tv.bean.Vod;
-import com.fongmi.android.tv.databinding.FragmentTypeBinding;
+import com.charlee.android.tv.databinding.FragmentTypeBinding;
 import com.fongmi.android.tv.model.SiteViewModel;
 import com.fongmi.android.tv.ui.activity.CollectActivity;
 import com.fongmi.android.tv.ui.activity.DetailActivity;

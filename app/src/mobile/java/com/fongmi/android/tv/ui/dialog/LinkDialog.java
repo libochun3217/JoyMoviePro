@@ -10,8 +10,8 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 
 import com.fongmi.android.tv.App;
-import com.fongmi.android.tv.R;
-import com.fongmi.android.tv.databinding.DialogLinkBinding;
+import com.charlee.android.tv.R;
+import com.charlee.android.tv.databinding.DialogLinkBinding;
 import com.fongmi.android.tv.ui.activity.VideoActivity;
 import com.fongmi.android.tv.utils.FileChooser;
 import com.fongmi.android.tv.utils.Sniffer;

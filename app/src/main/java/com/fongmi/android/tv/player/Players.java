@@ -22,7 +22,7 @@ import androidx.media3.ui.PlayerView;
 
 import com.fongmi.android.tv.App;
 import com.fongmi.android.tv.Constant;
-import com.fongmi.android.tv.R;
+import com.charlee.android.tv.R;
 import com.fongmi.android.tv.Setting;
 import com.fongmi.android.tv.bean.Channel;
 import com.fongmi.android.tv.bean.Result;

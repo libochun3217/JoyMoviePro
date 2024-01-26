@@ -7,7 +7,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.fongmi.android.tv.bean.Group;
-import com.fongmi.android.tv.databinding.AdapterGroupBinding;
+import com.charlee.android.tv.databinding.AdapterGroupBinding;
 
 import java.util.ArrayList;
 import java.util.List;

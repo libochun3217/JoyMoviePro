@@ -9,8 +9,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.fongmi.android.tv.api.config.VodConfig;
 import com.fongmi.android.tv.bean.Parse;
-import com.fongmi.android.tv.databinding.AdapterParseDarkBinding;
-import com.fongmi.android.tv.databinding.AdapterParseLightBinding;
+import com.charlee.android.tv.databinding.AdapterParseDarkBinding;
+import com.charlee.android.tv.databinding.AdapterParseLightBinding;
 import com.fongmi.android.tv.ui.base.ViewType;
 
 import java.util.List;

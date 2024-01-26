@@ -7,7 +7,7 @@ import android.text.TextUtils;
 import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.ThreadUtils;
 import com.fongmi.android.tv.App;
-import com.fongmi.android.tv.R;
+import com.charlee.android.tv.R;
 import com.fongmi.android.tv.api.CacheManger;
 import com.fongmi.android.tv.api.Decoder;
 import com.fongmi.android.tv.api.loader.JarLoader;

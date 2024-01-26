@@ -7,7 +7,7 @@ import androidx.annotation.NonNull;
 import androidx.leanback.widget.Presenter;
 
 import com.fongmi.android.tv.bean.Parse;
-import com.fongmi.android.tv.databinding.AdapterParseBinding;
+import com.charlee.android.tv.databinding.AdapterParseBinding;
 
 public class ParsePresenter extends Presenter {
 

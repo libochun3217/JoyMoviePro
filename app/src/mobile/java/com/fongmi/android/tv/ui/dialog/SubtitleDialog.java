@@ -7,9 +7,9 @@ import android.view.LayoutInflater;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 
-import com.fongmi.android.tv.R;
+import com.charlee.android.tv.R;
 import com.fongmi.android.tv.Setting;
-import com.fongmi.android.tv.databinding.DialogSubtitleBinding;
+import com.charlee.android.tv.databinding.DialogSubtitleBinding;
 import com.fongmi.android.tv.impl.SubtitleCallback;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 

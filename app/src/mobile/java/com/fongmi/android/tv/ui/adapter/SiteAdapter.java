@@ -7,10 +7,10 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.fongmi.android.tv.R;
+import com.charlee.android.tv.R;
 import com.fongmi.android.tv.api.config.VodConfig;
 import com.fongmi.android.tv.bean.Site;
-import com.fongmi.android.tv.databinding.AdapterSiteBinding;
+import com.charlee.android.tv.databinding.AdapterSiteBinding;
 
 import java.util.List;
 

@@ -8,8 +8,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.fongmi.android.tv.Setting;
 import com.fongmi.android.tv.bean.Vod;
-import com.fongmi.android.tv.databinding.AdapterVodOneBinding;
-import com.fongmi.android.tv.databinding.AdapterVodRectBinding;
+import com.charlee.android.tv.databinding.AdapterVodOneBinding;
+import com.charlee.android.tv.databinding.AdapterVodRectBinding;
 import com.fongmi.android.tv.ui.base.BaseVodHolder;
 import com.fongmi.android.tv.ui.base.ViewType;
 import com.fongmi.android.tv.ui.holder.VodOneHolder;

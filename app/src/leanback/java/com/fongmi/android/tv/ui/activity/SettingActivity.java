@@ -7,8 +7,8 @@ import android.view.View;
 
 import androidx.viewbinding.ViewBinding;
 
-import com.fongmi.android.tv.BuildConfig;
-import com.fongmi.android.tv.R;
+import com.charlee.android.tv.BuildConfig;
+import com.charlee.android.tv.R;
 import com.fongmi.android.tv.Setting;
 import com.fongmi.android.tv.Updater;
 import com.fongmi.android.tv.api.config.LiveConfig;
@@ -17,7 +17,7 @@ import com.fongmi.android.tv.api.config.WallConfig;
 import com.fongmi.android.tv.bean.Config;
 import com.fongmi.android.tv.bean.Live;
 import com.fongmi.android.tv.bean.Site;
-import com.fongmi.android.tv.databinding.ActivitySettingBinding;
+import com.charlee.android.tv.databinding.ActivitySettingBinding;
 import com.fongmi.android.tv.db.AppDatabase;
 import com.fongmi.android.tv.event.RefreshEvent;
 import com.fongmi.android.tv.impl.Callback;

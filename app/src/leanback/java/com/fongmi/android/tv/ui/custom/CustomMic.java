@@ -16,7 +16,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.fragment.app.FragmentActivity;
 
-import com.fongmi.android.tv.R;
+import com.charlee.android.tv.R;
 import com.fongmi.android.tv.utils.KeyUtil;
 import com.fongmi.android.tv.utils.ResUtil;
 import com.github.bassaer.library.MDColor;

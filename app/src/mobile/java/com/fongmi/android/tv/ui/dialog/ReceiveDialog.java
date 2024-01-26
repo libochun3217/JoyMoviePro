@@ -11,7 +11,7 @@ import androidx.viewbinding.ViewBinding;
 
 import com.fongmi.android.tv.api.config.VodConfig;
 import com.fongmi.android.tv.bean.History;
-import com.fongmi.android.tv.databinding.DialogReceiveBinding;
+import com.charlee.android.tv.databinding.DialogReceiveBinding;
 import com.fongmi.android.tv.event.CastEvent;
 import com.fongmi.android.tv.event.RefreshEvent;
 import com.fongmi.android.tv.impl.Callback;

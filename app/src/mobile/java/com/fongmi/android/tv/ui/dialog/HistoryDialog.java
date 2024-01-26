@@ -6,7 +6,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 
 import com.fongmi.android.tv.bean.Config;
-import com.fongmi.android.tv.databinding.DialogHistoryBinding;
+import com.charlee.android.tv.databinding.DialogHistoryBinding;
 import com.fongmi.android.tv.impl.ConfigCallback;
 import com.fongmi.android.tv.ui.adapter.ConfigAdapter;
 import com.fongmi.android.tv.ui.custom.SpaceItemDecoration;

@@ -3,7 +3,7 @@ package com.fongmi.android.tv.ui.holder;
 import androidx.annotation.NonNull;
 
 import com.fongmi.android.tv.bean.Episode;
-import com.fongmi.android.tv.databinding.AdapterEpisodeVertBinding;
+import com.charlee.android.tv.databinding.AdapterEpisodeVertBinding;
 import com.fongmi.android.tv.ui.adapter.EpisodeAdapter;
 import com.fongmi.android.tv.ui.base.BaseEpisodeHolder;
 

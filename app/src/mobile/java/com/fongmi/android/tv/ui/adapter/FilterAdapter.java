@@ -7,7 +7,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.fongmi.android.tv.bean.Filter;
-import com.fongmi.android.tv.databinding.AdapterFilterBinding;
+import com.charlee.android.tv.databinding.AdapterFilterBinding;
 import com.fongmi.android.tv.impl.FilterCallback;
 
 import java.util.List;

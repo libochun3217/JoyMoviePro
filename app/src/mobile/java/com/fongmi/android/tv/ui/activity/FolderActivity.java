@@ -6,10 +6,10 @@ import android.os.Bundle;
 
 import androidx.viewbinding.ViewBinding;
 
-import com.fongmi.android.tv.R;
+import com.charlee.android.tv.R;
 import com.fongmi.android.tv.bean.Class;
 import com.fongmi.android.tv.bean.Result;
-import com.fongmi.android.tv.databinding.ActivityFolderBinding;
+import com.charlee.android.tv.databinding.ActivityFolderBinding;
 import com.fongmi.android.tv.ui.base.BaseActivity;
 import com.fongmi.android.tv.ui.fragment.TypeFragment;
 

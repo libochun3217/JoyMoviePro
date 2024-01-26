@@ -6,7 +6,7 @@ import android.view.WindowManager;
 
 import androidx.appcompat.app.AlertDialog;
 
-import com.fongmi.android.tv.databinding.DialogDohBinding;
+import com.charlee.android.tv.databinding.DialogDohBinding;
 import com.fongmi.android.tv.impl.DohCallback;
 import com.fongmi.android.tv.ui.adapter.DohAdapter;
 import com.fongmi.android.tv.ui.custom.SpaceItemDecoration;

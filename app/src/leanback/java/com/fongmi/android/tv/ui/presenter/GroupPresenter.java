@@ -7,7 +7,7 @@ import androidx.annotation.NonNull;
 import androidx.leanback.widget.Presenter;
 
 import com.fongmi.android.tv.bean.Group;
-import com.fongmi.android.tv.databinding.AdapterGroupBinding;
+import com.charlee.android.tv.databinding.AdapterGroupBinding;
 
 public class GroupPresenter extends Presenter {
 

@@ -7,7 +7,7 @@ import androidx.annotation.NonNull;
 import androidx.leanback.widget.Presenter;
 
 import com.fongmi.android.tv.bean.Flag;
-import com.fongmi.android.tv.databinding.AdapterFlagBinding;
+import com.charlee.android.tv.databinding.AdapterFlagBinding;
 
 public class FlagPresenter extends Presenter {
 

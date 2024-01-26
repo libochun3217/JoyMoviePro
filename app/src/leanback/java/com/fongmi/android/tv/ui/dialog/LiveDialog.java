@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 
 import com.fongmi.android.tv.api.config.LiveConfig;
 import com.fongmi.android.tv.bean.Live;
-import com.fongmi.android.tv.databinding.DialogLiveBinding;
+import com.charlee.android.tv.databinding.DialogLiveBinding;
 import com.fongmi.android.tv.impl.LiveCallback;
 import com.fongmi.android.tv.ui.adapter.LiveAdapter;
 import com.fongmi.android.tv.ui.custom.SpaceItemDecoration;

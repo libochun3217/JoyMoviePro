@@ -7,9 +7,9 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.fongmi.android.tv.bean.Episode;
-import com.fongmi.android.tv.databinding.AdapterEpisodeGridBinding;
-import com.fongmi.android.tv.databinding.AdapterEpisodeHoriBinding;
-import com.fongmi.android.tv.databinding.AdapterEpisodeVertBinding;
+import com.charlee.android.tv.databinding.AdapterEpisodeGridBinding;
+import com.charlee.android.tv.databinding.AdapterEpisodeHoriBinding;
+import com.charlee.android.tv.databinding.AdapterEpisodeVertBinding;
 import com.fongmi.android.tv.ui.base.BaseEpisodeHolder;
 import com.fongmi.android.tv.ui.base.ViewType;
 import com.fongmi.android.tv.ui.holder.EpisodeGridHolder;

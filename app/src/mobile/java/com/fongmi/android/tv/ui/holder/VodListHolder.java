@@ -5,7 +5,7 @@ import android.widget.ImageView;
 import androidx.annotation.NonNull;
 
 import com.fongmi.android.tv.bean.Vod;
-import com.fongmi.android.tv.databinding.AdapterVodListBinding;
+import com.charlee.android.tv.databinding.AdapterVodListBinding;
 import com.fongmi.android.tv.ui.adapter.VodAdapter;
 import com.fongmi.android.tv.ui.base.BaseVodHolder;
 import com.fongmi.android.tv.utils.ImgUtil;

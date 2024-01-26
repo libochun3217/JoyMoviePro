@@ -3,7 +3,7 @@ package com.fongmi.android.tv.bean;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import com.fongmi.android.tv.R;
+import com.charlee.android.tv.R;
 import com.fongmi.android.tv.utils.ResUtil;
 
 import java.util.ArrayList;

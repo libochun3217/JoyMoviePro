@@ -1,6 +1,6 @@
 package com.fongmi.android.tv.event;
 
-import com.fongmi.android.tv.R;
+import com.charlee.android.tv.R;
 import com.fongmi.android.tv.utils.ResUtil;
 
 import org.greenrobot.eventbus.EventBus;

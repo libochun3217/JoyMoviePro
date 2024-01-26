@@ -12,11 +12,11 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.viewbinding.ViewBinding;
 
 import com.fongmi.android.tv.App;
-import com.fongmi.android.tv.R;
+import com.charlee.android.tv.R;
 import com.fongmi.android.tv.bean.History;
 import com.fongmi.android.tv.bean.Parse;
-import com.fongmi.android.tv.databinding.ActivityVideoBinding;
-import com.fongmi.android.tv.databinding.DialogControlBinding;
+import com.charlee.android.tv.databinding.ActivityVideoBinding;
+import com.charlee.android.tv.databinding.DialogControlBinding;
 import com.fongmi.android.tv.player.Players;
 import com.fongmi.android.tv.player.Timer;
 import com.fongmi.android.tv.ui.adapter.ParseAdapter;

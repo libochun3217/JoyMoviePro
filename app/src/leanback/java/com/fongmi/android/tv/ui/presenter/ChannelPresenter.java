@@ -7,7 +7,7 @@ import androidx.annotation.NonNull;
 import androidx.leanback.widget.Presenter;
 
 import com.fongmi.android.tv.bean.Channel;
-import com.fongmi.android.tv.databinding.AdapterChannelBinding;
+import com.charlee.android.tv.databinding.AdapterChannelBinding;
 
 public class ChannelPresenter extends Presenter {
 

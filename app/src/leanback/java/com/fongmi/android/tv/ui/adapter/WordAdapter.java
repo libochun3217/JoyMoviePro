@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.fongmi.android.tv.databinding.AdapterSearchWordBinding;
+import com.charlee.android.tv.databinding.AdapterSearchWordBinding;
 
 import java.util.ArrayList;
 import java.util.List;

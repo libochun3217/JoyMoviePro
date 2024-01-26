@@ -15,10 +15,10 @@ import androidx.media3.common.MimeTypes;
 import androidx.media3.common.Tracks;
 import androidx.viewbinding.ViewBinding;
 
-import com.fongmi.android.tv.R;
+import com.charlee.android.tv.R;
 import com.fongmi.android.tv.bean.Sub;
 import com.fongmi.android.tv.bean.Track;
-import com.fongmi.android.tv.databinding.DialogTrackBinding;
+import com.charlee.android.tv.databinding.DialogTrackBinding;
 import com.fongmi.android.tv.player.Players;
 import com.fongmi.android.tv.player.TrackNameProvider;
 import com.fongmi.android.tv.ui.adapter.TrackAdapter;

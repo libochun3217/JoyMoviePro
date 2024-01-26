@@ -3,8 +3,8 @@ package com.fongmi.android.tv.ui.activity;
 import androidx.appcompat.app.AlertDialog;
 import androidx.viewbinding.ViewBinding;
 
-import com.fongmi.android.tv.R;
-import com.fongmi.android.tv.databinding.ActivityCrashBinding;
+import com.charlee.android.tv.R;
+import com.charlee.android.tv.databinding.ActivityCrashBinding;
 import com.fongmi.android.tv.ui.base.BaseActivity;
 
 import java.util.Objects;

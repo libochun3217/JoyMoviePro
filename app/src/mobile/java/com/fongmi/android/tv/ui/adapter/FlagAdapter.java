@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.fongmi.android.tv.bean.Episode;
 import com.fongmi.android.tv.bean.Flag;
-import com.fongmi.android.tv.databinding.AdapterFlagBinding;
+import com.charlee.android.tv.databinding.AdapterFlagBinding;
 
 import java.util.ArrayList;
 import java.util.Collections;

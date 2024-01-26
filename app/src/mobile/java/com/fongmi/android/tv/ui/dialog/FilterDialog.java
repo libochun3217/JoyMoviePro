@@ -9,7 +9,7 @@ import androidx.fragment.app.Fragment;
 import androidx.viewbinding.ViewBinding;
 
 import com.fongmi.android.tv.bean.Filter;
-import com.fongmi.android.tv.databinding.DialogFilterBinding;
+import com.charlee.android.tv.databinding.DialogFilterBinding;
 import com.fongmi.android.tv.impl.FilterCallback;
 import com.fongmi.android.tv.ui.adapter.FilterAdapter;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;

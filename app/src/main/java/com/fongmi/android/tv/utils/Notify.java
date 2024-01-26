@@ -10,7 +10,7 @@ import androidx.core.app.NotificationChannelCompat;
 import androidx.core.app.NotificationManagerCompat;
 
 import com.fongmi.android.tv.App;
-import com.fongmi.android.tv.databinding.ViewProgressBinding;
+import com.charlee.android.tv.databinding.ViewProgressBinding;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 public class Notify {

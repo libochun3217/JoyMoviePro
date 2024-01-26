@@ -18,7 +18,7 @@ import androidx.viewbinding.ViewBinding;
 
 import com.fongmi.android.tv.App;
 import com.fongmi.android.tv.Product;
-import com.fongmi.android.tv.R;
+import com.charlee.android.tv.R;
 import com.fongmi.android.tv.api.config.VodConfig;
 import com.fongmi.android.tv.bean.Filter;
 import com.fongmi.android.tv.bean.Page;
@@ -27,7 +27,7 @@ import com.fongmi.android.tv.bean.Site;
 import com.fongmi.android.tv.bean.Style;
 import com.fongmi.android.tv.bean.Value;
 import com.fongmi.android.tv.bean.Vod;
-import com.fongmi.android.tv.databinding.FragmentVodBinding;
+import com.charlee.android.tv.databinding.FragmentVodBinding;
 import com.fongmi.android.tv.model.SiteViewModel;
 import com.fongmi.android.tv.ui.activity.CollectActivity;
 import com.fongmi.android.tv.ui.activity.VideoActivity;

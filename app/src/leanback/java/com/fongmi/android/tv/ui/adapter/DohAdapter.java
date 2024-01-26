@@ -7,7 +7,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.fongmi.android.tv.api.config.VodConfig;
-import com.fongmi.android.tv.databinding.AdapterDohBinding;
+import com.charlee.android.tv.databinding.AdapterDohBinding;
 import com.github.catvod.bean.Doh;
 
 import java.util.List;

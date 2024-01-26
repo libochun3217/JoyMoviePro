@@ -8,7 +8,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.fongmi.android.tv.bean.Keep;
-import com.fongmi.android.tv.databinding.AdapterVodBinding;
+import com.charlee.android.tv.databinding.AdapterVodBinding;
 import com.fongmi.android.tv.utils.ImgUtil;
 
 import java.util.ArrayList;

@@ -9,7 +9,7 @@ import androidx.room.PrimaryKey;
 
 import com.fongmi.android.tv.App;
 import com.fongmi.android.tv.Constant;
-import com.fongmi.android.tv.R;
+import com.charlee.android.tv.R;
 import com.fongmi.android.tv.db.AppDatabase;
 import com.google.gson.JsonElement;
 import com.google.gson.annotations.SerializedName;

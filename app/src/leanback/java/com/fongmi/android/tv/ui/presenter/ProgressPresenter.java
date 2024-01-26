@@ -6,7 +6,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.leanback.widget.Presenter;
 
-import com.fongmi.android.tv.databinding.AdapterProgressBinding;
+import com.charlee.android.tv.databinding.AdapterProgressBinding;
 
 public class ProgressPresenter extends Presenter {
 

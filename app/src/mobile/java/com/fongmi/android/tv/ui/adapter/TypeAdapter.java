@@ -6,10 +6,10 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.fongmi.android.tv.R;
+import com.charlee.android.tv.R;
 import com.fongmi.android.tv.bean.Class;
 import com.fongmi.android.tv.bean.Result;
-import com.fongmi.android.tv.databinding.AdapterTypeBinding;
+import com.charlee.android.tv.databinding.AdapterTypeBinding;
 import com.fongmi.android.tv.utils.ResUtil;
 
 import java.util.ArrayList;
