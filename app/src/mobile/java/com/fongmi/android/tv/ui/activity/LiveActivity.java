@@ -19,9 +19,11 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.media3.common.C;
 import androidx.media3.common.Player;
+import androidx.media3.common.Tracks;
 import androidx.media3.ui.PlayerView;
 import androidx.viewbinding.ViewBinding;
 
+import com.blankj.utilcode.util.LogUtils;
 import com.bumptech.glide.request.target.CustomTarget;
 import com.bumptech.glide.request.transition.Transition;
 import com.fongmi.android.tv.App;
@@ -49,6 +51,7 @@ import com.fongmi.android.tv.model.LiveViewModel;
 import com.fongmi.android.tv.player.ExoUtil;
 import com.fongmi.android.tv.player.Players;
 import com.fongmi.android.tv.player.Source;
+import com.fongmi.android.tv.player.TrackNameProvider;
 import com.fongmi.android.tv.server.Server;
 import com.fongmi.android.tv.service.PlaybackService;
 import com.fongmi.android.tv.ui.adapter.ChannelAdapter;
@@ -105,6 +108,7 @@ public class LiveActivity extends BaseActivity implements CustomKeyDownLive.List
     private int toggleCount;
     private int passCount;
     private PiP mPiP;
+    private String TAG = "LiveActivityTag";
 
     public static void start(Context context) {
         context.startActivity(new Intent(context, LiveActivity.class).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK).putExtra("empty", false));
@@ -642,6 +646,7 @@ public class LiveActivity extends BaseActivity implements CustomKeyDownLive.List
 
     private void fetch() {
         if (mChannel == null) return;
+        mChannel.setPlayerType(mPlayers.getPlayer());
         LiveConfig.get().setKeep(mChannel);
         mViewModel.getUrl(mChannel);
         mPlayers.clean();
@@ -721,6 +726,7 @@ public class LiveActivity extends BaseActivity implements CustomKeyDownLive.List
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onPlayerEvent(PlayerEvent event) {
+        LogUtils.dTag(TAG, "onPlayerEvent " + event.getState());
         switch (event.getState()) {
             case 0:
                 setTrackVisible(false);
@@ -740,10 +746,30 @@ public class LiveActivity extends BaseActivity implements CustomKeyDownLive.List
                 checkPlayImg(mPlayers.isPlaying());
                 mBinding.control.size.setText(mPlayers.getSizeText());
                 if (isVisible(mBinding.control.getRoot())) showControl();
+                checkAudio();
                 break;
             case Player.STATE_ENDED:
                 nextChannel();
                 break;
+        }
+    }
+
+    private void checkAudio() {
+        if (!mPlayers.isExo()) {
+            return;
+        }
+        int audioType = 1;
+        List<Tracks.Group> groups = mPlayers.exo().getCurrentTracks().getGroups();
+        ArrayList<Tracks.Group> audioGroups = new ArrayList<>();
+
+        for (int i = 0; i < groups.size(); i++) {
+            Tracks.Group trackGroup = groups.get(i);
+            if (trackGroup.getType() != audioType) continue;
+            audioGroups.add(trackGroup);
+            LogUtils.dTag(TAG, "trackGroup isSupport " + trackGroup.isSupported());
+        }
+        if (audioGroups.size() == 1 && !audioGroups.get(0).isSupported()) {
+            nextPlayer();
         }
     }
 
