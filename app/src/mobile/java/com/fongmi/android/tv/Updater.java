@@ -7,6 +7,7 @@ import android.view.View;
 
 import androidx.appcompat.app.AlertDialog;
 
+import com.blankj.utilcode.util.ToastUtils;
 import com.charlee.android.tv.BuildConfig;
 import com.charlee.android.tv.R;
 import com.charlee.android.tv.databinding.DialogUpdateBinding;
@@ -92,6 +93,9 @@ public class Updater implements Download.Callback {
     }
 
     private void show(Activity activity, String version, String desc) {
+        if (activity == null) {
+            return;
+        }
         binding = DialogUpdateBinding.inflate(LayoutInflater.from(activity));
         check().create(activity, ResUtil.getString(R.string.update_version, version)).show();
         dialog.getButton(DialogInterface.BUTTON_POSITIVE).setOnClickListener(this::confirm);
