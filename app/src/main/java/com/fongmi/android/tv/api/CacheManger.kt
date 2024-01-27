@@ -91,8 +91,11 @@ object CacheKeyManager {
     }
 
     fun addKey(keyTag: String, key: String) {
-        getKeys(keyTag).add(key)
-        cache.put(KEY_TAG, keys)
+        val keyList = getKeys(keyTag)
+        if (!keyList.contains(key)) {
+            getKeys(keyTag).add(key)
+            cache.put(KEY_TAG, keys)
+        }
     }
 
 }

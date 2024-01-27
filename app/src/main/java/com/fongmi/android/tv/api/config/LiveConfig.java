@@ -122,6 +122,7 @@ public class LiveConfig {
                     try {
                         String text = Decoder.getJson(config.getUrl());
                         CacheManger.INSTANCE.saveResponse(config.getUrl(), text);
+                        CacheManger.INSTANCE.saveLiveConfig(config.getUrl());
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
