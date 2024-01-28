@@ -14,11 +14,25 @@ data class ChannelStatus(
             live.groups.map {
                 it.channel.map { channel ->
                     channel.channelStatus?.let {
-                        val minutes = ((System.currentTimeMillis() - it.watchStartTimestamp) / 1000 / 60).toInt()
-                        it.watchMinutes = it.watchMinutes + minutes
-                        LogUtils.iTag(TAG, "${channel.name} watchMinutes ${it.watchMinutes}")
+                        if (it.watchStartTimestamp > 0) {
+                            val minutes =
+                                ((System.currentTimeMillis() - it.watchStartTimestamp) / 1000 / 60).toInt()
+                            it.watchMinutes = it.watchMinutes + minutes
+                            if (minutes > 0) it.failedTime = 0
+                        }
+                        LogUtils.iTag(
+                            TAG,
+                            "${channel.name} watchMinutes ${it.watchMinutes} failed times ${it.failedTime}"
+                        )
                     }
                 }
+            }
+        }
+
+        fun removeFailedChannel(live: Live) {
+            live.groups.map {
+                val failed = it.channel.filter { it?.channelStatus?.failedTime ?: 0 > 1 }
+                it.channel.removeAll(failed)
             }
         }
     }

@@ -8,6 +8,7 @@ import com.fongmi.android.tv.api.CacheManger;
 import com.fongmi.android.tv.api.LiveParser;
 import com.fongmi.android.tv.api.config.LiveConfig;
 import com.fongmi.android.tv.bean.Channel;
+import com.fongmi.android.tv.bean.ChannelStatus;
 import com.fongmi.android.tv.bean.Epg;
 import com.fongmi.android.tv.bean.Group;
 import com.fongmi.android.tv.bean.Live;
@@ -55,6 +56,7 @@ public class LiveViewModel extends ViewModel {
     public void getLive(Live item) {
         Live cache = CacheManger.INSTANCE.fromCache(item.getUrl());
         if (cache != null) {
+            ChannelStatus.Companion.removeFailedChannel(cache);
             LiveConfig.get().setHome(cache);
             live.setValue(cache);
         }

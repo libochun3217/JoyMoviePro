@@ -599,21 +599,27 @@ public class LiveActivity extends BaseActivity implements CustomKeyDownLive.List
         mGroup.setPosition(mChannelAdapter.setSelected(item.group(mGroup)));
         mPlayers.setPlayer(getPlayerType(item.getPlayerType()));
         setArtwork(item.getLogo());
+        checkChannelStatus(item);
         mChannel = item;
         setPlayerView();
         showInfo();
         hideUI();
         fetch();
-        checkChannelStatus(item);
     }
 
     private void checkChannelStatus(Channel item) {
         if (item.channelStatus != null) {
-            long minutes = (System.currentTimeMillis() - item.channelStatus.getWatchStartTimestamp()) / 1000 / 60;
-            item.channelStatus.setWatchMinutes((int) minutes);
             item.channelStatus.setWatchStartTimestamp(System.currentTimeMillis());
         } else {
             item.channelStatus = new ChannelStatus(0, System.currentTimeMillis(), 0);
+        }
+        if (mChannel != null && mChannel.channelStatus != null && mChannel.channelStatus.getWatchStartTimestamp() > 0) {
+            long minutes = (System.currentTimeMillis() - mChannel.channelStatus.getWatchStartTimestamp()) / 1000 / 60;
+            mChannel.channelStatus.setWatchMinutes((int) minutes);
+            mChannel.channelStatus.setWatchStartTimestamp(0);
+            if (minutes > 0) {
+                mChannel.channelStatus.setFailedTime(0);
+            }
         }
     }
 
@@ -841,6 +847,10 @@ public class LiveActivity extends BaseActivity implements CustomKeyDownLive.List
             nextLine(true);
         } else if (isGone(mBinding.recycler)) {
             mChannel.setLine(0);
+            if (mChannel.channelStatus != null && mChannel.channelStatus.getWatchMinutes() <=0) {
+                int failed = mChannel.channelStatus.getFailedTime();
+                mChannel.channelStatus.setFailedTime(failed + 1);
+            }
             nextChannel();
         }
     }

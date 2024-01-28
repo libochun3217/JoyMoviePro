@@ -38,9 +38,11 @@ object CacheManger {
             return
         }
         ChannelStatus.checkStatus(live)
-        cache.put(live.contentHash, live)
-        addKey(KEY_LIVE, live.contentHash)
-        LogUtils.dTag(TAG, "saveLive ${live.name}")
+        if (live.contentHash != null) {
+            cache.put(live.contentHash, live)
+            addKey(KEY_LIVE, live.contentHash)
+            LogUtils.dTag(TAG, "saveLive ${live.name}")
+        }
     }
 
 
