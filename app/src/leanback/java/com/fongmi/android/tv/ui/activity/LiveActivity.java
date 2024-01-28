@@ -17,18 +17,22 @@ import androidx.leanback.widget.OnChildViewHolderSelectedListener;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.media3.common.C;
 import androidx.media3.common.Player;
+import androidx.media3.common.Tracks;
 import androidx.media3.ui.PlayerView;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewbinding.ViewBinding;
 
+import com.blankj.utilcode.util.LogUtils;
 import com.bumptech.glide.request.target.CustomTarget;
 import com.bumptech.glide.request.transition.Transition;
 import com.fongmi.android.tv.App;
 import com.fongmi.android.tv.Constant;
 import com.charlee.android.tv.R;
 import com.fongmi.android.tv.Setting;
+import com.fongmi.android.tv.api.CacheManger;
 import com.fongmi.android.tv.api.config.LiveConfig;
 import com.fongmi.android.tv.bean.Channel;
+import com.fongmi.android.tv.bean.ChannelStatus;
 import com.fongmi.android.tv.bean.Epg;
 import com.fongmi.android.tv.bean.Group;
 import com.fongmi.android.tv.bean.Keep;
@@ -94,6 +98,7 @@ public class LiveActivity extends BaseActivity implements GroupPresenter.OnClick
     private boolean confirm;
     private int toggleCount;
     private int count;
+    private String TAG = "LiveActivity";
 
     public static void start(Context context) {
         if (!LiveConfig.isEmpty()) context.startActivity(new Intent(context, LiveActivity.class).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK).putExtra("empty", false));
@@ -536,8 +541,25 @@ public class LiveActivity extends BaseActivity implements GroupPresenter.OnClick
     @Override
     public void onItemClick(Channel item) {
         mGroup.setPosition(mBinding.channel.getSelectedPosition());
+        checkChannelStatus(item);
         setChannel(item.group(mGroup));
         hideUI();
+    }
+
+    private void checkChannelStatus(Channel item) {
+        if (item.channelStatus != null) {
+            item.channelStatus.setWatchStartTimestamp(System.currentTimeMillis());
+        } else {
+            item.channelStatus = new ChannelStatus(0, System.currentTimeMillis(), 0);
+        }
+        if (mChannel != null && mChannel.channelStatus != null && mChannel.channelStatus.getWatchStartTimestamp() > 0) {
+            long minutes = (System.currentTimeMillis() - mChannel.channelStatus.getWatchStartTimestamp()) / 1000 / 60;
+            mChannel.channelStatus.setWatchMinutes((int) minutes);
+            mChannel.channelStatus.setWatchStartTimestamp(0);
+            if (minutes > 0) {
+                mChannel.channelStatus.setFailedTime(0);
+            }
+        }
     }
 
     @Override
@@ -589,6 +611,7 @@ public class LiveActivity extends BaseActivity implements GroupPresenter.OnClick
 
     private void fetch() {
         if (mChannel == null) return;
+        mChannel.setPlayerType(mPlayers.getPlayer());
         LiveConfig.get().setKeep(mChannel);
         mViewModel.getUrl(mChannel);
         mPlayers.clean();
@@ -674,10 +697,30 @@ public class LiveActivity extends BaseActivity implements GroupPresenter.OnClick
                 setSpeedVisible();
                 setTrackVisible(true);
                 mBinding.widget.size.setText(mPlayers.getSizeText());
+                checkAudio();
                 break;
             case Player.STATE_ENDED:
                 nextChannel();
                 break;
+        }
+    }
+
+    private void checkAudio() {
+        if (!mPlayers.isExo()) {
+            return;
+        }
+        int audioType = 1;
+        List<Tracks.Group> groups = mPlayers.exo().getCurrentTracks().getGroups();
+        ArrayList<Tracks.Group> audioGroups = new ArrayList<>();
+
+        for (int i = 0; i < groups.size(); i++) {
+            Tracks.Group trackGroup = groups.get(i);
+            if (trackGroup.getType() != audioType) continue;
+            audioGroups.add(trackGroup);
+            LogUtils.dTag(TAG, "trackGroup isSupport " + trackGroup.isSupported());
+        }
+        if (audioGroups.size() == 1 && !audioGroups.get(0).isSupported()) {
+            nextPlayer();
         }
     }
 
@@ -736,6 +779,10 @@ public class LiveActivity extends BaseActivity implements GroupPresenter.OnClick
             nextLine(true);
         } else if (isGone(mBinding.recycler)) {
             mChannel.setLine(0);
+            if (mChannel.channelStatus != null && mChannel.channelStatus.getWatchMinutes() <=0) {
+                int failed = mChannel.channelStatus.getFailedTime();
+                mChannel.channelStatus.setFailedTime(failed + 1);
+            }
             nextChannel();
         }
     }
@@ -948,5 +995,6 @@ public class LiveActivity extends BaseActivity implements GroupPresenter.OnClick
         mPlayers.release();
         Source.get().stop();
         App.removeCallbacks(mR0, mR1, mR3, mR3, mR4);
+        CacheManger.INSTANCE.saveLive(LiveConfig.get().getHome());
     }
 }

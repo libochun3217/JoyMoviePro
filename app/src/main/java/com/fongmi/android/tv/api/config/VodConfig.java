@@ -96,6 +96,9 @@ public class VodConfig {
         this.home = null;
         this.parse = null;
         ArrayList<String> cs = CacheManger.INSTANCE.getVodConfigs();
+        if (cs.isEmpty()) {
+            cs.add("http://tvkj.top/DC.txt");
+        }
         if (!cs.isEmpty()) {
             for(String c : cs) {
                 Config.find(c, TYPE_VOD);

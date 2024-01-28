@@ -81,6 +81,10 @@ public class LiveConfig {
     public LiveConfig init() {
         this.home = null;
         ArrayList<String> cs = CacheManger.INSTANCE.getLiveConfigs();
+        if (cs.isEmpty()) {
+            cs.add("https://youdu.fan/yd/tvlive1.txt");
+            cs.add("https://wds.ecsxs.com/230864.json");
+        }
         if (!cs.isEmpty()) {
             for(String c : cs) {
                 Config.find(c, TYPE_LIVE);

@@ -42,6 +42,10 @@ object CacheManger {
             cache.put(live.contentHash, live)
             addKey(KEY_LIVE, live.contentHash)
             LogUtils.dTag(TAG, "saveLive ${live.name}")
+        } else {
+            getResponse(live.url)?.let {
+                live.contentHash = EncryptUtils.encryptMD5ToString(it)
+            }
         }
     }
 

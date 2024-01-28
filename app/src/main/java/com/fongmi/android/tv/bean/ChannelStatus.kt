@@ -33,6 +33,9 @@ data class ChannelStatus(
             live.groups.map {
                 val failed = it.channel.filter { it?.channelStatus?.failedTime ?: 0 > 1 }
                 it.channel.removeAll(failed)
+                if (failed.isNotEmpty()) {
+                    LogUtils.iTag(TAG, "remove ${failed.map { it.name }}")
+                }
             }
         }
     }
