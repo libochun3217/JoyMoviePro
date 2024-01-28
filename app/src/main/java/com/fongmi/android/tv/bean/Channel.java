@@ -55,6 +55,8 @@ public class Channel implements Serializable {
     private String msg;
     private Epg data;
     private int line;
+    public ChannelStatus channelStatus;
+
 
     public static Channel objectFrom(JsonElement element) {
         return App.gson().fromJson(element, Channel.class);

@@ -33,6 +33,7 @@ import com.fongmi.android.tv.Setting;
 import com.fongmi.android.tv.api.CacheManger;
 import com.fongmi.android.tv.api.config.LiveConfig;
 import com.fongmi.android.tv.bean.Channel;
+import com.fongmi.android.tv.bean.ChannelStatus;
 import com.fongmi.android.tv.bean.Epg;
 import com.fongmi.android.tv.bean.Group;
 import com.fongmi.android.tv.bean.Keep;
@@ -603,6 +604,17 @@ public class LiveActivity extends BaseActivity implements CustomKeyDownLive.List
         showInfo();
         hideUI();
         fetch();
+        checkChannelStatus(item);
+    }
+
+    private void checkChannelStatus(Channel item) {
+        if (item.channelStatus != null) {
+            long minutes = (System.currentTimeMillis() - item.channelStatus.getWatchStartTimestamp()) / 1000 / 60;
+            item.channelStatus.setWatchMinutes((int) minutes);
+            item.channelStatus.setWatchStartTimestamp(System.currentTimeMillis());
+        } else {
+            item.channelStatus = new ChannelStatus(0, System.currentTimeMillis(), 0);
+        }
     }
 
     @Override
