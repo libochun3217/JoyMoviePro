@@ -5,7 +5,7 @@ plugins {
 
 android {
     compileSdk 34
-    flavorDimensions = ["mode", "api", "abi"]
+    flavorDimensions = ["mode", "abi"] // 暂时关闭api，Python 源太少
 
     defaultConfig {
         applicationId "com.charlee.android.tv"
@@ -80,7 +80,7 @@ android {
 
     android.applicationVariants.configureEach { variant ->
         variant.outputs.configureEach { output ->
-            outputFileName = "${variant.productFlavors[0].name}-${variant.productFlavors[1].name}-${variant.productFlavors[2].name}.apk"
+            outputFileName = "${variant.productFlavors[0].name}-${variant.productFlavors[1].name}.apk"
         }
     }
 
