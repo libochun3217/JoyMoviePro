@@ -51,8 +51,18 @@ android {
         viewBinding true
     }
 
+    signingConfigs {
+        release {
+            storeFile file("charlee.jks")
+            storePassword "charlee8888"
+            keyAlias "charlee"
+            keyPassword "charlee8888"
+        }
+    }
+
     buildTypes {
         release {
+            signingConfig signingConfigs.release
             minifyEnabled true
             shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
