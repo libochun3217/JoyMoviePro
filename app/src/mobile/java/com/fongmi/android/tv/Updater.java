@@ -30,6 +30,7 @@ public class Updater implements Download.Callback {
     private DialogUpdateBinding binding;
     private AlertDialog dialog;
     private boolean dev;
+    private String apkUrl = "";
 
     private static class Loader {
         static volatile Updater INSTANCE = new Updater();
@@ -45,10 +46,6 @@ public class Updater implements Download.Callback {
 
     private String getJson() {
         return Github.getJson(dev, BuildConfig.FLAVOR_mode);
-    }
-
-    private String getApk() {
-        return Github.getApk(dev, BuildConfig.FLAVOR_mode + "-" + BuildConfig.FLAVOR_abi);
     }
 
     public Updater force() {
@@ -77,7 +74,8 @@ public class Updater implements Download.Callback {
     }
 
     private boolean need(int code, String name) {
-        return Setting.getUpdate() && (dev ? !name.equals(BuildConfig.VERSION_NAME) && code >= BuildConfig.VERSION_CODE : code > BuildConfig.VERSION_CODE);
+        return Setting.getUpdate()
+                && code > BuildConfig.VERSION_CODE && !apkUrl.isEmpty();
     }
 
     private void doInBackground() {
@@ -86,6 +84,7 @@ public class Updater implements Download.Callback {
             String name = object.optString("name");
             String desc = object.optString("desc");
             int code = object.optInt("code");
+            apkUrl = object.optString("url");
             if (need(code, name)) App.post(() -> show(App.activity(), name, desc));
         } catch (Exception e) {
             e.printStackTrace();
@@ -113,7 +112,7 @@ public class Updater implements Download.Callback {
     }
 
     private void confirm(View view) {
-        Download.create(getApk(), getFile(), this).start();
+        Download.create(apkUrl, getFile(), this).start();
         view.setEnabled(false);
     }
 

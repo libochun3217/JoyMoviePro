@@ -11,8 +11,8 @@ android {
         applicationId "com.charlee.android.tv"
         minSdk 21
         targetSdk 28
-        versionCode 222
-        versionName "0118"
+        versionCode 1040000
+        versionName "1.4.0"
         javaCompileOptions {
             annotationProcessorOptions {
                 arguments = ["room.schemaLocation": "$projectDir/schemas".toString()]
@@ -52,6 +52,12 @@ android {
     }
 
     signingConfigs {
+        debug {
+            storeFile file("charlee.jks")
+            storePassword "charlee8888"
+            keyAlias "charlee"
+            keyPassword "charlee8888"
+        }
         release {
             storeFile file("charlee.jks")
             storePassword "charlee8888"
