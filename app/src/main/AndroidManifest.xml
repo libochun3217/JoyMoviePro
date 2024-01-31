@@ -65,6 +65,7 @@
         <activity
             android:name="com.fongmi.android.tv.ui.activity.CrashActivity"
             android:process=":error_activity" />
+        <activity android:name="com.fongmi.android.tv.ui.activity.EasyWebActivity"/>
 
         <receiver
             android:name="androidx.media.session.MediaButtonReceiver"

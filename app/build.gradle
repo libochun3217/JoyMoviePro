@@ -160,6 +160,11 @@ dependencies {
     mobileImplementation('com.journeyapps:zxing-android-embedded:4.3.0') { transitive = false }
     annotationProcessor 'androidx.room:room-compiler:2.6.1'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.16.0'
-    implementation 'com.blankj:utilcodex:1.31.0'
+    implementation 'com.blankj:utilcodex:1.31.1'
+
+    // webview
+    implementation 'io.github.justson:agentweb-core:v5.1.1-androidx'
+    implementation 'io.github.justson:agentweb-filechooser:v5.1.1-androidx' // (可选)
+    implementation 'com.github.Justson:Downloader:v5.0.4-androidx' // (可选)
 
 }

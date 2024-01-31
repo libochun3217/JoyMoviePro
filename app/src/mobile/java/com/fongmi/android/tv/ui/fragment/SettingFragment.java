@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.viewbinding.ViewBinding;
 
+import com.blankj.utilcode.util.ActivityUtils;
 import com.charlee.android.tv.BuildConfig;
 import com.charlee.android.tv.R;
 import com.fongmi.android.tv.Setting;
@@ -30,6 +31,7 @@ import com.fongmi.android.tv.impl.LiveCallback;
 import com.fongmi.android.tv.impl.ProxyCallback;
 import com.fongmi.android.tv.impl.SiteCallback;
 import com.fongmi.android.tv.player.ExoUtil;
+import com.fongmi.android.tv.ui.activity.EasyWebActivity;
 import com.fongmi.android.tv.ui.activity.MainActivity;
 import com.fongmi.android.tv.ui.base.BaseFragment;
 import com.fongmi.android.tv.ui.dialog.ConfigDialog;
@@ -125,6 +127,12 @@ public class SettingFragment extends BaseFragment implements ConfigCallback, Sit
         mBinding.wallRefresh.setOnClickListener(this::setWallRefresh);
         mBinding.size.setOnClickListener(this::setSize);
         mBinding.doh.setOnClickListener(this::setDoh);
+        mBinding.tips.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ActivityUtils.startActivity(EasyWebActivity.class);
+            }
+        });
     }
 
     @Override

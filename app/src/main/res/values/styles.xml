@@ -35,4 +35,9 @@
         <item name="keep_content_on_player_reset">true</item>
     </style>
 
+    <style name="toolBar">
+        <item name="colorControlNormal">#ffffff</item>
+        <item name="android:textSize">12sp</item>
+    </style>
+
 </resources>
