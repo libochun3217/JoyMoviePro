@@ -14,15 +14,19 @@ import androidx.core.content.pm.ShortcutInfoCompat;
 import androidx.core.content.pm.ShortcutManagerCompat;
 import androidx.core.graphics.drawable.IconCompat;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.LifecycleCoroutineScope;
 import androidx.viewbinding.ViewBinding;
 
+import com.blankj.utilcode.util.LogUtils;
 import com.fongmi.android.tv.App;
 import com.charlee.android.tv.R;
 import com.fongmi.android.tv.Updater;
 import com.fongmi.android.tv.api.CacheManger;
+import com.fongmi.android.tv.api.ServerApi;
 import com.fongmi.android.tv.api.config.LiveConfig;
 import com.fongmi.android.tv.api.config.VodConfig;
 import com.fongmi.android.tv.api.config.WallConfig;
+import com.fongmi.android.tv.api.network.UserService;
 import com.fongmi.android.tv.bean.Config;
 import com.charlee.android.tv.databinding.ActivityMainBinding;
 import com.fongmi.android.tv.db.AppDatabase;
@@ -46,11 +50,17 @@ import com.permissionx.guolindev.PermissionX;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
+import java.io.IOException;
+
+import retrofit2.Call;
+import retrofit2.Response;
+
 public class MainActivity extends BaseActivity implements NavigationBarView.OnItemSelectedListener {
 
     private ActivityMainBinding mBinding;
     private FragmentStateManager mManager;
     private boolean confirm;
+    private String TAG = "MainActivityTag";
 
     @Override
     protected ViewBinding getBinding() {
@@ -71,6 +81,7 @@ public class MainActivity extends BaseActivity implements NavigationBarView.OnIt
         initConfig();
         PermissionX.init(this).permissions(Manifest.permission.WRITE_EXTERNAL_STORAGE)
                 .request((allGranted, grantedList, deniedList) -> AppDatabase.restore(new Callback()));
+        UserService.INSTANCE.login();
     }
 
     @Override

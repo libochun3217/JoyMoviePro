@@ -24,6 +24,7 @@ import com.fongmi.android.tv.Updater;
 import com.fongmi.android.tv.api.config.LiveConfig;
 import com.fongmi.android.tv.api.config.VodConfig;
 import com.fongmi.android.tv.api.config.WallConfig;
+import com.fongmi.android.tv.api.network.UserService;
 import com.fongmi.android.tv.bean.Config;
 import com.fongmi.android.tv.bean.Func;
 import com.fongmi.android.tv.bean.History;
@@ -105,6 +106,7 @@ public class HomeActivity extends BaseActivity implements CustomTitleView.Listen
         initConfig();
         PermissionX.init(this).permissions(Manifest.permission.WRITE_EXTERNAL_STORAGE)
                 .request((allGranted, grantedList, deniedList) -> AppDatabase.restore(new Callback()));
+        UserService.INSTANCE.login();
     }
 
     @Override

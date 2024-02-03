@@ -167,4 +167,10 @@ dependencies {
     implementation 'io.github.justson:agentweb-filechooser:v5.1.1-androidx' // (可选)
     implementation 'com.github.Justson:Downloader:v5.0.4-androidx' // (可选)
 
+    // retrofit
+    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
+    implementation 'com.squareup.retrofit2:converter-scalars:2.9.0'
+
+
 }
