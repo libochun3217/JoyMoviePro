@@ -22,6 +22,9 @@
     java.lang.Object readResolve();
 }
 
+-keep class com.fongmi.android.tv.bean.** {*;}
+
+
 # SimpleXML
 -keep interface org.simpleframework.xml.core.Label { public *; }
 -keep class * implements org.simpleframework.xml.core.Label { public *; }
