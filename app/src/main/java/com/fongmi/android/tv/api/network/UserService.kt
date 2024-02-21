@@ -11,12 +11,13 @@ import com.fongmi.android.tv.api.ServerApi.Companion.instance
 object UserService {
     private const val TOKEN_KEY = "token_key"
     private var lastLogin = 0L
+
+    fun userName() = "${BuildConfig.FLAVOR_mode}_${Build.BRAND}_${DeviceUtils.getModel()}_${Build.CPU_ABI}_Android-${DeviceUtils.getSDKVersionName()}_${DeviceUtils.getUniqueDeviceId()}"
+
     fun buildLoginReq(): LoginRequest {
-        val userName =
-            "${BuildConfig.FLAVOR_mode}_${Build.BRAND}_${DeviceUtils.getModel()}_${Build.CPU_ABI}_Android-${DeviceUtils.getSDKVersionName()}_${DeviceUtils.getUniqueDeviceId()}"
         val uuid = DeviceUtils.getUniqueDeviceId()
-        val password = EncryptUtils.encryptMD5ToString("$uuid${userName}ruoyi")
-        return LoginRequest(userName, password, uuid)
+        val password = EncryptUtils.encryptMD5ToString("$uuid${userName()}ruoyi")
+        return LoginRequest(userName(), password, uuid)
     }
 
     fun login() {

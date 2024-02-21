@@ -19,6 +19,7 @@ data class ChannelStatus(
                                 ((System.currentTimeMillis() - it.watchStartTimestamp) / 1000 / 60).toInt()
                             it.watchMinutes = it.watchMinutes + minutes
                             if (minutes > 0) it.failedTime = 0
+                            it.watchStartTimestamp = 0
                         }
                         LogUtils.iTag(
                             TAG,
@@ -31,7 +32,7 @@ data class ChannelStatus(
 
         fun removeFailedChannel(live: Live) {
             live.groups.map {
-                val failed = it.channel.filter { it?.channelStatus?.failedTime ?: 0 > 1 }
+                val failed = it.channel.filter { it?.channelStatus?.failedTime ?: 0 > 0 }
                 it.channel.removeAll(failed)
                 if (failed.isNotEmpty()) {
                     LogUtils.iTag(TAG, "remove ${failed.map { it.name }}")

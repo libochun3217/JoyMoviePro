@@ -6,6 +6,7 @@ import com.blankj.utilcode.util.LogUtils
 import com.fongmi.android.tv.api.CacheKeyManager.addKey
 import com.fongmi.android.tv.api.CacheKeyManager.cache
 import com.fongmi.android.tv.api.CacheKeyManager.getKeys
+import com.fongmi.android.tv.api.network.LiveService
 import com.fongmi.android.tv.bean.ChannelStatus
 import com.fongmi.android.tv.bean.Live
 import com.github.catvod.utils.Path
@@ -47,6 +48,8 @@ object CacheManger {
                 live.contentHash = EncryptUtils.encryptMD5ToString(it)
             }
         }
+
+        LiveService.upload(live)
     }
 
 

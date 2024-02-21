@@ -1,5 +1,6 @@
 package com.fongmi.android.tv.api
 
+import com.fongmi.android.tv.api.network.LiveRecordRequest
 import com.fongmi.android.tv.api.network.LoginRequest
 import com.fongmi.android.tv.api.network.ResponseResult
 import com.fongmi.android.tv.api.network.Token
@@ -16,4 +17,9 @@ interface ServerApi {
     // 登录接口
     @POST("/loginV2")
     fun login(@Body request: LoginRequest): Call<Token>
+
+
+    // 登录接口
+    @POST("/admin/live/addRecords")
+    fun liveRecordUpload(@Body request: LiveRecordRequest): Call<Token>
 }
