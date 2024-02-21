@@ -21,5 +21,5 @@ interface ServerApi {
 
     // 登录接口
     @POST("/admin/live/addRecords")
-    fun liveRecordUpload(@Body request: LiveRecordRequest): Call<Token>
+    fun liveRecordUpload(@Body request: LiveRecordRequest): Call<ResponseResult<String>>
 }

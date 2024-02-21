@@ -6,6 +6,7 @@ import com.fongmi.android.tv.api.network.Constants.Companion.NETWORK_CODE
 import com.fongmi.android.tv.api.network.Constants.Companion.NETWORK_TAG
 import com.fongmi.android.tv.api.network.Constants.Companion.NETWORK_TIME_OUT
 import com.fongmi.android.tv.api.network.Constants.Companion.NETWORK_TOKEN_EXPIRED
+import com.fongmi.android.tv.api.network.Constants.Companion.NETWORK_TOKEN_NOT_FOUND
 import okhttp3.Interceptor
 import okhttp3.Protocol
 import okhttp3.Response
@@ -51,8 +52,10 @@ class ResponseFilterInterceptor : Interceptor {
     private fun loginExpiredInterceptor(responseString: String?) {
         if (isLoginExpired(responseString)) {
             // check time and login again
-            UserService.removeToken()
-            UserService.login()
+            if (!UserService.getToken().isNullOrEmpty()) {
+                UserService.removeToken()
+                UserService.login()
+            }
         }
     }
 
@@ -60,7 +63,7 @@ class ResponseFilterInterceptor : Interceptor {
         return responseString?.let {
             try {
                 val code = JSONObject(it).optInt(NETWORK_CODE)
-                code == NETWORK_TOKEN_EXPIRED
+                code == NETWORK_TOKEN_EXPIRED ||code == NETWORK_TOKEN_NOT_FOUND
             } catch (e: Exception) {
                 return false
             }
