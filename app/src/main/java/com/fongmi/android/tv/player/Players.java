@@ -430,11 +430,11 @@ public class Players implements Player.Listener, IMediaPlayer.Listener, Analytic
         }
     }
 
-    private int getVideoWidth() {
+    public int getVideoWidth() {
         return isExo() ? exoPlayer.getVideoSize().width : ijkPlayer.getVideoWidth();
     }
 
-    private int getVideoHeight() {
+    public int getVideoHeight() {
         return isExo() ? exoPlayer.getVideoSize().height : ijkPlayer.getVideoHeight();
     }
 

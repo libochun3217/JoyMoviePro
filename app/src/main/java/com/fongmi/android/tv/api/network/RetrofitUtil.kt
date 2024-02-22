@@ -14,9 +14,9 @@ private const val BASE_URL = "http://139.9.181.116:9896"
 
 val retrofit by lazy {
     val okHttp = OkHttpClient.Builder().apply {
-        connectTimeout(5L, TimeUnit.SECONDS)    // 连接超时 5s
-        writeTimeout(10L, TimeUnit.SECONDS)     // 写操作超时时间 10s
-        readTimeout(10L, TimeUnit.SECONDS)      // 读操作超时时间 10s
+        connectTimeout(10L, TimeUnit.SECONDS)    // 连接超时 5s
+        writeTimeout(15L, TimeUnit.SECONDS)     // 写操作超时时间 10s
+        readTimeout(15L, TimeUnit.SECONDS)      // 读操作超时时间 10s
     }
 
     Retrofit

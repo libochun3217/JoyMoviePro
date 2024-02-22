@@ -26,3 +26,30 @@ data class LiveRecord(
     val failedTime: Int,
     val url: String
 ) : Serializable
+
+
+data class VodRecordRequest(
+    val records: List<VodRecord>
+) : Serializable
+
+data class VodRecord(
+    val watchMinute: Long,
+    val vodName: String?,
+    val typeName: String?,
+    val vodPic: String?,
+    val vodRemarks: String?, // 评论
+    val vodYear: String?,
+    val vodArea: String?,
+    val vodDirector: String?,
+    val vodActor: String?,
+    val vodContent: String?,
+    val vodWith: Int?,
+    val vodHeight: Int?,
+    val siteName: String?,
+    val siteApi: String?,
+    val siteType: Int?,
+    val configName: String?,
+    val configUrl: String?,
+    val playUrl: String?,
+    val playHeader: String?
+) : Serializable

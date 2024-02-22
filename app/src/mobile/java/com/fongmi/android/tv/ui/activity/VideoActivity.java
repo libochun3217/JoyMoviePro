@@ -45,6 +45,7 @@ import com.fongmi.android.tv.Constant;
 import com.charlee.android.tv.R;
 import com.fongmi.android.tv.Setting;
 import com.fongmi.android.tv.api.config.VodConfig;
+import com.fongmi.android.tv.api.network.VodService;
 import com.fongmi.android.tv.bean.Episode;
 import com.fongmi.android.tv.bean.Flag;
 import com.fongmi.android.tv.bean.History;
@@ -158,6 +159,8 @@ public class VideoActivity extends BaseActivity implements Clock.Callback, Custo
     private Runnable mR4;
     private Clock mClock;
     private PiP mPiP;
+    private Vod vod;
+    private long startWatch;
 
     public static void push(FragmentActivity activity, String text) {
         if (FileChooser.isValid(activity, Uri.parse(text))) file(activity, FileChooser.getPathFromUri(activity, Uri.parse(text)));
@@ -322,6 +325,7 @@ public class VideoActivity extends BaseActivity implements Clock.Callback, Custo
         setViewModel();
         showProgress();
         checkId();
+        startWatch = System.currentTimeMillis();
     }
 
     @Override
@@ -514,6 +518,7 @@ public class VideoActivity extends BaseActivity implements Clock.Callback, Custo
         checkHistory(item);
         checkFlag(item);
         checkKeepImg();
+        this.vod = item;
     }
 
     private void setText(TextView view, int resId, String text) {
@@ -1730,6 +1735,7 @@ public class VideoActivity extends BaseActivity implements Clock.Callback, Custo
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        VodService.INSTANCE.checkVodStatus(vod, getKey(), mPlayers, (System.currentTimeMillis() - startWatch) / 1000 / 60);
         stopSearch();
         mClock.release();
         mPlayers.release();

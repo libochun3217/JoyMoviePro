@@ -346,4 +346,26 @@ public class Vod implements Parcelable {
             return new Vod[size];
         }
     };
+
+    @Override
+    public String toString() {
+        return "Vod{" +
+                "vodId='" + vodId + '\'' +
+                ", vodName='" + vodName + '\'' +
+                ", typeName='" + typeName + '\'' +
+                ", vodPic='" + vodPic + '\'' +
+                ", vodRemarks='" + vodRemarks + '\'' +
+                ", vodYear='" + vodYear + '\'' +
+                ", vodArea='" + vodArea + '\'' +
+                ", vodDirector='" + vodDirector + '\'' +
+                ", vodActor='" + vodActor + '\'' +
+                ", vodContent='" + vodContent + '\'' +
+                ", vodTag='" + vodTag + '\'' +
+                ", cate=" + cate +
+                ", style=" + style +
+                ", land=" + land +
+                ", circle=" + circle +
+                ", ratio=" + ratio +
+                '}';
+    }
 }

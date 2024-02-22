@@ -242,4 +242,17 @@ public class Config {
         Config it = (Config) obj;
         return getId() == it.getId();
     }
+
+    @Override
+    public String toString() {
+        return "Config{" +
+                "id=" + id +
+                ", type=" + type +
+                ", time=" + time +
+                ", url='" + url + '\'' +
+                ", name='" + name + '\'' +
+                ", home='" + home + '\'' +
+                ", parse='" + parse + '\'' +
+                '}';
+    }
 }

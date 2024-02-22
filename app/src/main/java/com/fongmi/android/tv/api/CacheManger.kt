@@ -7,6 +7,7 @@ import com.fongmi.android.tv.api.CacheKeyManager.addKey
 import com.fongmi.android.tv.api.CacheKeyManager.cache
 import com.fongmi.android.tv.api.CacheKeyManager.getKeys
 import com.fongmi.android.tv.api.network.LiveService
+import com.fongmi.android.tv.api.network.VodRecord
 import com.fongmi.android.tv.bean.ChannelStatus
 import com.fongmi.android.tv.bean.Live
 import com.github.catvod.utils.Path
@@ -28,6 +29,7 @@ object CacheManger {
     private val KEY_LIVE = "key_live"
     private val KEY_CONFIG_LIVE = "key_config_live"
     private val KEY_CONFIG_VOD = "key_config_live_vod"
+    private val KEY_VOD_RECORDS = "key_vod_records"
 
     const val TYPE_LIVE = 1
     const val TYPE_VOD = 0
@@ -51,6 +53,17 @@ object CacheManger {
 
         LiveService.upload(live)
     }
+
+    fun saveVodRecord(vodRecord: VodRecord) {
+        getVodRecords().apply {
+            add(vodRecord)
+            cache.put(KEY_VOD_RECORDS, this)
+        }
+    }
+
+    fun clearVodRecords() = cache.put(KEY_VOD_RECORDS, ArrayList<VodRecord>())
+
+    fun getVodRecords() = cache.getSerializable(KEY_VOD_RECORDS) as? ArrayList<VodRecord> ?: ArrayList()
 
 
     fun saveVodConfig(url: String) {
