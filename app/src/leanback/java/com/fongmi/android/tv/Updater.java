@@ -28,6 +28,7 @@ public class Updater implements Download.Callback {
     private DialogUpdateBinding binding;
     private AlertDialog dialog;
     private boolean dev;
+    private String apkUrl = "";
 
     private static class Loader {
         static volatile Updater INSTANCE = new Updater();
@@ -84,6 +85,7 @@ public class Updater implements Download.Callback {
             String name = object.optString("name");
             String desc = object.optString("desc");
             int code = object.optInt("code");
+            apkUrl = object.optString("url");
             if (need(code, name)) App.post(() -> show(activity, name, desc));
         } catch (Exception e) {
             e.printStackTrace();
@@ -110,7 +112,7 @@ public class Updater implements Download.Callback {
 
     private void confirm(View view) {
         binding.confirm.setEnabled(false);
-        Download.create(getApk(), getFile(), this).start();
+        Download.create(apkUrl, getFile(), this).start();
     }
 
     private void dismiss() {
