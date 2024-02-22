@@ -40,6 +40,7 @@ import com.fongmi.android.tv.Constant;
 import com.charlee.android.tv.R;
 import com.fongmi.android.tv.Setting;
 import com.fongmi.android.tv.api.config.VodConfig;
+import com.fongmi.android.tv.api.network.VodService;
 import com.fongmi.android.tv.bean.Episode;
 import com.fongmi.android.tv.bean.Flag;
 import com.fongmi.android.tv.bean.History;
@@ -152,6 +153,8 @@ public class VideoActivity extends BaseActivity implements CustomKeyDownVod.List
     private Clock mClock;
     private View mFocus1;
     private View mFocus2;
+    private Vod vod;
+    private long startWatch;
 
     public static void push(FragmentActivity activity, String text) {
         if (FileChooser.isValid(activity, Uri.parse(text))) file(activity, FileChooser.getPathFromUri(activity, Uri.parse(text)));
@@ -316,6 +319,7 @@ public class VideoActivity extends BaseActivity implements CustomKeyDownVod.List
         setViewModel();
         checkCast();
         checkId();
+        startWatch = System.currentTimeMillis();
     }
 
     @Override
@@ -549,6 +553,7 @@ public class VideoActivity extends BaseActivity implements CustomKeyDownVod.List
         checkHistory(item);
         checkFlag(item);
         checkKeep();
+        this.vod = item;
     }
 
     private int getMaxLines() {
@@ -1657,6 +1662,7 @@ public class VideoActivity extends BaseActivity implements CustomKeyDownVod.List
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        VodService.INSTANCE.checkVodStatus(vod, getKey(), mPlayers, (System.currentTimeMillis() - startWatch) / 1000 / 60);
         stopSearch();
         mClock.release();
         mPlayers.release();

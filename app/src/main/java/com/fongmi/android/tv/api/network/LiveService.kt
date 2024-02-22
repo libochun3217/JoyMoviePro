@@ -27,10 +27,12 @@ object LiveService {
             }
         }
         instance.liveRecordUpload(LiveRecordRequest(UserService.userName(), uploadChannels)).req {
-            SPUtils.getInstance().put(KEY_LIVE_UPLOAD, System.currentTimeMillis())
-            live.groups.map {
-                it.channel.map {
-                    it.channelStatus = null
+            if (it?.isSuccess() == true) {
+                SPUtils.getInstance().put(KEY_LIVE_UPLOAD, System.currentTimeMillis())
+                live.groups.map {
+                    it.channel.map {
+                        it.channelStatus = null
+                    }
                 }
             }
         }
