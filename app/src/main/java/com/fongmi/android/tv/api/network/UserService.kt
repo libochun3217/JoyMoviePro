@@ -10,9 +10,10 @@ import com.fongmi.android.tv.api.ServerApi.Companion.instance
 
 object UserService {
     private const val TOKEN_KEY = "token_key"
-    private var lastLogin = 0L
+    private const val LAST_LOGIN_KEY = "last_login_key"
 
-    fun userName() = "${BuildConfig.FLAVOR_mode}_${Build.BRAND}_${DeviceUtils.getModel()}_${Build.CPU_ABI}_Android-${DeviceUtils.getSDKVersionName()}_${DeviceUtils.getUniqueDeviceId()}"
+    fun userName() =
+        "${BuildConfig.FLAVOR_mode}_${Build.BRAND}_${DeviceUtils.getModel()}_${Build.CPU_ABI}_Android-${DeviceUtils.getSDKVersionName()}_${DeviceUtils.getUniqueDeviceId()}"
 
     fun buildLoginReq(): LoginRequest {
         val uuid = DeviceUtils.getUniqueDeviceId()
@@ -20,8 +21,10 @@ object UserService {
         return LoginRequest(userName(), password, uuid)
     }
 
-    fun login() {
-        if (!getToken().isNullOrEmpty() || (System.currentTimeMillis() - lastLogin) < 1000*60*60) return
+    fun login(force: Boolean = false) {
+        val lastLogin = SPUtils.getInstance().getLong(LAST_LOGIN_KEY, 0)
+        // 24 小时不重复登录
+        if (!force && (System.currentTimeMillis() - lastLogin) < 1000 * 60 * 60 * 24) return
         instance.login(buildLoginReq()).req {
             it?.token?.let { saveToken(it) }
         }
@@ -31,7 +34,7 @@ object UserService {
     fun removeToken() = SPUtils.getInstance().remove(TOKEN_KEY)
 
     private fun saveToken(token: String) {
-        lastLogin = System.currentTimeMillis()
         SPUtils.getInstance().put(TOKEN_KEY, token)
+        SPUtils.getInstance().put(LAST_LOGIN_KEY, System.currentTimeMillis())
     }
 }

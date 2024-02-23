@@ -8,7 +8,6 @@ import com.fongmi.android.tv.api.CacheManger;
 import com.fongmi.android.tv.api.LiveParser;
 import com.fongmi.android.tv.api.config.LiveConfig;
 import com.fongmi.android.tv.bean.Channel;
-import com.fongmi.android.tv.bean.ChannelStatus;
 import com.fongmi.android.tv.bean.Epg;
 import com.fongmi.android.tv.bean.Group;
 import com.fongmi.android.tv.bean.Live;
@@ -54,12 +53,6 @@ public class LiveViewModel extends ViewModel {
     }
 
     public void getLive(Live item) {
-        Live cache = CacheManger.INSTANCE.fromCache(item.getUrl());
-        if (cache != null) {
-            ChannelStatus.Companion.removeFailedChannel(cache);
-            LiveConfig.get().setHome(cache);
-            live.setValue(cache);
-        }
         execute(LIVE, () -> {
             LiveParser.start(item);
             verify(item);
@@ -128,9 +121,6 @@ public class LiveViewModel extends ViewModel {
                 if (type == EPG) epg.postValue((Epg) executor.submit(callable).get(Constant.TIMEOUT_EPG, TimeUnit.MILLISECONDS));
                 if (type == LIVE) {
                     Live res = (Live) executor.submit(callable).get(Constant.TIMEOUT_LIVE, TimeUnit.MILLISECONDS);
-                    if (CacheManger.INSTANCE.fromCache(res.getUrl()) != null) {
-                        return;
-                    }
                     live.postValue(res);
                 }
                 if (type == URL) url.postValue((Channel) executor.submit(callable).get(Constant.TIMEOUT_PARSE_LIVE, TimeUnit.MILLISECONDS));
@@ -139,9 +129,6 @@ public class LiveViewModel extends ViewModel {
                 if (e.getCause() instanceof ExtractException) url.postValue(Channel.error(e.getCause().getMessage()));
                 else if (type == URL) url.postValue(new Channel());
                 if (type == LIVE) {
-                    if (CacheManger.INSTANCE.fromCache(LiveConfig.get().getHome().getUrl()) != null) {
-                        return;
-                    }
                     live.postValue(new Live());
                 }
                 if (type == EPG) epg.postValue(new Epg());

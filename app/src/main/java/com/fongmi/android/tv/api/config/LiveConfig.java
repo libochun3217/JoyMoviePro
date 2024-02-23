@@ -80,15 +80,10 @@ public class LiveConfig {
 
     public LiveConfig init() {
         this.home = null;
-        ArrayList<String> cs = CacheManger.INSTANCE.getLiveConfigs();
-        if (cs.isEmpty()) {
-            cs.add("https://youdu.fan/yd/tvlive1.txt");
-            cs.add("https://wds.ecsxs.com/230864.json");
-        }
-        if (!cs.isEmpty()) {
-            for(String c : cs) {
-                Config.find(c, TYPE_LIVE);
-            }
+        Config item = AppDatabase.get().getConfigDao().findOne(1);
+        if (item == null) {
+            Config.find("https://youdu.fan/yd/tvlive1.txt", TYPE_LIVE);
+            Config.find("https://wds.ecsxs.com/230864.json", TYPE_LIVE);
         }
         return config(Config.live());
     }
@@ -126,7 +121,6 @@ public class LiveConfig {
                     try {
                         String text = Decoder.getJson(config.getUrl());
                         CacheManger.INSTANCE.saveResponse(config.getUrl(), text);
-                        CacheManger.INSTANCE.saveLiveConfig(config.getUrl());
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -134,7 +128,6 @@ public class LiveConfig {
             } else  {
                 String text = Decoder.getJson(config.getUrl());
                 parseConfig(text, callback);
-                CacheManger.INSTANCE.saveLiveConfig(config.getUrl());
                 CacheManger.INSTANCE.saveResponse(config.getUrl(), text);
             }
         } catch (Throwable e) {

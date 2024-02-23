@@ -3,12 +3,9 @@ package com.fongmi.android.tv.api
 import com.blankj.utilcode.util.CacheDiskUtils
 import com.blankj.utilcode.util.EncryptUtils
 import com.blankj.utilcode.util.LogUtils
-import com.fongmi.android.tv.api.CacheKeyManager.addKey
 import com.fongmi.android.tv.api.CacheKeyManager.cache
-import com.fongmi.android.tv.api.CacheKeyManager.getKeys
-import com.fongmi.android.tv.api.network.LiveService
+import com.fongmi.android.tv.api.network.LiveRecord
 import com.fongmi.android.tv.api.network.VodRecord
-import com.fongmi.android.tv.bean.ChannelStatus
 import com.fongmi.android.tv.bean.Live
 import com.github.catvod.utils.Path
 import java.io.File
@@ -26,33 +23,11 @@ import java.io.File
  */
 object CacheManger {
     private val TAG = "CacheManger"
-    private val KEY_LIVE = "key_live"
-    private val KEY_CONFIG_LIVE = "key_config_live"
-    private val KEY_CONFIG_VOD = "key_config_live_vod"
     private val KEY_VOD_RECORDS = "key_vod_records"
+    private const val KEY_LIVE_RECORDS = "key_live_records"
 
     const val TYPE_LIVE = 1
     const val TYPE_VOD = 0
-
-
-    fun saveLive(live: Live) {
-        if (live.groups.isNullOrEmpty()) {
-            LogUtils.dTag(TAG, "saveLive groups == null")
-            return
-        }
-        ChannelStatus.checkStatus(live)
-        if (live.contentHash != null) {
-            cache.put(live.contentHash, live)
-            addKey(KEY_LIVE, live.contentHash)
-            LogUtils.dTag(TAG, "saveLive ${live.name}")
-        } else {
-            getResponse(live.url)?.let {
-                live.contentHash = EncryptUtils.encryptMD5ToString(it)
-            }
-        }
-
-        LiveService.upload(live)
-    }
 
     fun saveVodRecord(vodRecord: VodRecord) {
         getVodRecords().apply {
@@ -61,22 +36,13 @@ object CacheManger {
         }
     }
 
+    fun saveLiveRecords(liveRecords: ArrayList<LiveRecord>) = cache.put(KEY_LIVE_RECORDS, liveRecords)
+
+    fun getLiveRecords() = cache.getSerializable(KEY_LIVE_RECORDS) as? ArrayList<LiveRecord> ?: ArrayList()
+
     fun clearVodRecords() = cache.put(KEY_VOD_RECORDS, ArrayList<VodRecord>())
 
     fun getVodRecords() = cache.getSerializable(KEY_VOD_RECORDS) as? ArrayList<VodRecord> ?: ArrayList()
-
-
-    fun saveVodConfig(url: String) {
-        addKey(KEY_CONFIG_VOD, url)
-    }
-
-    fun getVodConfigs(): ArrayList<String> = getKeys(KEY_CONFIG_VOD)
-
-    fun saveLiveConfig(url: String) {
-        addKey(KEY_CONFIG_LIVE, url)
-    }
-
-    fun getLiveConfigs(): ArrayList<String> = getKeys(KEY_CONFIG_LIVE)
 
     fun saveResponse(url: String, response: String) {
         if (response.isNullOrEmpty()) return
@@ -85,18 +51,6 @@ object CacheManger {
     }
 
     fun getResponse(url: String) = cache.getString(url)
-
-
-    fun fromCache(url: String): Live? {
-        getResponse(url)?.let {
-            val hash = EncryptUtils.encryptMD5ToString(it)
-            val c = cache.getSerializable(hash) as? Live
-            LogUtils.iTag(TAG, "fromCache")
-            if (c?.groups.isNullOrEmpty()) return null
-            return c
-        }
-        return null
-    }
 }
 
 object CacheKeyManager {

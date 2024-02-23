@@ -18,6 +18,7 @@ import com.fongmi.android.tv.bean.Depot;
 import com.fongmi.android.tv.bean.Parse;
 import com.fongmi.android.tv.bean.Rule;
 import com.fongmi.android.tv.bean.Site;
+import com.fongmi.android.tv.db.AppDatabase;
 import com.fongmi.android.tv.impl.Callback;
 import com.fongmi.android.tv.utils.Notify;
 import com.fongmi.android.tv.utils.UrlUtil;
@@ -95,14 +96,10 @@ public class VodConfig {
         this.wall = null;
         this.home = null;
         this.parse = null;
-        ArrayList<String> cs = CacheManger.INSTANCE.getVodConfigs();
-        if (cs.isEmpty()) {
-            cs.add("http://tvkj.top/DC.txt");
-        }
-        if (!cs.isEmpty()) {
-            for(String c : cs) {
-                Config.find(c, TYPE_VOD);
-            }
+        Config item = AppDatabase.get().getConfigDao().findOne(0);
+        if (item == null) {
+            Config.find("http://tvkj.top/DC.txt", TYPE_VOD);
+            Config.find("https://raw.githubusercontent.com/mengzehe/TVBox/main/18/18-01.json", TYPE_VOD);
         }
         this.config = Config.vod();
         this.doh = new ArrayList<>();
@@ -158,7 +155,6 @@ public class VodConfig {
                 });
             } else  {
                 String json = Decoder.getJson(config.getUrl());
-                CacheManger.INSTANCE.saveVodConfig(config.getUrl());
                 CacheManger.INSTANCE.saveResponse(config.getUrl(), json);
                 checkJson(JsonParser.parseString(json).getAsJsonObject(), callback);
             }

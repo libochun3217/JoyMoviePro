@@ -32,8 +32,8 @@ import com.charlee.android.tv.R;
 import com.fongmi.android.tv.Setting;
 import com.fongmi.android.tv.api.CacheManger;
 import com.fongmi.android.tv.api.config.LiveConfig;
+import com.fongmi.android.tv.api.network.LiveService;
 import com.fongmi.android.tv.bean.Channel;
-import com.fongmi.android.tv.bean.ChannelStatus;
 import com.fongmi.android.tv.bean.Epg;
 import com.fongmi.android.tv.bean.Group;
 import com.fongmi.android.tv.bean.Keep;
@@ -110,9 +110,10 @@ public class LiveActivity extends BaseActivity implements CustomKeyDownLive.List
     private int passCount;
     private PiP mPiP;
     private String TAG = "LiveActivityTag";
+    private long lastWatch = System.currentTimeMillis();
 
     public static void start(Context context) {
-        context.startActivity(new Intent(context, LiveActivity.class).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK).putExtra("empty", false));
+        if (!LiveConfig.isEmpty()) context.startActivity(new Intent(context, LiveActivity.class).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK).putExtra("empty", false));
     }
 
     private boolean isEmpty() {
@@ -599,28 +600,11 @@ public class LiveActivity extends BaseActivity implements CustomKeyDownLive.List
         mGroup.setPosition(mChannelAdapter.setSelected(item.group(mGroup)));
         mPlayers.setPlayer(getPlayerType(item.getPlayerType()));
         setArtwork(item.getLogo());
-        checkChannelStatus(item);
         mChannel = item;
         setPlayerView();
         showInfo();
         hideUI();
         fetch();
-    }
-
-    private void checkChannelStatus(Channel item) {
-        if (item.channelStatus != null) {
-            item.channelStatus.setWatchStartTimestamp(System.currentTimeMillis());
-        } else {
-            item.channelStatus = new ChannelStatus(0, System.currentTimeMillis(), 0);
-        }
-        if (mChannel != null && mChannel.channelStatus != null && mChannel.channelStatus.getWatchStartTimestamp() > 0) {
-            long minutes = (System.currentTimeMillis() - mChannel.channelStatus.getWatchStartTimestamp()) / 1000 / 60;
-            mChannel.channelStatus.setWatchMinutes((int) minutes);
-            mChannel.channelStatus.setWatchStartTimestamp(0);
-            if (minutes > 0) {
-                mChannel.channelStatus.setFailedTime(0);
-            }
-        }
     }
 
     @Override
@@ -672,7 +656,16 @@ public class LiveActivity extends BaseActivity implements CustomKeyDownLive.List
     }
 
     private void start(Channel result) {
+        addLiveRecord();
         mPlayers.start(result, getTimeout());
+    }
+
+    private void addLiveRecord() {
+        if (mPlayers.getUrl() != null && mChannel != null) {
+            long watchMinutes = (System.currentTimeMillis() - lastWatch) / 1000 / 60;
+            LiveService.INSTANCE.addLiveRecord(mChannel.getName(), mPlayers.getUrl(), mGroup.getPass().isEmpty(), (int)watchMinutes, 0);
+        }
+        lastWatch = System.currentTimeMillis();
     }
 
     private void checkPlayImg(boolean playing) {
@@ -838,6 +831,7 @@ public class LiveActivity extends BaseActivity implements CustomKeyDownLive.List
     private void onError(ErrorEvent event) {
         showError(event.getMsg());
         mPlayers.stop();
+        LiveService.INSTANCE.addLiveRecord(mChannel.getName(), mPlayers.getUrl(), mGroup.getPass().isEmpty(), 0, 1);
         startFlow();
     }
 
@@ -847,10 +841,6 @@ public class LiveActivity extends BaseActivity implements CustomKeyDownLive.List
             nextLine(true);
         } else if (isGone(mBinding.recycler)) {
             mChannel.setLine(0);
-            if (mChannel.channelStatus != null && mChannel.channelStatus.getWatchMinutes() <=0) {
-                int failed = mChannel.channelStatus.getFailedTime();
-                mChannel.channelStatus.setFailedTime(failed + 1);
-            }
             nextChannel();
         }
     }
@@ -1163,6 +1153,7 @@ public class LiveActivity extends BaseActivity implements CustomKeyDownLive.List
         App.removeCallbacks(mR1, mR2, mR3);
         mViewModel.url.removeObserver(mObserveUrl);
         mViewModel.epg.removeObserver(mObserveEpg);
-        CacheManger.INSTANCE.saveLive(LiveConfig.get().getHome());
+        addLiveRecord();
+        LiveService.INSTANCE.upload();
     }
 }

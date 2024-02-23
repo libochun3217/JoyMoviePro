@@ -54,7 +54,7 @@ class ResponseFilterInterceptor : Interceptor {
             // check time and login again
             if (!UserService.getToken().isNullOrEmpty()) {
                 UserService.removeToken()
-                UserService.login()
+                UserService.login(true)
             }
         }
     }

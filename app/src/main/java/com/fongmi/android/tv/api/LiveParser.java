@@ -3,6 +3,7 @@ package com.fongmi.android.tv.api;
 import android.util.Base64;
 
 import com.blankj.utilcode.util.EncryptUtils;
+import com.fongmi.android.tv.App;
 import com.fongmi.android.tv.bean.Channel;
 import com.fongmi.android.tv.bean.ClearKey;
 import com.fongmi.android.tv.bean.Drm;
@@ -36,8 +37,6 @@ public class LiveParser {
     public static void start(Live live) {
         if (live.getGroups().size() > 0) return;
         String text = getText(live.getUrl());
-        CacheManger.INSTANCE.saveResponse(live.getUrl(), text);
-        live.contentHash = EncryptUtils.encryptMD5ToString(text);
         if (live.getType() == 0) text(live, text);
         if (live.getType() == 1) json(live, text);
         if (live.getType() == 2) proxy(live,text);
@@ -117,7 +116,19 @@ public class LiveParser {
 
     private static String getText(String url) {
         if (url.startsWith("file")) return Path.read(url);
-        if (url.startsWith("http")) return OkHttp.string(url);
+        if (url.startsWith("http")) {
+            String cache = CacheManger.INSTANCE.getResponse(url);
+            if (cache != null) {
+                App.execute(() -> {
+                    CacheManger.INSTANCE.saveResponse(url, OkHttp.string(url));
+                });
+                return cache;
+            } else {
+                String res = OkHttp.string(url);
+                CacheManger.INSTANCE.saveResponse(url, res);
+                return res;
+            }
+        }
         if (url.startsWith("assets") || url.startsWith("proxy")) return getText(UrlUtil.convert(url));
         if (url.length() > 0 && url.length() % 4 == 0) return getText(new String(Base64.decode(url, Base64.DEFAULT)));
         return "";

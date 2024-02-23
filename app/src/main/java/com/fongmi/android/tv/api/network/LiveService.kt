@@ -1,39 +1,41 @@
 package com.fongmi.android.tv.api.network
 
 import com.blankj.utilcode.util.SPUtils
+import com.fongmi.android.tv.api.CacheManger
 import com.fongmi.android.tv.api.ServerApi.Companion.instance
+import com.fongmi.android.tv.bean.Channel
+import com.fongmi.android.tv.bean.Group
 import com.fongmi.android.tv.bean.Live
 
 object LiveService {
     private const val KEY_LIVE_UPLOAD = "key_live_upload"
+    val liveRecords by lazy { CacheManger.getLiveRecords() }
 
-    fun upload(live: Live) {
+    fun addLiveRecord(liveName: String, liveUrl: String, isPass: Boolean, watchMinutes: Int, failedTime: Int) {
+        val old = liveRecords.firstOrNull { it.url == liveUrl }
+        if (old != null) {
+            old.watchMinute = old.watchMinute + watchMinutes
+            old.failedTime = old.failedTime + failedTime
+            if (watchMinutes > 0) old.failedTime = 0
+        } else {
+            liveRecords.add(LiveRecord(
+                liveName,
+                isPass,
+                watchMinutes,
+                failedTime,
+                liveUrl
+            ))
+        }
+    }
+
+    fun upload() {
+        CacheManger.saveLiveRecords(liveRecords)
         val lastUploadTime = SPUtils.getInstance().getLong(KEY_LIVE_UPLOAD, 0L)
         if ((System.currentTimeMillis() - lastUploadTime) < 1000 * 60 * 60 * 24) return
-        val uploadChannels = ArrayList<LiveRecord>()
-        live.groups.map { group ->
-            group.channel.map {
-                if (it.channelStatus != null) {
-                    uploadChannels.add(
-                        LiveRecord(
-                            it.name,
-                            group.pass.isEmpty(),
-                            it.channelStatus.watchMinutes,
-                            it.channelStatus.failedTime,
-                            it.current.split("\\$")[0]
-                        )
-                    )
-                }
-            }
-        }
-        instance.liveRecordUpload(LiveRecordRequest(UserService.userName(), uploadChannels)).req {
+        instance.liveRecordUpload(LiveRecordRequest(UserService.userName(), liveRecords)).req {
             if (it?.isSuccess() == true) {
                 SPUtils.getInstance().put(KEY_LIVE_UPLOAD, System.currentTimeMillis())
-                live.groups.map {
-                    it.channel.map {
-                        it.channelStatus = null
-                    }
-                }
+                CacheManger.saveLiveRecords(ArrayList())
             }
         }
     }

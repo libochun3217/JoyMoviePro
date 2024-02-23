@@ -22,8 +22,8 @@ data class LiveRecordRequest(
 data class LiveRecord(
     val channelName: String,
     val isPass: Boolean,
-    val watchMinute: Int,
-    val failedTime: Int,
+    var watchMinute: Int,
+    var failedTime: Int,
     val url: String
 ) : Serializable
 

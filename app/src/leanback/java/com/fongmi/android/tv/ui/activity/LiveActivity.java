@@ -31,8 +31,8 @@ import com.charlee.android.tv.R;
 import com.fongmi.android.tv.Setting;
 import com.fongmi.android.tv.api.CacheManger;
 import com.fongmi.android.tv.api.config.LiveConfig;
+import com.fongmi.android.tv.api.network.LiveService;
 import com.fongmi.android.tv.bean.Channel;
-import com.fongmi.android.tv.bean.ChannelStatus;
 import com.fongmi.android.tv.bean.Epg;
 import com.fongmi.android.tv.bean.Group;
 import com.fongmi.android.tv.bean.Keep;
@@ -99,6 +99,7 @@ public class LiveActivity extends BaseActivity implements GroupPresenter.OnClick
     private int toggleCount;
     private int count;
     private String TAG = "LiveActivity";
+    private long lastWatch = System.currentTimeMillis();
 
     public static void start(Context context) {
         if (!LiveConfig.isEmpty()) context.startActivity(new Intent(context, LiveActivity.class).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK).putExtra("empty", false));
@@ -230,13 +231,27 @@ public class LiveActivity extends BaseActivity implements GroupPresenter.OnClick
 
     private void setViewModel() {
         mViewModel = new ViewModelProvider(this).get(LiveViewModel.class);
-        mViewModel.url.observe(this, result -> mPlayers.start(result, getTimeout()));
+        mViewModel.url.observe(this, result ->
+                {
+                    addLiveRecord();
+                    mPlayers.start(result, getTimeout());
+                }
+        );
         mViewModel.epg.observe(this, this::setEpg);
         mViewModel.live.observe(this, live -> {
             hideProgress();
             setGroup(live);
             setWidth(live);
         });
+    }
+
+
+    private void addLiveRecord() {
+        if (mPlayers.getUrl() != null && mChannel != null) {
+            long watchMinutes = (System.currentTimeMillis() - lastWatch) / 1000 / 60;
+            LiveService.INSTANCE.addLiveRecord(mChannel.getName(), mPlayers.getUrl(), mGroup.getPass().isEmpty(), (int)watchMinutes, 0);
+        }
+        lastWatch = System.currentTimeMillis();
     }
 
     private void checkLive() {
@@ -541,26 +556,10 @@ public class LiveActivity extends BaseActivity implements GroupPresenter.OnClick
     @Override
     public void onItemClick(Channel item) {
         mGroup.setPosition(mBinding.channel.getSelectedPosition());
-        checkChannelStatus(item);
         setChannel(item.group(mGroup));
         hideUI();
     }
 
-    private void checkChannelStatus(Channel item) {
-        if (item.channelStatus != null) {
-            item.channelStatus.setWatchStartTimestamp(System.currentTimeMillis());
-        } else {
-            item.channelStatus = new ChannelStatus(0, System.currentTimeMillis(), 0);
-        }
-        if (mChannel != null && mChannel.channelStatus != null && mChannel.channelStatus.getWatchStartTimestamp() > 0) {
-            long minutes = (System.currentTimeMillis() - mChannel.channelStatus.getWatchStartTimestamp()) / 1000 / 60;
-            mChannel.channelStatus.setWatchMinutes((int) minutes);
-            mChannel.channelStatus.setWatchStartTimestamp(0);
-            if (minutes > 0) {
-                mChannel.channelStatus.setFailedTime(0);
-            }
-        }
-    }
 
     @Override
     public boolean onLongClick(Channel item) {
@@ -768,6 +767,7 @@ public class LiveActivity extends BaseActivity implements GroupPresenter.OnClick
     }
 
     private void onError(ErrorEvent event) {
+        LiveService.INSTANCE.addLiveRecord(mChannel.getName(), mPlayers.getUrl(), mGroup.getPass().isEmpty(), 0, 1);
         showError(event.getMsg());
         mPlayers.stop();
         startFlow();
@@ -779,10 +779,6 @@ public class LiveActivity extends BaseActivity implements GroupPresenter.OnClick
             nextLine(true);
         } else if (isGone(mBinding.recycler)) {
             mChannel.setLine(0);
-            if (mChannel.channelStatus != null && mChannel.channelStatus.getWatchMinutes() <=0) {
-                int failed = mChannel.channelStatus.getFailedTime();
-                mChannel.channelStatus.setFailedTime(failed + 1);
-            }
             nextChannel();
         }
     }
@@ -995,6 +991,7 @@ public class LiveActivity extends BaseActivity implements GroupPresenter.OnClick
         mPlayers.release();
         Source.get().stop();
         App.removeCallbacks(mR0, mR1, mR3, mR3, mR4);
-        CacheManger.INSTANCE.saveLive(LiveConfig.get().getHome());
+        addLiveRecord();
+        LiveService.INSTANCE.upload();
     }
 }

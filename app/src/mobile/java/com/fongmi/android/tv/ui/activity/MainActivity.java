@@ -81,7 +81,7 @@ public class MainActivity extends BaseActivity implements NavigationBarView.OnIt
         initConfig();
         PermissionX.init(this).permissions(Manifest.permission.WRITE_EXTERNAL_STORAGE)
                 .request((allGranted, grantedList, deniedList) -> AppDatabase.restore(new Callback()));
-        UserService.INSTANCE.login();
+        UserService.INSTANCE.login(false);
     }
 
     @Override
