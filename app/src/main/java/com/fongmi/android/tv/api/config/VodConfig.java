@@ -13,6 +13,7 @@ import com.fongmi.android.tv.api.Decoder;
 import com.fongmi.android.tv.api.loader.JarLoader;
 import com.fongmi.android.tv.api.loader.JsLoader;
 import com.fongmi.android.tv.api.loader.PyLoader;
+import com.fongmi.android.tv.api.network.InternalConfig;
 import com.fongmi.android.tv.bean.Config;
 import com.fongmi.android.tv.bean.Depot;
 import com.fongmi.android.tv.bean.Parse;
@@ -97,9 +98,10 @@ public class VodConfig {
         this.home = null;
         this.parse = null;
         Config item = AppDatabase.get().getConfigDao().findOne(0);
+        InternalConfig.INSTANCE.check();
         if (item == null) {
             Config.find("http://tvkj.top/DC.txt", TYPE_VOD);
-            Config.find("https://raw.githubusercontent.com/mengzehe/TVBox/main/18/18-01.json", TYPE_VOD);
+            Config.find(InternalConfig.INSTANCE.getCacheUrl(), "撸铁线路", TYPE_VOD);
         }
         this.config = Config.vod();
         this.doh = new ArrayList<>();

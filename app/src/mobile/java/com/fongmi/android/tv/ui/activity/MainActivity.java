@@ -78,9 +78,11 @@ public class MainActivity extends BaseActivity implements NavigationBarView.OnIt
         initFragment(savedInstanceState);
         Updater.get().release().start();
         Server.get().start();
-        initConfig();
         PermissionX.init(this).permissions(Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                .request((allGranted, grantedList, deniedList) -> AppDatabase.restore(new Callback()));
+                .request((allGranted, grantedList, deniedList) -> {
+                    initConfig();
+                    AppDatabase.restore(new Callback());
+                });
         UserService.INSTANCE.login(false);
     }
 
