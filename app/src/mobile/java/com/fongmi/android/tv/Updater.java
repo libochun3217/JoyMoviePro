@@ -78,16 +78,21 @@ public class Updater implements Download.Callback {
                 && code > BuildConfig.VERSION_CODE && !apkUrl.isEmpty();
     }
 
-    private void doInBackground() {
+    private int retry = 0;
+    private void doInBackground(Activity activity) {
+        if (retry > 1) return;
         try {
-            JSONObject object = new JSONObject(OkHttp.string(getJson()));
+            String jsonUrl = retry == 0? getJson() : getJson2();
+            JSONObject object = new JSONObject(OkHttp.string(jsonUrl));
             String name = object.optString("name");
             String desc = object.optString("desc");
             int code = object.optInt("code");
             apkUrl = object.optString("url");
-            if (need(code, name)) App.post(() -> show(App.activity(), name, desc));
+            if (need(code, name)) App.post(() -> show(activity, name, desc));
         } catch (Exception e) {
             e.printStackTrace();
+            retry ++;
+            doInBackground(activity);
         }
     }
 

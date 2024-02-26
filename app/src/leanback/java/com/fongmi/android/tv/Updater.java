@@ -45,9 +45,8 @@ public class Updater implements Download.Callback {
     private String getJson() {
         return Github.getJson(dev, BuildConfig.FLAVOR_mode);
     }
-
-    private String getApk() {
-        return Github.getApk(dev, BuildConfig.FLAVOR_mode + "-" + BuildConfig.FLAVOR_abi);
+    private String getJson2() {
+        return Github.getJson2(dev, BuildConfig.FLAVOR_mode);
     }
 
     public Updater force() {
@@ -79,9 +78,12 @@ public class Updater implements Download.Callback {
         return Setting.getUpdate() && (dev ? !name.equals(BuildConfig.VERSION_NAME) && code >= BuildConfig.VERSION_CODE : code > BuildConfig.VERSION_CODE);
     }
 
+    private int retry = 0;
     private void doInBackground(Activity activity) {
+        if (retry > 1) return;
         try {
-            JSONObject object = new JSONObject(OkHttp.string(getJson()));
+            String jsonUrl = retry == 0? getJson() : getJson2();
+            JSONObject object = new JSONObject(OkHttp.string(jsonUrl));
             String name = object.optString("name");
             String desc = object.optString("desc");
             int code = object.optInt("code");
@@ -89,6 +91,8 @@ public class Updater implements Download.Callback {
             if (need(code, name)) App.post(() -> show(activity, name, desc));
         } catch (Exception e) {
             e.printStackTrace();
+            retry ++;
+            doInBackground(activity);
         }
     }
 
