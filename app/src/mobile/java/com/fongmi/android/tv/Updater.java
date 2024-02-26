@@ -1,5 +1,6 @@
 package com.fongmi.android.tv;
 
+
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.view.LayoutInflater;
@@ -7,6 +8,7 @@ import android.view.View;
 
 import androidx.appcompat.app.AlertDialog;
 
+import com.blankj.utilcode.util.ActivityUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.charlee.android.tv.BuildConfig;
 import com.charlee.android.tv.R;
@@ -48,6 +50,10 @@ public class Updater implements Download.Callback {
         return Github.getJson(dev, BuildConfig.FLAVOR_mode);
     }
 
+    private String getJson2() {
+        return Github.getJson(dev, BuildConfig.FLAVOR_mode);
+    }
+
     public Updater force() {
         Notify.show(R.string.update_check);
         Setting.putUpdate(true);
@@ -79,7 +85,8 @@ public class Updater implements Download.Callback {
     }
 
     private int retry = 0;
-    private void doInBackground(Activity activity) {
+    private void doInBackground() {
+        Activity activity = App.activity();
         if (retry > 1) return;
         try {
             String jsonUrl = retry == 0? getJson() : getJson2();
@@ -92,7 +99,7 @@ public class Updater implements Download.Callback {
         } catch (Exception e) {
             e.printStackTrace();
             retry ++;
-            doInBackground(activity);
+            doInBackground();
         }
     }
 

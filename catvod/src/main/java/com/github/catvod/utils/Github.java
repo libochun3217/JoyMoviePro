@@ -9,7 +9,7 @@ import java.io.File;
 public class Github {
 
     public static final String URL = "https://gitee.com/charlee3217/joy-movie-publish/raw/master/tvPublish";
-    public static final String URL2 = "http://139.9.181.116:81/tvPublish";
+    public static final String URL2 = "http://139.9.181.116/tvPublish/";
 
     private static String getUrl(String path, String name) {
         return URL + "/" + path + "/" + name;

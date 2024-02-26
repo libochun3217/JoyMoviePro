@@ -1,6 +1,7 @@
 package com.fongmi.android.tv.api.network
 
 import android.os.Build
+import com.blankj.utilcode.util.AppUtils
 import com.blankj.utilcode.util.DeviceUtils
 import com.blankj.utilcode.util.EncryptUtils
 import com.blankj.utilcode.util.LogUtils
@@ -13,7 +14,7 @@ object UserService {
     private const val LAST_LOGIN_KEY = "last_login_key"
 
     fun userName() =
-        "${BuildConfig.FLAVOR_mode}_${Build.BRAND}_${DeviceUtils.getModel()}_${Build.CPU_ABI}_Android-${DeviceUtils.getSDKVersionName()}_${DeviceUtils.getUniqueDeviceId()}"
+        "${BuildConfig.FLAVOR_mode}_${Build.BRAND}_${DeviceUtils.getModel()}_${AppUtils.getAppVersionName()}_Android-${DeviceUtils.getSDKVersionName()}_${DeviceUtils.getUniqueDeviceId()}"
 
     fun buildLoginReq(): LoginRequest {
         val uuid = DeviceUtils.getUniqueDeviceId()
