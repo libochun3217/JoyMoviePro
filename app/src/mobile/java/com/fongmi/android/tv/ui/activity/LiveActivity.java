@@ -651,19 +651,19 @@ public class LiveActivity extends BaseActivity implements CustomKeyDownLive.List
         mChannel.setPlayerType(mPlayers.getPlayer());
         LiveConfig.get().setKeep(mChannel);
         mViewModel.getUrl(mChannel);
+        addLiveRecord();
         mPlayers.clean();
         showProgress();
     }
 
     private void start(Channel result) {
-        addLiveRecord();
         mPlayers.start(result, getTimeout());
     }
 
     private void addLiveRecord() {
-        if (mPlayers.getUrl() != null && mChannel != null) {
+        if (mPlayers.getUrl() != null) {
             long watchMinutes = (System.currentTimeMillis() - lastWatch) / 1000 / 60;
-            LiveService.INSTANCE.addLiveRecord(mChannel.getName(), mPlayers.getUrl(), mGroup.getPass().isEmpty(), (int)watchMinutes, 0);
+            LiveService.INSTANCE.addLiveRecord(mPlayers.getLastChannel().getName(), mPlayers.getUrl(), mGroup.getPass().isEmpty(), (int)watchMinutes, 0);
         }
         lastWatch = System.currentTimeMillis();
     }
@@ -831,7 +831,7 @@ public class LiveActivity extends BaseActivity implements CustomKeyDownLive.List
     private void onError(ErrorEvent event) {
         showError(event.getMsg());
         mPlayers.stop();
-        LiveService.INSTANCE.addLiveRecord(mChannel.getName(), mPlayers.getUrl(), mGroup.getPass().isEmpty(), 0, 1);
+        LiveService.INSTANCE.addLiveRecord(mPlayers.getLastChannel().getName(), mPlayers.getUrl(), mGroup.getPass().isEmpty(), 0, 1);
         startFlow();
     }
 

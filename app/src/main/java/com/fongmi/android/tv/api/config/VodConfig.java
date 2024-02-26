@@ -97,12 +97,9 @@ public class VodConfig {
         this.wall = null;
         this.home = null;
         this.parse = null;
-        Config item = AppDatabase.get().getConfigDao().findOne(0);
         InternalConfig.INSTANCE.check();
-        if (item == null) {
-            Config.find("http://tvkj.top/DC.txt", TYPE_VOD);
-            Config.find(InternalConfig.INSTANCE.getCacheUrl(), "撸铁线路", TYPE_VOD);
-        }
+        Config.find("http://tvkj.top/DC.txt", TYPE_VOD);
+        Config.find(InternalConfig.INSTANCE.getCacheUrl(), "撸铁线路", TYPE_VOD);
         this.config = Config.vod();
         this.doh = new ArrayList<>();
         this.rules = new ArrayList<>();
@@ -155,7 +152,7 @@ public class VodConfig {
                         e.printStackTrace();
                     }
                 });
-            } else  {
+            } else {
                 String json = Decoder.getJson(config.getUrl());
                 CacheManger.INSTANCE.saveResponse(config.getUrl(), json);
                 checkJson(JsonParser.parseString(json).getAsJsonObject(), callback);
@@ -168,7 +165,8 @@ public class VodConfig {
     }
 
     private void loadCache(Callback callback, Throwable e) {
-        if (!TextUtils.isEmpty(config.getJson())) checkJson(JsonParser.parseString(config.getJson()).getAsJsonObject(), callback);
+        if (!TextUtils.isEmpty(config.getJson()))
+            checkJson(JsonParser.parseString(config.getJson()).getAsJsonObject(), callback);
         else App.post(() -> callback.error(Notify.getError(R.string.error_config_get, e)));
     }
 
@@ -266,8 +264,10 @@ public class VodConfig {
         boolean py = site.getApi().contains(".py");
         boolean csp = site.getApi().startsWith("csp_");
         if (py) return pyLoader.getSpider(site.getKey(), site.getApi(), site.getExt());
-        else if (js) return jsLoader.getSpider(site.getKey(), site.getApi(), site.getExt(), site.getJar());
-        else if (csp) return jarLoader.getSpider(site.getKey(), site.getApi(), site.getExt(), site.getJar());
+        else if (js)
+            return jsLoader.getSpider(site.getKey(), site.getApi(), site.getExt(), site.getJar());
+        else if (csp)
+            return jarLoader.getSpider(site.getKey(), site.getApi(), site.getExt(), site.getJar());
         else return new SpiderNull();
     }
 
@@ -315,7 +315,8 @@ public class VodConfig {
     }
 
     public void setRules(List<Rule> rules) {
-        for (Rule rule : rules) if ("proxy".equals(rule.getName())) OkHttp.selector().setHosts(rule.getHosts());
+        for (Rule rule : rules)
+            if ("proxy".equals(rule.getName())) OkHttp.selector().setHosts(rule.getHosts());
         rules.remove(Rule.create("proxy"));
         this.rules = rules;
     }
@@ -336,7 +337,8 @@ public class VodConfig {
 
     public List<Parse> getParses(int type, String flag) {
         List<Parse> items = new ArrayList<>();
-        for (Parse item : getParses(type)) if (item.getExt().getFlag().contains(flag)) items.add(item);
+        for (Parse item : getParses(type))
+            if (item.getExt().getFlag().contains(flag)) items.add(item);
         if (items.isEmpty()) items.addAll(getParses(type));
         return items;
     }

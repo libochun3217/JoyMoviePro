@@ -1,5 +1,6 @@
 package com.fongmi.android.tv.api.network
 
+import com.blankj.utilcode.util.LogUtils
 import com.blankj.utilcode.util.SPUtils
 import com.fongmi.android.tv.api.CacheManger
 import com.fongmi.android.tv.api.ServerApi.Companion.instance
@@ -11,21 +12,31 @@ object LiveService {
     private const val KEY_LIVE_UPLOAD = "key_live_upload"
     val liveRecords by lazy { CacheManger.getLiveRecords() }
 
-    fun addLiveRecord(liveName: String, liveUrl: String, isPass: Boolean, watchMinutes: Int, failedTime: Int) {
+    fun addLiveRecord(
+        liveName: String?,
+        liveUrl: String?,
+        isPass: Boolean,
+        watchMinutes: Int,
+        failedTime: Int
+    ) {
+        if (liveUrl.isNullOrEmpty()) return
         val old = liveRecords.firstOrNull { it.url == liveUrl }
         if (old != null) {
             old.watchMinute = old.watchMinute + watchMinutes
             old.failedTime = old.failedTime + failedTime
             if (watchMinutes > 0) old.failedTime = 0
         } else {
-            liveRecords.add(LiveRecord(
-                liveName,
-                isPass,
-                watchMinutes,
-                failedTime,
-                liveUrl
-            ))
+            liveRecords.add(
+                LiveRecord(
+                    liveName ?: "",
+                    isPass,
+                    watchMinutes,
+                    failedTime,
+                    liveUrl ?: ""
+                )
+            )
         }
+        LogUtils.dTag("LiveService", "add live $liveName, old $old")
     }
 
     fun upload() {

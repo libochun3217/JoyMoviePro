@@ -78,6 +78,7 @@ public class Players implements Player.Listener, IMediaPlayer.Listener, Analytic
     private ParseJob parseJob;
     private Runnable runnable;
     private String url;
+    private Channel lastChannel;
     private Sub sub;
     private int decode;
     private int player;
@@ -175,6 +176,10 @@ public class Players implements Player.Listener, IMediaPlayer.Listener, Analytic
 
     public String getUrl() {
         return url;
+    }
+
+    public Channel getLastChannel() {
+        return lastChannel;
     }
 
     public Uri getUri() {
@@ -407,6 +412,7 @@ public class Players implements Player.Listener, IMediaPlayer.Listener, Analytic
     }
 
     public void start(Channel channel, int timeout) {
+        lastChannel = channel;
         if (channel.hasMsg()) {
             ErrorEvent.extract(channel.getMsg());
         } else if (channel.getParse() == 1) {

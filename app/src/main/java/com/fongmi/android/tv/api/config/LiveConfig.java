@@ -81,10 +81,8 @@ public class LiveConfig {
     public LiveConfig init() {
         this.home = null;
         Config item = AppDatabase.get().getConfigDao().findOne(1);
-        if (item == null) {
-            Config.find("https://youdu.fan/yd/tvlive1.txt", TYPE_LIVE);
-            Config.find("https://wds.ecsxs.com/230864.json", TYPE_LIVE);
-        }
+        Config.find("https://youdu.fan/yd/tvlive1.txt", TYPE_LIVE);
+        Config.find("https://wds.ecsxs.com/230864.json", TYPE_LIVE);
         return config(Config.live());
     }
 
@@ -125,7 +123,7 @@ public class LiveConfig {
                         e.printStackTrace();
                     }
                 });
-            } else  {
+            } else {
                 String text = Decoder.getJson(config.getUrl());
                 parseConfig(text, callback);
                 CacheManger.INSTANCE.saveResponse(config.getUrl(), text);
@@ -173,8 +171,10 @@ public class LiveConfig {
 
     private void parseConfig(JsonObject object, Callback callback) {
         List<JsonElement> lives = Json.safeListElement(object, "lives");
-        if (lives.size() > 0) for (JsonElement element : lives) add(Live.objectFrom(element).check());
-        for (Live live : getLives()) if (live.getName().equals(config.getHome())) setHome(live, true);
+        if (lives.size() > 0)
+            for (JsonElement element : lives) add(Live.objectFrom(element).check());
+        for (Live live : getLives())
+            if (live.getName().equals(config.getHome())) setHome(live, true);
         if (home == null) setHome(getLives().isEmpty() ? new Live() : getLives().get(0), true);
         if (callback != null) App.post(callback::success);
     }

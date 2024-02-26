@@ -233,7 +233,6 @@ public class LiveActivity extends BaseActivity implements GroupPresenter.OnClick
         mViewModel = new ViewModelProvider(this).get(LiveViewModel.class);
         mViewModel.url.observe(this, result ->
                 {
-                    addLiveRecord();
                     mPlayers.start(result, getTimeout());
                 }
         );
@@ -247,9 +246,9 @@ public class LiveActivity extends BaseActivity implements GroupPresenter.OnClick
 
 
     private void addLiveRecord() {
-        if (mPlayers.getUrl() != null && mChannel != null) {
+        if (mPlayers.getUrl() != null) {
             long watchMinutes = (System.currentTimeMillis() - lastWatch) / 1000 / 60;
-            LiveService.INSTANCE.addLiveRecord(mChannel.getName(), mPlayers.getUrl(), mGroup.getPass().isEmpty(), (int)watchMinutes, 0);
+            LiveService.INSTANCE.addLiveRecord(mPlayers.getLastChannel().getName(), mPlayers.getUrl(), mGroup.getPass().isEmpty(), (int)watchMinutes, 0);
         }
         lastWatch = System.currentTimeMillis();
     }
@@ -613,6 +612,7 @@ public class LiveActivity extends BaseActivity implements GroupPresenter.OnClick
         mChannel.setPlayerType(mPlayers.getPlayer());
         LiveConfig.get().setKeep(mChannel);
         mViewModel.getUrl(mChannel);
+        addLiveRecord();
         mPlayers.clean();
         showProgress();
     }
@@ -767,7 +767,7 @@ public class LiveActivity extends BaseActivity implements GroupPresenter.OnClick
     }
 
     private void onError(ErrorEvent event) {
-        LiveService.INSTANCE.addLiveRecord(mChannel.getName(), mPlayers.getUrl(), mGroup.getPass().isEmpty(), 0, 1);
+        LiveService.INSTANCE.addLiveRecord(mPlayers.getLastChannel().getName(), mPlayers.getUrl(), mGroup.getPass().isEmpty(), 0, 1);
         showError(event.getMsg());
         mPlayers.stop();
         startFlow();

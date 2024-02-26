@@ -45,7 +45,7 @@ object CacheManger {
     fun getVodRecords() = cache.getSerializable(KEY_VOD_RECORDS) as? ArrayList<VodRecord> ?: ArrayList()
 
     fun saveResponse(url: String, response: String) {
-        if (response.isNullOrEmpty()) return
+        if (response.isNullOrEmpty() || response.contains("<head><title>404 Not Found</title></head>")) return
         cache.put(url, response)
         LogUtils.dTag(TAG, "saveResponse $url")
     }
