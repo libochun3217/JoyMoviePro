@@ -4,6 +4,7 @@ import com.blankj.utilcode.util.CacheDiskUtils
 import com.blankj.utilcode.util.EncryptUtils
 import com.blankj.utilcode.util.LogUtils
 import com.fongmi.android.tv.api.CacheKeyManager.cache
+import com.fongmi.android.tv.api.network.InternalConfig
 import com.fongmi.android.tv.api.network.LiveRecord
 import com.fongmi.android.tv.api.network.VodRecord
 import com.fongmi.android.tv.bean.Live
@@ -50,7 +51,11 @@ object CacheManger {
         LogUtils.dTag(TAG, "saveResponse $url")
     }
 
-    fun getResponse(url: String) = cache.getString(url)
+    fun getResponse(url: String): String? {
+        if (url == InternalConfig.cacheUrl) return InternalConfig.build()
+        if (url == InternalConfig.cacheLiveUrl) return InternalConfig.buildLive()
+        return cache.getString(url)
+    }
 }
 
 object CacheKeyManager {
