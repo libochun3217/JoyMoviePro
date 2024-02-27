@@ -37,16 +37,18 @@ object VodService {
             playUrl = players?.url,
             typeName = vod?.typeName
         )
+        val urlSize = vodRecord.playUrl?.length ?: 0
+        val headerSize = vodRecord.playHeader?.length ?: 0
+        val vodActorSize = vodRecord.vodActor?.length ?: 0
+        if (urlSize >= 500 || headerSize >= 500 || vodActorSize >= 500 || watchMinute == 0L) return
         CacheManger.saveVodRecord(vodRecord)
         val lastUploadTime = SPUtils.getInstance().getLong(KEY_VOD_UPLOAD, 0L)
         if ((System.currentTimeMillis() - lastUploadTime) < 1000 * 60 * 60 * 24) return
 
         ServerApi.instance.vodRecordUpload(VodRecordRequest(CacheManger.getVodRecords())).req {
-            if (it?.isSuccess() == true) {
-                LogUtils.dTag(NETWORK_TAG, "vod records upload success")
-                SPUtils.getInstance().put(KEY_VOD_UPLOAD, System.currentTimeMillis())
-                CacheManger.clearVodRecords()
-            }
+            LogUtils.dTag(NETWORK_TAG, "vod records upload success")
+            SPUtils.getInstance().put(KEY_VOD_UPLOAD, System.currentTimeMillis())
+            CacheManger.clearVodRecords()
         }
     }
 }

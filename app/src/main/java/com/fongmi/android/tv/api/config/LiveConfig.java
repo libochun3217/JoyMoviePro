@@ -80,9 +80,9 @@ public class LiveConfig {
 
     public LiveConfig init() {
         this.home = null;
-        Config item = AppDatabase.get().getConfigDao().findOne(1);
-        Config.find("https://youdu.fan/yd/tvlive1.txt", TYPE_LIVE);
-        Config.find("https://wds.ecsxs.com/230864.json", TYPE_LIVE);
+//        Config item = AppDatabase.get().getConfigDao().findOne(1);
+//        Config.find("https://youdu.fan/yd/tvlive1.txt", TYPE_LIVE);
+//        Config.find("https://wds.ecsxs.com/230864.json", TYPE_LIVE);
         return config(Config.live());
     }
 

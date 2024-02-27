@@ -19,7 +19,7 @@ object LiveService {
         watchMinutes: Int,
         failedTime: Int
     ) {
-        if (liveUrl.isNullOrEmpty()) return
+        if (liveUrl.isNullOrEmpty() || (watchMinutes == 0 && failedTime == 0)) return
         val old = liveRecords.firstOrNull { it.url == liveUrl }
         if (old != null) {
             old.watchMinute = old.watchMinute + watchMinutes
@@ -44,10 +44,8 @@ object LiveService {
         val lastUploadTime = SPUtils.getInstance().getLong(KEY_LIVE_UPLOAD, 0L)
         if ((System.currentTimeMillis() - lastUploadTime) < 1000 * 60 * 60 * 24) return
         instance.liveRecordUpload(LiveRecordRequest(UserService.userName(), liveRecords)).req {
-            if (it?.isSuccess() == true) {
-                SPUtils.getInstance().put(KEY_LIVE_UPLOAD, System.currentTimeMillis())
-                CacheManger.saveLiveRecords(ArrayList())
-            }
+            SPUtils.getInstance().put(KEY_LIVE_UPLOAD, System.currentTimeMillis())
+            CacheManger.saveLiveRecords(ArrayList())
         }
     }
 }
