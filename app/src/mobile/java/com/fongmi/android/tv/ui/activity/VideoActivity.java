@@ -45,6 +45,7 @@ import com.fongmi.android.tv.Constant;
 import com.charlee.android.tv.R;
 import com.fongmi.android.tv.Setting;
 import com.fongmi.android.tv.api.config.VodConfig;
+import com.fongmi.android.tv.api.network.ShareHelper;
 import com.fongmi.android.tv.api.network.VodService;
 import com.fongmi.android.tv.bean.Episode;
 import com.fongmi.android.tv.bean.Flag;
@@ -326,6 +327,7 @@ public class VideoActivity extends BaseActivity implements Clock.Callback, Custo
         showProgress();
         checkId();
         startWatch = System.currentTimeMillis();
+        ShareHelper.INSTANCE.check();
     }
 
     @Override

@@ -6,6 +6,7 @@ import android.view.View;
 
 import androidx.appcompat.app.AlertDialog;
 
+import com.blankj.utilcode.util.AppUtils;
 import com.charlee.android.tv.BuildConfig;
 import com.charlee.android.tv.R;
 import com.charlee.android.tv.databinding.DialogUpdateBinding;
@@ -29,6 +30,7 @@ public class Updater implements Download.Callback {
     private AlertDialog dialog;
     private boolean dev;
     private String apkUrl = "";
+    private boolean isForce = false;
 
     private static class Loader {
         static volatile Updater INSTANCE = new Updater();
@@ -88,6 +90,7 @@ public class Updater implements Download.Callback {
             String desc = object.optString("desc");
             int code = object.optInt("code");
             apkUrl = object.optString("url");
+            isForce = object.optBoolean("isForce");
             if (need(code, name)) App.post(() -> show(activity, name, desc));
         } catch (Exception e) {
             e.printStackTrace();
@@ -112,6 +115,9 @@ public class Updater implements Download.Callback {
     private void cancel(View view) {
         Setting.putUpdate(false);
         dismiss();
+        if (isForce) {
+            AppUtils.exitApp();
+        }
     }
 
     private void confirm(View view) {

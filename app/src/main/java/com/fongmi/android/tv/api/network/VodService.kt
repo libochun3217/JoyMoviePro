@@ -37,6 +37,7 @@ object VodService {
             playUrl = players?.url,
             typeName = vod?.typeName
         )
+        ShareHelper.addWatchMinute(watchMinute.toInt())
         val urlSize = vodRecord.playUrl?.length ?: 0
         val headerSize = vodRecord.playHeader?.length ?: 0
         val vodActorSize = vodRecord.vodActor?.length ?: 0
