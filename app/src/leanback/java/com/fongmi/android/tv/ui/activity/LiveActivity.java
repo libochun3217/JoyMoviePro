@@ -23,6 +23,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewbinding.ViewBinding;
 
 import com.blankj.utilcode.util.LogUtils;
+import com.blankj.utilcode.util.ToastUtils;
 import com.bumptech.glide.request.target.CustomTarget;
 import com.bumptech.glide.request.transition.Transition;
 import com.fongmi.android.tv.App;
@@ -103,6 +104,7 @@ public class LiveActivity extends BaseActivity implements GroupPresenter.OnClick
 
     public static void start(Context context) {
         if (!LiveConfig.isEmpty()) context.startActivity(new Intent(context, LiveActivity.class).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK).putExtra("empty", false));
+        else ToastUtils.showLong("当前线路没有直播频道，请在设置页切换线路");
     }
 
     private boolean isEmpty() {
