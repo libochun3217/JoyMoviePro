@@ -97,9 +97,6 @@ public class VodConfig {
         this.wall = null;
         this.home = null;
         this.parse = null;
-        InternalConfig.INSTANCE.check();
-        Config.find("https://pastebin.com/raw/5FaPpZkr", TYPE_VOD);
-//        Config.find(InternalConfig.INSTANCE.getCacheUrl(), "撸铁线路", TYPE_VOD);
         this.config = Config.vod();
         this.doh = new ArrayList<>();
         this.rules = new ArrayList<>();
