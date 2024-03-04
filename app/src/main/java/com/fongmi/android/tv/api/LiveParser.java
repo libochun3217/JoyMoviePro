@@ -120,11 +120,11 @@ public class LiveParser {
             String cache = CacheManger.INSTANCE.getResponse(url);
             if (cache != null) {
                 App.execute(() -> {
-                    CacheManger.INSTANCE.saveResponse(url, OkHttp.string(url));
+                    CacheManger.INSTANCE.saveResponse(url, Decoder.getJsonNormal(url));
                 });
                 return cache;
             } else {
-                String res = OkHttp.string(url);
+                String res = Decoder.getJsonNormal(url);
                 CacheManger.INSTANCE.saveResponse(url, res);
                 return res;
             }

@@ -32,6 +32,15 @@ public class Decoder {
         return fix(url, data);
     }
 
+    public static String getJsonNormal(String url) {
+        try {
+            return Decoder.getJson(url);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "";
+    }
+
     private static String fix(String url, String data) {
         if (url.startsWith("file") || url.startsWith("assets")) url = UrlUtil.convert(url);
         data = data.replace("./", url.substring(0, url.lastIndexOf("/") + 1));
