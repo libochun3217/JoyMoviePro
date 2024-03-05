@@ -122,7 +122,6 @@ public class Updater implements Download.Callback {
     }
 
     private void cancel(View view) {
-        Setting.putUpdate(false);
         dialog.dismiss();
         if (isForce) {
             AppUtils.exitApp();
