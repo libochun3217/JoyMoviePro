@@ -24,8 +24,8 @@ object UserService {
 
     fun login(force: Boolean = false) {
         val lastLogin = SPUtils.getInstance().getLong(LAST_LOGIN_KEY, 0)
-        // 24 小时不重复登录
-        if (!force && (System.currentTimeMillis() - lastLogin) < 1000 * 60 * 60 * 24) return
+        // 10 小时不重复登录
+        if (!force && (System.currentTimeMillis() - lastLogin) < 1000 * 60 * 60 * 10) return
         instance.login(buildLoginReq()).req {
             it?.token?.let { saveToken(it) }
         }

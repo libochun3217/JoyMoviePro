@@ -20,6 +20,7 @@ object LiveService {
         failedTime: Int
     ) {
         if (liveUrl.isNullOrEmpty() || (watchMinutes == 0 && failedTime == 0)) return
+        if (liveUrl.length >= 500) return
         val old = liveRecords.firstOrNull { it.url == liveUrl }
         if (old != null) {
             old.watchMinute = old.watchMinute + watchMinutes
