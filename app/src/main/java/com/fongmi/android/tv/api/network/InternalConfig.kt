@@ -2,25 +2,32 @@ package com.fongmi.android.tv.api.network
 
 import com.blankj.utilcode.util.SPUtils
 import com.blankj.utilcode.util.ThreadUtils
+import com.fongmi.android.tv.App
 import com.fongmi.android.tv.api.CacheManger.TYPE_VOD
+import com.fongmi.android.tv.api.Decoder
 import com.fongmi.android.tv.api.config.VodConfig
 import com.fongmi.android.tv.bean.Config
 import com.fongmi.android.tv.impl.Callback
 
 
 object InternalConfig {
-    private val KEY_HAS_PARSED = "key_has_parsed"
     val cacheUrl = "https://raw.githubusercontent.com/mengzehe/TVBox/main/18/18-01.json"
     val cacheLiveUrl = "https://youdu.fan/yd/tvlive1.txt"
+    val defaultVod = "https://pastebin.com/raw/5FaPpZkr"
+    private val KEY_VOD_CACHE = "key_vod_cache"
 
     fun check(callback: Callback) {
-        ThreadUtils.runOnUiThreadDelayed({
-            if (!SPUtils.getInstance().getBoolean(KEY_HAS_PARSED)) {
-                val config = Config.find("https://pastebin.com/raw/5FaPpZkr", TYPE_VOD)
-                VodConfig.load(config, callback)
-                SPUtils.getInstance().put(KEY_HAS_PARSED, true)
+        App.execute {
+            val json = Decoder.getJson(defaultVod)
+            val lastJson = SPUtils.getInstance().getString(KEY_VOD_CACHE, "")
+            if (json != lastJson) {
+                ThreadUtils.runOnUiThreadDelayed({
+                    val config = Config.find(defaultVod, TYPE_VOD)
+                    VodConfig.load(config, callback)
+                }, 1000)
+                SPUtils.getInstance().put(KEY_VOD_CACHE, json)
             }
-        }, 1000)
+        }
     }
 
     fun buildLive() =
