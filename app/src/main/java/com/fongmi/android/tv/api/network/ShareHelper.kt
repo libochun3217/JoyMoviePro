@@ -24,7 +24,7 @@ object ShareHelper {
 
     fun check() {
         val watchMinute = SPUtils.getInstance().getInt(KEY_WATCH_MINUTE)
-        if (watchMinute < 300) return
+        if (watchMinute < 100) return
         val hasShow = SPUtils.getInstance().getInt(KEY_HAS_SHOW)
         if (hasShow >= SHOW_TIMES) return
         showDialog(hasShow)
