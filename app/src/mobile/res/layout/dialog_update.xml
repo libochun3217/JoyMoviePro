@@ -8,20 +8,27 @@
     android:paddingTop="16dp"
     android:paddingEnd="24dp">
 
-    <androidx.core.widget.NestedScrollView
+    <TextView
+        android:id="@+id/desc"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:fillViewport="true">
+        android:letterSpacing="0.02"
+        android:lineSpacingExtra="8dp"
+        android:textColor="?android:attr/textColorPrimary"
+        android:textSize="14sp"
+        tools:text="1. 新增 ffmpeg 音頻軟解\n2. 詳情頁新增分詞快搜\n3. 修復搜尋閃退問題\n4. 設定支援渲染切換" />
 
-        <TextView
-            android:id="@+id/desc"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:letterSpacing="0.02"
-            android:lineSpacingExtra="8dp"
-            android:textColor="?android:attr/textColorPrimary"
-            android:textSize="14sp"
-            tools:text="1. 新增 ffmpeg 音頻軟解\n2. 詳情頁新增分詞快搜\n3. 修復搜尋閃退問題\n4. 設定支援渲染切換" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="20dp"
+        android:text="若无法升级，可扫码下载最新版App、TV版本安装" />
 
-    </androidx.core.widget.NestedScrollView>
+    <ImageView
+        android:layout_gravity="center_horizontal"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:scaleType="fitXY"
+        android:src="@drawable/pan" />
 </LinearLayout>
