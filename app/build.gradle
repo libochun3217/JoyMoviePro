@@ -11,8 +11,8 @@ android {
         applicationId "com.charlee.android.tv"
         minSdk 21
         targetSdk 28
-        versionCode 1040200
-        versionName "1.4.2"
+        versionCode 1040300
+        versionName "1.4.3"
         javaCompileOptions {
             annotationProcessorOptions {
                 arguments = ["room.schemaLocation": "$projectDir/schemas".toString()]

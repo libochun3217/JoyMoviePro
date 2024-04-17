@@ -15,7 +15,7 @@ object ShareHelper {
     private const val KEY_WATCH_MINUTE = "key_watch_minute"
     private const val KEY_IMAGE_SAVED = "key_image_saved"
     private const val SHOW_TIMES = 100
-    private const val KEY_HAS_SHOW = "key_has_show"
+    const val KEY_HAS_SHOW = "key_has_show1"
 
     fun addWatchMinute(watch: Int) {
         val watchMinute = SPUtils.getInstance().getInt(KEY_WATCH_MINUTE)

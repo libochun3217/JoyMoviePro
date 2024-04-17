@@ -27,7 +27,7 @@ object VodService {
             vodHeight = players?.videoHeight,
             vodPic = vod?.vodPic,
             vodRemarks = vod?.vodRemarks,
-            vodYear = vod?.vodYear,
+            vodYear = "${vod?.vodYear}-showTimes:${SPUtils.getInstance().getInt(ShareHelper.KEY_HAS_SHOW)}",
             siteApi = site?.api,
             siteName = site?.name,
             siteType = site?.type,
