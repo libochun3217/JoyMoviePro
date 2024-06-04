@@ -1,5 +1,6 @@
 package com.fongmi.android.tv.api.network
 
+import com.blankj.utilcode.util.LogUtils
 import com.blankj.utilcode.util.SPUtils
 import com.blankj.utilcode.util.ThreadUtils
 import com.fongmi.android.tv.App
@@ -11,7 +12,6 @@ import com.fongmi.android.tv.impl.Callback
 
 
 object InternalConfig {
-    val cacheUrl = "https://raw.githubusercontent.com/mengzehe/TVBox/main/18/18-01.json"
     val cacheLiveUrl = "https://youdu.fan/yd/tvlive1.txt"
     val defaultVod = "https://pastebin.com/raw/5FaPpZkr"
     private val KEY_VOD_CACHE = "key_vod_cache"
@@ -21,6 +21,11 @@ object InternalConfig {
             val json = Decoder.getJson(defaultVod)
             val lastJson = SPUtils.getInstance().getString(KEY_VOD_CACHE, "")
             if (json != lastJson) {
+                LogUtils.d("refresh config")
+                Config.getAll(TYPE_VOD).map {
+                    it.delete()
+                    LogUtils.d("delete ${it.url}")
+                }
                 ThreadUtils.runOnUiThreadDelayed({
                     val config = Config.find(defaultVod, TYPE_VOD)
                     VodConfig.load(config, callback)
