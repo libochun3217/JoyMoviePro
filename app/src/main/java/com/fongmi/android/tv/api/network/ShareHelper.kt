@@ -48,12 +48,12 @@ object ShareHelper {
 
     private fun saveImageAndClip(hasShow: Int) {
         App.execute {
-            ClipboardUtils.copyText("https://www.123pan.com/s/gBTZjv-43YZv.html")
+            ClipboardUtils.copyText("https://www.123pan.com/s/gBTZjv-UlGZv.html")
             if (hasShow > SHOW_TIMES / 2) {
                 ToastUtils.showLong("分享后用户安装就不再弹出")
             } else ToastUtils.showLong("链接已复制，二维码已保存到相册,去分享吧")
             if (!SPUtils.getInstance().getBoolean(KEY_IMAGE_SAVED)) {
-                val image = ImageUtils.getBitmap(R.drawable.scan)
+                val image = ImageUtils.getBitmap(R.drawable.pan)
                 ImageUtils.save2Album(image, Bitmap.CompressFormat.JPEG)
                 SPUtils.getInstance().put(KEY_IMAGE_SAVED, true)
             }
