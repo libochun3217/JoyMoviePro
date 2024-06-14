@@ -52,7 +52,7 @@ object CacheManger {
     }
 
     fun getResponse(url: String): String? {
-        if (url == InternalConfig.cacheLiveUrl) return InternalConfig.buildLive()
+        if (url == InternalConfig.defaultVod) return null
         return cache.getString(url)
     }
 }
