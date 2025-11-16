@@ -38,3 +38,4 @@ include ':jianpian'
 include ':forcetech'
 include ':ijkplayer'
 rootProject.name = "TV"
+include ':mylibrary'

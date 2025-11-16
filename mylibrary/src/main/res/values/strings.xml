@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="a11y_desc">基于高级选择器和订阅规则的屏幕自定义点击服务\n\n通过自定义选择器和订阅规则，能帮助你实现点击任意位置控件，自定义快捷操作等高级功能</string>
+</resources>

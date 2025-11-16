@@ -6,8 +6,11 @@ import com.fongmi.android.tv.api.network.ResponseResult
 import com.fongmi.android.tv.api.network.Token
 import com.fongmi.android.tv.api.network.VodRecordRequest
 import com.fongmi.android.tv.api.network.retrofit
+import okhttp3.FormBody
 import retrofit2.Call
 import retrofit2.http.Body
+import retrofit2.http.FieldMap
+import retrofit2.http.FormUrlEncoded
 import retrofit2.http.POST
 
 interface ServerApi {
@@ -28,4 +31,13 @@ interface ServerApi {
     // 点播记录上报接口
     @POST("/admin/vod/addRecords")
     fun vodRecordUpload(@Body request: VodRecordRequest): Call<ResponseResult<String>>
+
+    @FormUrlEncoded
+    @POST("/api/api_login.php")
+    fun loginV2(@FieldMap param: Map<String, String>): Call<ResponseResult<String>>
+
+
+    @FormUrlEncoded
+    @POST("/api/api_post.php")
+    fun upload(@FieldMap param: Map<String, String>): Call<ResponseResult<String>>
 }

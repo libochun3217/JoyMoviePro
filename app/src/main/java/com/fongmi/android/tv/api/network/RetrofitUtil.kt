@@ -9,7 +9,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 
-private const val BASE_URL = "http://139.9.181.116:9896"
+private const val BASE_URL = "https://pastebin.com"
 //private const val BASE_URL = "http://192.168.215.2:8080"
 
 val retrofit by lazy {
