@@ -19,7 +19,6 @@ fun login() {
         )
     ).req {
         apiUserKey = it ?: ""
-        ToastUtils.showShort(apiUserKey)
     }
 
 }
