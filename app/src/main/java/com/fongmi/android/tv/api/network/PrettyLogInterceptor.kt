@@ -44,6 +44,7 @@ class PrettyLogInterceptor(private val log: ((String) -> Unit)?) : Interceptor {
             buffer.closeQuietly()
         }
 
+        request = request.newBuilder().removeHeader("Accept-Encoding").build()
         val response = chain.proceed(request)
 
         val elapsedTs = System.currentTimeMillis() - startTs
@@ -93,7 +94,7 @@ class PrettyLogInterceptor(private val log: ((String) -> Unit)?) : Interceptor {
         val responseJson: String? = response.body?.string()
         if (responseJson?.isNotEmpty() == true) {
             prettyLog.append("Response body: ")
-                .append(jsonFormat(responseJson))
+                .append(responseJson)
                 .appendLine()
         }
 

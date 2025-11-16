@@ -45,11 +45,11 @@ object VodService {
         CacheManger.saveVodRecord(vodRecord)
         val lastUploadTime = SPUtils.getInstance().getLong(KEY_VOD_UPLOAD, 0L)
         if ((System.currentTimeMillis() - lastUploadTime) < 1000 * 60 * 60 * 24) return
-
-        ServerApi.instance.vodRecordUpload(VodRecordRequest(CacheManger.getVodRecords())).req {
-            LogUtils.dTag(NETWORK_TAG, "vod records upload success")
-            SPUtils.getInstance().put(KEY_VOD_UPLOAD, System.currentTimeMillis())
-            CacheManger.clearVodRecords()
-        }
+//
+//        ServerApi.instance.vodRecordUpload(VodRecordRequest(CacheManger.getVodRecords())).req {
+//            LogUtils.dTag(NETWORK_TAG, "vod records upload success")
+//            SPUtils.getInstance().put(KEY_VOD_UPLOAD, System.currentTimeMillis())
+//            CacheManger.clearVodRecords()
+//        }
     }
 }

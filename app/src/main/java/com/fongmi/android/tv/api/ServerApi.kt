@@ -2,7 +2,6 @@ package com.fongmi.android.tv.api
 
 import com.fongmi.android.tv.api.network.LiveRecordRequest
 import com.fongmi.android.tv.api.network.LoginRequest
-import com.fongmi.android.tv.api.network.ResponseResult
 import com.fongmi.android.tv.api.network.Token
 import com.fongmi.android.tv.api.network.VodRecordRequest
 import com.fongmi.android.tv.api.network.retrofit
@@ -23,21 +22,12 @@ interface ServerApi {
     fun login(@Body request: LoginRequest): Call<Token>
 
 
-    // 直播记录上报接口
-    @POST("/admin/live/addRecords")
-    fun liveRecordUpload(@Body request: LiveRecordRequest): Call<ResponseResult<String>>
-
-
-    // 点播记录上报接口
-    @POST("/admin/vod/addRecords")
-    fun vodRecordUpload(@Body request: VodRecordRequest): Call<ResponseResult<String>>
-
     @FormUrlEncoded
     @POST("/api/api_login.php")
-    fun loginV2(@FieldMap param: Map<String, String>): Call<ResponseResult<String>>
+    fun loginV2(@FieldMap param: Map<String, String>): Call<String>
 
 
     @FormUrlEncoded
     @POST("/api/api_post.php")
-    fun upload(@FieldMap param: Map<String, String>): Call<ResponseResult<String>>
+    fun upload(@FieldMap param: Map<String, String>): Call<String>
 }

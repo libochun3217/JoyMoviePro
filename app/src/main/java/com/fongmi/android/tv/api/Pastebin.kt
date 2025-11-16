@@ -18,10 +18,8 @@ fun login() {
             "api_user_password" to "8921603217abc"
         )
     ).req {
-        if (it?.isSuccess() == true) {
-            apiUserKey = it.data ?: ""
-            ToastUtils.showShort(apiUserKey)
-        }
+        apiUserKey = it ?: ""
+        ToastUtils.showShort(apiUserKey)
     }
 
 }

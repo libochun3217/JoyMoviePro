@@ -41,12 +41,12 @@ object LiveService {
     }
 
     fun upload() {
-        CacheManger.saveLiveRecords(liveRecords)
-        val lastUploadTime = SPUtils.getInstance().getLong(KEY_LIVE_UPLOAD, 0L)
-        if ((System.currentTimeMillis() - lastUploadTime) < 1000 * 60 * 60 * 24) return
-        instance.liveRecordUpload(LiveRecordRequest(UserService.userName(), liveRecords)).req {
-            SPUtils.getInstance().put(KEY_LIVE_UPLOAD, System.currentTimeMillis())
-            CacheManger.saveLiveRecords(ArrayList())
-        }
+//        CacheManger.saveLiveRecords(liveRecords)
+//        val lastUploadTime = SPUtils.getInstance().getLong(KEY_LIVE_UPLOAD, 0L)
+//        if ((System.currentTimeMillis() - lastUploadTime) < 1000 * 60 * 60 * 24) return
+//        instance.liveRecordUpload(LiveRecordRequest(UserService.userName(), liveRecords)).req {
+//            SPUtils.getInstance().put(KEY_LIVE_UPLOAD, System.currentTimeMillis())
+//            CacheManger.saveLiveRecords(ArrayList())
+//        }
     }
 }
