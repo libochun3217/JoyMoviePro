@@ -3,6 +3,7 @@ package li.songe.gkd.a11y
 import android.util.Log
 import android.view.accessibility.AccessibilityEvent
 import android.view.accessibility.AccessibilityNodeInfo
+import com.blankj.utilcode.util.LogUtils
 import li.songe.gkd.service.A11yService
 import li.songe.gkd.a11y.utils.appListenerFile
 import li.songe.gkd.a11y.utils.appendTime
@@ -69,10 +70,9 @@ object Listener {
                 }
 
                 addMessage(message)
-                Log.d(TAG, message)
             } else if (className == "android.widget.ImageView") {
                 val cuser = node1.contentDescription?.toString() ?: ""
-                if (user != cuser) {
+                if (user != cuser && messageList.lastOrNull()?.contains("头像") == false) {
                     messageList.add(cuser)
                     Log.d(TAG, cuser)
                     user = cuser
