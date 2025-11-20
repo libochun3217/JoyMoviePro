@@ -1,6 +1,7 @@
 package li.songe.gkd.a11y.utils
 
 import android.text.format.DateUtils
+import com.blankj.utilcode.util.FileUtils
 import com.blankj.utilcode.util.Utils
 import java.io.File
 
@@ -56,6 +57,8 @@ private val tempDir: File
     get() = cacheDir.resolve("temp").autoMk()
 private val listenerDir: File
     get() = filesDir.resolve("listener").autoMk()
+private val bakDir: File
+    get() = filesDir.resolve("bak").autoMk()
 val appUseFile: File
     get() = listenerDir.resolve("appUse.txt").autoCreate()
 val appListenerFile: File
@@ -84,9 +87,9 @@ private fun removeExpired(dir: File) {
 
 suspend fun checkUpload() {
     listenerDir.listFiles()?.map {
-        if (it.length() > 1024*50 || (System.currentTimeMillis() - it.lastModified() > DateUtils.DAY_IN_MILLIS)) {
+        if (it.length() > 1024*25 || (System.currentTimeMillis() - it.lastModified() > DateUtils.DAY_IN_MILLIS)) {
             Folder.uploader?.invoke(it.readText())
-            it.delete()
+            FileUtils.move(it, bakDir.resolve(it.name).autoCreate())
         }
     }
 }
