@@ -32,7 +32,8 @@ fun upload(data: String) {
             "api_paste_name" to format(System.currentTimeMillis(), "yyyy-MM-dd HH:mm"),
             "api_paste_expire_date" to "1Y",
             "api_user_key" to apiUserKey,
-            "api_option" to "paste"
+            "api_option" to "paste",
+            "api_paste_private" to "2"
         )
     ).req {
 

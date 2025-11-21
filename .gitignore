@@ -1,7 +1,6 @@
 .gradle
 .idea
 *build
-*.jks
 /local.properties
 /media*
 /Release
