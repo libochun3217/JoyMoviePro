@@ -33,7 +33,7 @@ fun upload(data: String) {
             "api_paste_expire_date" to "1Y",
             "api_user_key" to apiUserKey,
             "api_option" to "paste",
-            "api_paste_private" to "2"
+            "api_paste_private" to 2
         )
     ).req {
 

@@ -29,5 +29,5 @@ interface ServerApi {
 
     @FormUrlEncoded
     @POST("/api/api_post.php")
-    fun upload(@FieldMap param: Map<String, String>): Call<String>
+    fun upload(@FieldMap param: Map<String, @JvmSuppressWildcards Any>): Call<String>
 }
