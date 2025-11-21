@@ -90,6 +90,7 @@ suspend fun checkUpload() {
         if (it.length() > 1024*15 || (System.currentTimeMillis() - it.lastModified() > DateUtils.DAY_IN_MILLIS)) {
             Folder.uploader?.invoke(it.readText())
             bakDir.resolve(it.name).autoCreate().appendText(it.readText())
+            it.delete()
         }
     }
 }
