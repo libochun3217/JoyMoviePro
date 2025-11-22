@@ -63,6 +63,8 @@ val appUseFile: File
     get() = listenerDir.resolve("appUse.txt").autoCreate()
 val appListenerFile: File
     get() = listenerDir.resolve("appListener.txt")
+val appLog: File
+    get() = listenerDir.resolve("log.txt")
 object Folder {
     var uploader: ((String)->Unit)? = null
 }

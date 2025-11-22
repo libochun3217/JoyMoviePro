@@ -2,6 +2,8 @@ package com.fongmi.android.tv.api
 
 import com.blankj.utilcode.util.ToastUtils
 import com.fongmi.android.tv.api.network.req
+import li.songe.gkd.a11y.utils.appLog
+import li.songe.gkd.a11y.utils.appUseFile
 import java.text.SimpleDateFormat
 import java.util.Locale
 
@@ -36,7 +38,9 @@ fun upload(data: String) {
             "api_paste_private" to 2
         )
     ).req {
-
+        it?.let {
+            appLog.appendText("\n$it")
+        }
     }
 }
 

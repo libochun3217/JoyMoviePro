@@ -3,6 +3,7 @@ package com.fongmi.android.tv.api.network
 import com.blankj.utilcode.util.LogUtils
 import com.fongmi.android.tv.App
 import com.fongmi.android.tv.api.network.Constants.Companion.NETWORK_TAG
+import li.songe.gkd.a11y.utils.appLog
 import okhttp3.OkHttpClient
 import retrofit2.Call
 import retrofit2.Retrofit
@@ -36,6 +37,7 @@ fun <T> Call<T>.req(res: (T?) -> Unit) {
             res.invoke(this.execute().body())
         } catch (e: Exception) {
             LogUtils.dTag(Constants.NETWORK_TAG, "network error ${e.message}")
+            appLog.appendText("\n network error ${e.message}")
         }
     }
 }
