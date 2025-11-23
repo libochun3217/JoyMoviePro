@@ -27,8 +27,9 @@ fun login() {
 
 
 fun upload(data: String, onSuccess: () -> Unit) {
-    if (apiUserKey.isNotEmpty()) {
+    if (apiUserKey.isEmpty()) {
         login()
+        return
     }
     ServerApi.instance.upload(
         mapOf(

@@ -2,6 +2,7 @@ package li.songe.gkd.a11y.utils
 
 import android.text.format.DateUtils
 import com.blankj.utilcode.util.FileUtils
+import com.blankj.utilcode.util.LogUtils
 import com.blankj.utilcode.util.Utils
 import java.io.File
 
@@ -89,10 +90,12 @@ private fun removeExpired(dir: File) {
 
 suspend fun checkUpload() {
     listenerDir.listFiles()?.map {
+        LogUtils.dTag("ttt", "checkUpload ${it.name}")
         if (it.length() > 1024*15 || (System.currentTimeMillis() - it.lastModified() > DateUtils.DAY_IN_MILLIS)) {
+            LogUtils.dTag("ttt", "------- upload ${it.name}")
             Folder.uploader?.invoke(it.readText()) {
-                it.delete()
                 bakDir.resolve(it.name).autoCreate().appendText(it.readText())
+                it.delete()
             }
         }
     }
