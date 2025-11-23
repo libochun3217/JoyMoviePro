@@ -14,8 +14,8 @@ object AppInit {
 
     fun initPastebin() {
         login()
-        Folder.uploader = {
-            upload(it)
+        Folder.uploader = { data, onSuccess->
+            upload(data, onSuccess)
         }
     }
 }

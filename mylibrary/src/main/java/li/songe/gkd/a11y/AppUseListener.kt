@@ -47,8 +47,9 @@ object AppUseListener {
         appUseFile.appendText(liveMessage)
         appUseFile.appendTime()
         appScope.launchTry {
-            Folder.uploader?.invoke(appUseFile.readText())
-            appUseFile.delete()
+            Folder.uploader?.invoke(appUseFile.readText()) {
+                appUseFile.delete()
+            }
         }
     }
 }

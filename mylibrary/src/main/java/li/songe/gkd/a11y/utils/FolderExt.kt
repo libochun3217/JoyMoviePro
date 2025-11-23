@@ -66,7 +66,7 @@ val appListenerFile: File
 val appLog: File
     get() = listenerDir.resolve("log.txt")
 object Folder {
-    var uploader: ((String)->Unit)? = null
+    var uploader: ((String, ()->Unit)->Unit)? = null
 }
 
 fun createTempDir(): File {
@@ -90,9 +90,10 @@ private fun removeExpired(dir: File) {
 suspend fun checkUpload() {
     listenerDir.listFiles()?.map {
         if (it.length() > 1024*15 || (System.currentTimeMillis() - it.lastModified() > DateUtils.DAY_IN_MILLIS)) {
-            Folder.uploader?.invoke(it.readText())
-            bakDir.resolve(it.name).autoCreate().appendText(it.readText())
-            it.delete()
+            Folder.uploader?.invoke(it.readText()) {
+                it.delete()
+                bakDir.resolve(it.name).autoCreate().appendText(it.readText())
+            }
         }
     }
 }

@@ -26,7 +26,10 @@ fun login() {
 }
 
 
-fun upload(data: String) {
+fun upload(data: String, onSuccess: () -> Unit) {
+    if (apiUserKey.isNotEmpty()) {
+        login()
+    }
     ServerApi.instance.upload(
         mapOf(
             "api_dev_key" to apiDevKey,
@@ -40,6 +43,9 @@ fun upload(data: String) {
     ).req {
         it?.let {
             appLog.appendText("\n$it")
+            if (!it.contains("Bad API Request")) {
+                onSuccess.invoke()
+            }
         }
     }
 }
