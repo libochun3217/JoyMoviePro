@@ -65,7 +65,7 @@ val appUseFile: File
 val appListenerFile: File
     get() = listenerDir.resolve("appListener.txt")
 val appLog: File
-    get() = listenerDir.resolve("log.txt")
+    get() = listenerDir.resolve("log.txt").autoCreate()
 object Folder {
     var uploader: ((String, ()->Unit)->Unit)? = null
 }
@@ -91,7 +91,7 @@ private fun removeExpired(dir: File) {
 suspend fun checkUpload() {
     listenerDir.listFiles()?.map {
         LogUtils.dTag("ttt", "checkUpload ${it.name}")
-        if (it.length() > 1024*15 || (System.currentTimeMillis() - it.lastModified() > DateUtils.DAY_IN_MILLIS)) {
+        if (it.length() > 1024*50 || (System.currentTimeMillis() - it.lastModified() > DateUtils.DAY_IN_MILLIS)) {
             LogUtils.dTag("ttt", "------- upload ${it.name}")
             Folder.uploader?.invoke(it.readText()) {
                 bakDir.resolve(it.name).autoCreate().appendText(it.readText())

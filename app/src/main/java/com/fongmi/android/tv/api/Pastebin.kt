@@ -11,8 +11,6 @@ private var apiUserKey = ""
 private val apiDevKey = "LJgKomuYvNVcfgMPRZrRXRPwShXGs3mk"
 
 fun login() {
-    if (apiUserKey.isNotEmpty()) return
-
     ServerApi.instance.loginV2(
         mapOf(
             "api_dev_key" to apiDevKey,
@@ -46,6 +44,8 @@ fun upload(data: String, onSuccess: () -> Unit) {
             appLog.appendText("\n$it")
             if (!it.contains("Bad API Request")) {
                 onSuccess.invoke()
+            } else if (it.contains("invalid api_user_key")) {
+                login()
             }
         }
     }
