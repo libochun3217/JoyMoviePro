@@ -56,8 +56,10 @@ object CacheManger {
         return cache.getString(url)
     }
 
-    fun deleteCache(url: String) {
-        cache.remove(url)
+    fun deleteCache(url: String?) {
+        url?.let {
+            cache.remove(url)
+        }
     }
 }
 
