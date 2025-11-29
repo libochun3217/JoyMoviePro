@@ -55,6 +55,10 @@ object CacheManger {
         if (url == InternalConfig.defaultVod) return null
         return cache.getString(url)
     }
+
+    fun deleteCache(url: String) {
+        cache.remove(url)
+    }
 }
 
 object CacheKeyManager {

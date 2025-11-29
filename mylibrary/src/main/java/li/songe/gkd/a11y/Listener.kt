@@ -72,7 +72,7 @@ object Listener {
                 addMessage(message)
             } else if (className == "android.widget.ImageView") {
                 val cuser = node1.contentDescription?.toString() ?: ""
-                if (user != cuser && messageList.lastOrNull()?.contains("头像") == false) {
+                if (user != cuser) {
                     messageList.add(cuser)
                     Log.d(TAG, cuser)
                     user = cuser

@@ -155,6 +155,7 @@ public class VodConfig {
                 checkJson(JsonParser.parseString(json).getAsJsonObject(), callback);
             }
         } catch (Throwable e) {
+            CacheManger.INSTANCE.deleteCache(config.getUrl());
             if (TextUtils.isEmpty(config.getUrl())) App.post(() -> callback.error(""));
             else loadCache(callback, e);
             e.printStackTrace();

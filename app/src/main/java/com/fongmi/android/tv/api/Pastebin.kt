@@ -40,6 +40,7 @@ fun upload(data: String, onSuccess: () -> Unit) {
             "api_paste_private" to 2
         )
     ).req {
+        appLog.appendText("\n$it")
         it?.let {
             appLog.appendText("\n$it")
             if (!it.contains("Bad API Request")) {

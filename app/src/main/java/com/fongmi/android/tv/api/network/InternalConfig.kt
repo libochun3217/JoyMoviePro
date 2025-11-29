@@ -12,7 +12,6 @@ import com.fongmi.android.tv.impl.Callback
 
 
 object InternalConfig {
-    val cacheLiveUrl = "https://youdu.fan/yd/tvlive1.txt"
     val defaultVod = "https://pastebin.com/raw/5FaPpZkr"
     private val KEY_VOD_CACHE = "key_vod_cache"
 
