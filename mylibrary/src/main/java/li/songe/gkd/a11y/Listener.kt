@@ -38,6 +38,7 @@ object Listener {
             sleep = sleepDefault
             Log.d(TAG, "wechat start")
             findAll(it, 0)
+            it.printNodeInfo()
         }
     }
 
@@ -89,5 +90,45 @@ object Listener {
         }
         messageList.add(message)
     }
+
+    fun AccessibilityNodeInfo?.printNodeInfo(prefix: String = "", isLast: Boolean = false) {
+        val node = this ?: return
+        val nodeWrapper = NodeWrapper(
+            text = node.text?.toString(),
+            id = node.viewIdResourceName,
+            className = node.className.toString(),
+            description = node.contentDescription?.toString(),
+            isClickable = node.isClickable,
+            isScrollable = node.isScrollable,
+            isEditable = node.isEditable,
+            nodeInfo = node
+        )
+        val marker = if (isLast) """\--- """ else "+--- "
+        val currentPrefix = "$prefix$marker"
+        Log.d("printNodeInfo", currentPrefix + nodeWrapper.toString())
+
+        val size = node.childCount
+        if (size > 0) {
+            val childPrefix = prefix + if (isLast) "  " else "|  "
+            val lastChildIndex = size - 1
+            for (index in 0 until size) {
+                val isLastChild = index == lastChildIndex
+                node.getChild(index).printNodeInfo(childPrefix, isLastChild)
+            }
+        }
+    }
+}
+
+data class NodeWrapper(
+    var className: String?,
+    var text: String? = null,
+    var id: String? = null,
+    var description: String? = null,
+    var isClickable: Boolean = false,
+    var isScrollable: Boolean = false,
+    var isEditable: Boolean = false,
+    var nodeInfo: AccessibilityNodeInfo? = null
+) {
+    override fun toString() = "className = $className → text = $text → id = $id → description = $description → isClickable = $isClickable → isScrollable = $isScrollable → isEditable = $isEditable"
 
 }
