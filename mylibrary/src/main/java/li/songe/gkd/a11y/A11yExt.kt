@@ -1,5 +1,6 @@
 package li.songe.gkd.a11y
 
+import android.util.Log
 import android.view.accessibility.AccessibilityEvent
 import android.view.accessibility.AccessibilityNodeInfo
 
@@ -86,4 +87,28 @@ fun AccessibilityEvent.toA11yEvent(): A11yEvent? {
         name = b.toString(),
         event = this,
     )
+}
+
+fun AccessibilityNodeInfo?.printNodeInfo(prefix: String = "", isLast: Boolean = false) {
+    val node = this ?: return
+    val nodeWrapper = NodeWrapper(
+        text = node.text?.toString(),
+        id = node.viewIdResourceName,
+        className = node.className.toString(),
+        description = node.contentDescription?.toString(),
+        nodeInfo = node
+    )
+    val marker = if (isLast) """\--- """ else "+--- "
+    val currentPrefix = "$prefix$marker"
+    Log.d("printNodeInfo", currentPrefix + nodeWrapper.toString())
+
+    val size = node.childCount
+    if (size > 0) {
+        val childPrefix = prefix + if (isLast) "  " else "|  "
+        val lastChildIndex = size - 1
+        for (index in 0 until size) {
+            val isLastChild = index == lastChildIndex
+            node.getChild(index).printNodeInfo(childPrefix, isLastChild)
+        }
+    }
 }

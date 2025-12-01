@@ -24,6 +24,9 @@ object AppUseListener {
 
 
         val app = event?.packageName.toString()
+        if (app.startsWith("com.android")) {
+            return
+        }
         val use = appUse[app]?.plus(1) ?: 0
         appUse[app] = use
 
