@@ -12,7 +12,6 @@ import kotlin.math.min
 object Listener {
     private val TAG = "Listener"
     private var lastRead = System.currentTimeMillis()
-    private var user = ""
     private val messageList = ArrayList<String>()
     private val allMessageList = ArrayList<String>()
     private val sleepDefault = 5 * 1000
@@ -55,12 +54,21 @@ object Listener {
                 if (className == "android.widget.TextView") {
                     val content = node.text?.toString() ?: ""
                     if (content.isNotEmpty()) {
-                        Log.d("printNodeInfo", content)
+                        if (content == "浮窗") return
+                        if (content == "朋友圈") {
+                            sleep = friendSleep
+                            return
+                        }
+
+                        addMessage(content)
                     }
                 } else {
                     val currentHeader = node.contentDescription?.toString() ?: ""
                     if (currentHeader.isNotEmpty()) {
-                        Log.d("printNodeInfo", currentHeader)
+                        if (messageList.lastOrNull() != currentHeader) {
+                            messageList.add(currentHeader)
+//                            Log.d("printNodeInfo", currentHeader)
+                        }
                     }
 
                 }
@@ -89,42 +97,11 @@ object Listener {
         uploading = false
     }
 
-    private fun findAll(node: AccessibilityNodeInfo, level: Int) {
-        if (level > 25) return
-        for (i in 0 until node.childCount) {
-            val node1 = node.getChild(i) ?: return
-            var className: String? = null
-            try {
-                className = node1.className.toString() + ""
-            } catch (e: Exception) {
-                e.printStackTrace()
-            }
-            if (className == "android.widget.TextView") {
-                val message = node1.text?.toString() ?: ""
-                if (message == "浮窗") return
-                if (message == "朋友圈") {
-                    sleep = friendSleep
-                    return
-                }
-
-                addMessage(message)
-            } else if (className == "android.widget.ImageView") {
-                val cuser = node1.contentDescription?.toString() ?: ""
-                if (user != cuser) {
-                    messageList.add(cuser)
-                    Log.d(TAG, cuser)
-                    user = cuser
-                }
-            } else if (node1.childCount > 0) {
-                findAll(node1, level + 1)
-            }
-        }
-    }
-
     private fun addMessage(message: String) {
         if (messageList.contains(message) || allMessageList.contains(message)) {
             return
         }
+//        Log.d("printNodeInfo", message)
         messageList.add(message)
     }
 }
