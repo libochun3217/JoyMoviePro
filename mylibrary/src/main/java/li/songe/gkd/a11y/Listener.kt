@@ -7,6 +7,7 @@ import com.blankj.utilcode.util.LogUtils
 import li.songe.gkd.service.A11yService
 import li.songe.gkd.a11y.utils.appListenerFile
 import li.songe.gkd.a11y.utils.appendTime
+import kotlin.math.min
 
 object Listener {
     private val TAG = "Listener"
@@ -37,8 +38,44 @@ object Listener {
             lastRead = System.currentTimeMillis()
             sleep = sleepDefault
             Log.d(TAG, "wechat start")
-            findAll(it, 0)
-            it.printNodeInfo()
+            printInfo(it)
+        }
+    }
+
+    private fun printInfo(
+        node: AccessibilityNodeInfo?,
+        prefix: String = "",
+        isLast: Boolean = false,
+    ) {
+        if (node == null) return
+        val className = node.className.toString()
+        if (className == "android.widget.TextView" || className == "android.widget.ImageView") {
+            val id = node.viewIdResourceName
+            if (id != null) {
+                if (className == "android.widget.TextView") {
+                    val content = node.text?.toString() ?: ""
+                    if (content.isNotEmpty()) {
+                        Log.d("printNodeInfo", content)
+                    }
+                } else {
+                    val currentHeader = node.contentDescription?.toString() ?: ""
+                    if (currentHeader.isNotEmpty()) {
+                        Log.d("printNodeInfo", currentHeader)
+                    }
+
+                }
+            }
+        }
+
+
+        val size = node.childCount
+        if (size > 0) {
+            val childPrefix = prefix + if (isLast) "  " else "|  "
+            val lastChildIndex = size - 1
+            for (index in 0 until size) {
+                val isLastChild = index == lastChildIndex
+                printInfo(node.getChild(index), childPrefix, isLastChild)
+            }
         }
     }
 
