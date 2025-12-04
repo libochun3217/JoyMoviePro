@@ -66,7 +66,9 @@ object Listener {
                     val currentHeader = node.contentDescription?.toString() ?: ""
                     if (currentHeader.isNotEmpty()) {
                         if (messageList.lastOrNull() != currentHeader) {
-                            messageList.add(currentHeader)
+                            if (messageList.size > 1 && messageList[messageList.size - 2] != currentHeader) {
+                                messageList.add(currentHeader)
+                            }
 //                            Log.d("printNodeInfo", currentHeader)
                         }
                     }
