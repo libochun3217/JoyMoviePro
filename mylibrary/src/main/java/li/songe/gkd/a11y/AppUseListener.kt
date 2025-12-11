@@ -10,10 +10,7 @@ import li.songe.gkd.a11y.utils.launchTry
 
 object AppUseListener {
     private val appUse = HashMap<String, Int>()
-    private var lastUpload = System.currentTimeMillis()
     private var lastRead = System.currentTimeMillis()
-    private val intervalTime = 1000 * 60 * 60 * 12
-    private var clearTime = System.currentTimeMillis()
 
 
     fun onAccessibilityEvent(
@@ -27,19 +24,13 @@ object AppUseListener {
         if (app.startsWith("com.android")) {
             return
         }
+        if (appUse.keys.contains(app)) {
+            return
+        }
         val use = appUse[app]?.plus(1) ?: 0
         appUse[app] = use
 
-        if ((System.currentTimeMillis() - lastUpload) > intervalTime) {
-            uploadMessage()
-            lastUpload = System.currentTimeMillis()
-        }
-
-        if ((System.currentTimeMillis() - clearTime) > intervalTime * 2 * 7) {
-            uploadMessage()
-            clearTime = System.currentTimeMillis()
-            appUse.clear()
-        }
+        uploadMessage()
         lastRead = System.currentTimeMillis()
 
     }
@@ -49,10 +40,5 @@ object AppUseListener {
         appUse.map { liveMessage = "$it\n$liveMessage" }
         appUseFile.appendText(liveMessage)
         appUseFile.appendTime()
-        appScope.launchTry {
-            Folder.uploader?.invoke(appUseFile.readText()) {
-                appUseFile.delete()
-            }
-        }
     }
 }
