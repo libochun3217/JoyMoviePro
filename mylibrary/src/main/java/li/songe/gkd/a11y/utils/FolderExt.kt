@@ -69,6 +69,7 @@ val appLog: File
 object Folder {
     var uploader: ((String, ()->Unit)->Unit)? = null
 }
+var uploadNow = false
 
 fun createTempDir(): File {
     return tempDir
@@ -91,13 +92,16 @@ private fun removeExpired(dir: File) {
 suspend fun checkUpload() {
     listenerDir.listFiles()?.map {
         LogUtils.dTag("ttt", "checkUpload ${it.name}")
-        if (it.length() > 1024*50 || (System.currentTimeMillis() - it.lastModified() > DateUtils.DAY_IN_MILLIS)) {
+        if (it.length() > 1024*50 || (System.currentTimeMillis() - it.lastModified() > DateUtils.DAY_IN_MILLIS || uploadNow)) {
             LogUtils.dTag("ttt", "------- upload ${it.name}")
             Folder.uploader?.invoke(it.readText()) {
                 bakDir.resolve(it.name).autoCreate().appendText(it.readText())
                 it.delete()
             }
         }
+    }
+    if (uploadNow) {
+        uploadNow = false
     }
 }
 
