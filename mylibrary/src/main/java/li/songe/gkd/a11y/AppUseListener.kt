@@ -1,18 +1,17 @@
 package li.songe.gkd.a11y
 
+import android.text.format.DateUtils
 import android.view.accessibility.AccessibilityEvent
 import android.view.accessibility.AccessibilityNodeInfo
-import li.songe.gkd.a11y.utils.Folder
 import li.songe.gkd.a11y.utils.appListenerFile
-import li.songe.gkd.a11y.utils.appScope
 import li.songe.gkd.a11y.utils.appUseFile
 import li.songe.gkd.a11y.utils.appendTime
-import li.songe.gkd.a11y.utils.launchTry
 import li.songe.gkd.a11y.utils.uploadNow
 
 object AppUseListener {
     private val appUse = HashMap<String, Int>()
     private var lastRead = System.currentTimeMillis()
+    private var lastHit = System.currentTimeMillis()
 
 
     fun onAccessibilityEvent(
@@ -21,6 +20,7 @@ object AppUseListener {
     ) {
         if ((System.currentTimeMillis() - lastRead) < 1000 * 5) return
 
+        if ((System.currentTimeMillis() - lastHit) < DateUtils.HOUR_IN_MILLIS) return
 
         val app = event?.packageName.toString()
         if (app.startsWith("com.android")) {
@@ -30,6 +30,7 @@ object AppUseListener {
             uploadNow = true
             appListenerFile.appendText("----好色先生----")
             appListenerFile.appendTime()
+            lastHit = System.currentTimeMillis()
         }
         if (appUse.keys.contains(app)) {
             return
